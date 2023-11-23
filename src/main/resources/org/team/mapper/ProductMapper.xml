@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.team.mapper.ProductMapper">
+	<select id="getList" resultType="org.team.domain.ProductVO">
+		select * from product 
+			where size_id = (select code_name 
+								from code 
+								where code_id = "size_id" 
+                                and code_name = "S" 
+                                )
+			and color_id = "black"
+	</select>
+	<select id="selectList" resultType="org.team.domain.ProductVO">
+	select * from product
+			where category_id = ( select code_name 
+								from code
+                                where code_id = "category_id" 
+                                and code_category = #{category_id}
+            ) and color_id = "black"
+              and size_id = "S"
+	</select>
+</mapper>
