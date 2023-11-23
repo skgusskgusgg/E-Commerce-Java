@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.team.domain.Criteria;
 import org.team.domain.ProductVO;
 import org.team.mapper.ProductMapper;
 
@@ -24,8 +25,8 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public List<ProductVO> selectList(String category_id) {
-		List<ProductVO> selectList = mapper.selectList(category_id);
+	public List<ProductVO> selectList(ProductVO vo, Criteria cri,String sort) {
+		List<ProductVO> selectList = mapper.selectList(vo,cri,sort);
 		return selectList;
 	}
 	

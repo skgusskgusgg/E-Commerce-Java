@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.team.domain.Criteria;
 import org.team.domain.ProductVO;
 import org.team.mapper.ProductMapperTests;
 
@@ -28,7 +29,12 @@ public class ProductServiceTests {
 	
 	@Test
 	public void selectListTests() {
-		List<ProductVO> seleList = service.selectList("2");
+		ProductVO vo = new ProductVO();
+		vo.setCategory_id("2");
+		vo.setColor_id("1");
+		vo.setSize_id("3");
+		Criteria cri = new Criteria(1,2);
+		List<ProductVO> seleList = service.selectList(vo,cri,"desc");
 		seleList.forEach(e->log.info(e));
 	}
 }	

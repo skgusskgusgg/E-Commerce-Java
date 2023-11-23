@@ -83,11 +83,11 @@
 							</li>
 
 							<li>
-								<a href="/product/productList">Shop</a>
+								<a href="/product/productList?category_id=0">Shop</a>
 								<ul class="sub-menu">
-									<li><a href="/product/list">Outer</a></li>
-									<li><a href="/product/list">Top</a></li>
-									<li><a href="/product/list">Pants</a></li>
+									<li><a href="/product/productList?category_id=1">Outer</a></li>
+									<li><a href="/product/productList?category_id=2">Top</a></li>
+									<li><a href="/product/productList?category_id=3">Pants</a></li>
 								</ul>
 							</li>
 
@@ -180,11 +180,11 @@
 				</li>
 
 				<li>
-					<a href="/product/list">Shop</a>
+					<a href="/product/productList?category_id=0">Shop</a>
 					<ul class="sub-menu-m">
-						<li><a href="/product/list">Outer</a></li>
-						<li><a href="/product/list">Top</a></li>
-						<li><a href="/product/list">Pants</a></li>
+						<li><a href="/product/productList?category_id=1">Outer</a></li>
+						<li><a href="/product/productList?category_id=2">Top</a></li>
+						<li><a href="/product/productList?category_id=3">Pants</a></li>
 					</ul>
 					<span class="arrow-main-menu-m">
 						<i class="fa fa-angle-right" aria-hidden="true"></i>

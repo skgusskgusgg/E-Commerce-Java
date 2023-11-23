@@ -2,21 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.team.mapper.ProductMapper">
 	<select id="getList" resultType="org.team.domain.ProductVO">
-		select * from product 
-			where size_id = (select code_name 
-								from code 
-								where code_id = "size_id" 
-                                and code_name = "S" 
-                                )
-			and color_id = "black"
+		select * from product
+		where size_id = (select code_name
+		from code
+		where code_id = "size_id"
+		and code_name = "S"
+		)
+		and color_id = "black"
 	</select>
 	<select id="selectList" resultType="org.team.domain.ProductVO">
-	select * from product
-			where category_id = ( select code_name 
-								from code
-                                where code_id = "category_id" 
-                                and code_category = #{category_id}
-            ) and color_id = "black"
-              and size_id = "S"
+
+
+		select * from product
+		where category_id = ( select code_name
+		from code
+		where code_id = "category_id"
+		and code_category = #{vo.category_id})
+		and color_id = (select code_name
+		from code
+		where code_id="color_id"
+		and code_category = #{vo.color_id})
+		and size_id = (select code_name
+		from code
+		where code_id="size_id"
+		and code_category = #{vo.size_id})
+		order by
+		<choose>
+			<when test="sort == 'ASC'">price ASC</when>
+			<when test="sort == 'DESC'">price DESC</when>
+			<otherwise>price ASC</otherwise>
+		</choose>
+		limit #{cri.pageStart}, #{cri.amount}
 	</select>
 </mapper>
