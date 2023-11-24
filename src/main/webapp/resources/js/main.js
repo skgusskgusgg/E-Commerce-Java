@@ -265,17 +265,6 @@
 	/*==================================================================
 	[menu active]*/
 	 // 현재 URL에 해당하는 메뉴에 active-menu 클래스 추가
-	var path = window.location.pathname;
-	$('.main-menu a[href="' + path + '"]').closest('li').addClass('active-menu');
 	
-	// 메뉴 클릭 시 이벤트 처리
-	$(".main-menu a").on('click',function(e){
-	
-		// 현재 클릭한 메뉴 항목에 active-menu 클래스 추가
-		$(this).closest('li').addClass('active-menu');
-		
-		// 다른 메뉴 항목에서 active-menu 클래스 제거
-		$(".main-menu li").not($(this).closest('li')).removeClass('active-menu');
-	})
 
 })(jQuery);

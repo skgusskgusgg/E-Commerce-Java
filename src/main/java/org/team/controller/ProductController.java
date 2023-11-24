@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.team.domain.Criteria;
+import org.team.domain.PageDTO;
 import org.team.domain.ProductVO;
 import org.team.service.ProductService;
 
@@ -35,28 +36,42 @@ public class ProductController {
 			@RequestParam(name = "size_id", defaultValue = "1") String size_id,
 			@RequestParam(name = "sort",defaultValue = "asc") String sort,
 			@RequestParam(name = "pageStart", defaultValue = "1") Integer pageStart ,
+			@RequestParam(name = "row" ,defaultValue = "0")Integer row,
+			@RequestParam(name = "high", defaultValue = "500000") Integer high,
+			@RequestParam(name="keyword", defaultValue = "") String keyword,
 			Model model) {
-
+		
+		PageDTO pDto = null;
+		int total = 0;
 		if(category_id.equals("0")) {
-			List<ProductVO> list = service.getList();
-			
+			Criteria cri = new Criteria(pageStart,8,keyword);
+			List<ProductVO> list = service.getList(cri);
+			total = service.getTotal();
+			pDto = new PageDTO(cri, total);
 			model.addAttribute("product", list);
-			
+			model.addAttribute("pageMaker", pDto);
 			log.info("상품 리스트 페이지");
 		}else {
 			ProductVO vo = new ProductVO();
 			vo.setCategory_id(category_id);
 			vo.setColor_id(color_id);
 			vo.setSize_id(size_id);
-			Criteria cri = new Criteria(pageStart,10); 
+	
+			Criteria cri = new Criteria(pageStart,8,keyword); 
+			total = service.selectTotal(vo, cri, sort, row, high);
 			
-			List<ProductVO> list = service.selectList(vo,cri,sort);
+			pDto = new PageDTO(cri, total);
+			
+			List<ProductVO> list = service.selectList(vo,cri,sort,row, high);
 			model.addAttribute("product", list);
+			model.addAttribute("pageMaker", pDto);
 			
 			log.info(category_id + "번 상품 리스트 페이지");
 			log.info(color_id + " : 색상");
 			log.info(size_id + " : 사이즈");
 			log.info(sort + " : 정렬 순서");
+			log.info("row price : " + row);
+			log.info("high price : " + high);
 		}
 	}
 

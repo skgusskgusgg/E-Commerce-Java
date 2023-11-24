@@ -9,11 +9,12 @@
 		and code_name = "S"
 		)
 		and color_id = "black"
+		and product_name like concat('%', #{cri.keyword}, '%')
+		order by price asc
+		limit #{cri.pageStart}, #{cri.amount}
 	</select>
 	<select id="selectList" resultType="org.team.domain.ProductVO">
-
-
-		select * from product
+	<![CDATA[	select * from product
 		where category_id = ( select code_name
 		from code
 		where code_id = "category_id"
@@ -26,7 +27,43 @@
 		from code
 		where code_id="size_id"
 		and code_category = #{vo.size_id})
+		and price between #{row} and #{high}
+		and product_name like concat('%', #{cri.keyword}, '%')
 		order by
+		]]>
+		<choose>
+			<when test="sort == 'ASC'">price ASC</when>
+			<when test="sort == 'DESC'">price DESC</when>
+			<otherwise>price ASC</otherwise>
+		</choose>
+		limit #{cri.pageStart}, #{cri.amount}
+	</select>
+	<select id="getTotal" resultType="int">
+		select count(*) from product where size_id = (select code_name
+		from code
+		where code_id = "size_id"
+		and code_name = "S"
+		)
+		and color_id = "black"
+		order by price asc
+	</select>
+	<select id="selectTotal" resultType="int">
+		<![CDATA[	select count(*) from product
+		where category_id = ( select code_name
+		from code
+		where code_id = "category_id"
+		and code_category = #{vo.category_id})
+		and color_id = (select code_name
+		from code
+		where code_id="color_id"
+		and code_category = #{vo.color_id})
+		and size_id = (select code_name
+		from code
+		where code_id="size_id"
+		and code_category = #{vo.size_id})
+		and price between #{row} and #{high}
+		order by
+		]]>
 		<choose>
 			<when test="sort == 'ASC'">price ASC</when>
 			<when test="sort == 'DESC'">price DESC</when>

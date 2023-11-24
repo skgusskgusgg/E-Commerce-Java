@@ -21,15 +21,33 @@ public class ProductMapperTests {
 	
 	@Test
 	public void getListTests() {
-		mapper.getList().forEach(e-> log.info(e));
+		Criteria cri = new Criteria(1,2,"");
+		mapper.getList(cri).forEach(e-> log.info(e));
 	}
 	@Test
 	public void getSelectListTests() {
 		ProductVO vo = new ProductVO();
-		vo.setCategory_id("2");
+		vo.setCategory_id("1");
 		vo.setColor_id("1");
 		vo.setSize_id("3");
-		Criteria cri = new Criteria(1,2);
-		mapper.selectList(vo,cri,"desc").forEach(e->log.info(e));
+		
+		Criteria cri = new Criteria(1,2,"");
+		mapper.selectList(vo,cri,"desc",50000,150000).forEach(e->log.info(e));
 	}
+	
+	@Test 
+	public void getTotal() {
+		 log.info(mapper.getTotal()); 
+	}
+	@Test 
+	public void selectTotal() {
+		ProductVO vo = new ProductVO();
+		vo.setCategory_id("1");
+		vo.setColor_id("1");
+		vo.setSize_id("3");
+		
+		Criteria cri = new Criteria(1,2,"");
+		 log.info(mapper.selectTotal(vo,cri,"desc",50000,150000)); 
+	}
+	
 }

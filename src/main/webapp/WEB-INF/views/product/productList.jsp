@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@include file="../includes/header.jsp"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
@@ -8,16 +9,16 @@
 	<div class="container">
 		<div class="flex-w flex-sb-m p-b-52">
 			<div class="flex-w flex-l-m filter-tope-group m-tb-10">
-				<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5"
-					style="color: #6c7ae0;" data-filter="0" onclick="filterPage(this)">All
+				<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 category"
+					 data-filter="0" onclick="filterPage(this)">All
 					Products</button>
-				<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5"
+				<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 category"
 					data-filter="1" onclick="filterPage(this)">Outer</button>
 
-				<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5"
+				<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 category"
 					data-filter="2" onclick="filterPage(this)">Top</button>
 
-				<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5"
+				<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 category"
 					data-filter="3" onclick="filterPage(this)">Pants</button>
 
 			</div>
@@ -49,7 +50,7 @@
 					</button>
 
 					<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text"
-						name="search-product" placeholder="Search">
+						name="keyword" placeholder="Search">
 				</div>
 			</div>
 			<!-- Filter -->
@@ -59,19 +60,13 @@
 						<div class="mtext-102 cl2 p-b-15">Sort By</div>
 
 						<ul>
-							<li class="p-b-6"><a
-								class="filter-link stext-106 trans-04 filter-link-active"
-								data-filter="ASC"> All </a></li>
+							<li class="p-b-6"><button
+									class="filter-link stext-106 trans-04 sort" data-filter="ASC">
+									Price: Low to Low</button></li>
 
-							<li class="p-b-6"><a
-								class="filter-link stext-106 trans-04 sort" 
-								data-filter="ASC">
-									Price: Low to Low </a></li>
-
-							<li class="p-b-6"><a
-								class="filter-link stext-106 trans-04 sort" 
-								data-filter="DESC">
-									Price: High to High </a></li>
+							<li class="p-b-6"><button
+									class="filter-link stext-106 trans-04 sort" data-filter="DESC">
+									Price: High to High</button></li>
 						</ul>
 					</div>
 
@@ -79,17 +74,14 @@
 						<div class="mtext-102 cl2 p-b-15">Size</div>
 
 						<ul>
-							<li class="p-b-6"><a
-								class="filter-link stext-106 trans-04 size"
-								data-filter="1">Small</a></li>
+							<li class="p-b-6"><button
+									class="filter-link stext-106 trans-04 size" data-filter="1">Small</button></li>
 
-							<li class="p-b-6"><a
-								class="filter-link stext-106 trans-04 size"
-								data-filter="2">Medium</a></li>
+							<li class="p-b-6"><button
+									class="filter-link stext-106 trans-04 size" data-filter="2">Medium</button></li>
 
-							<li class="p-b-6"><a 
-								class="filter-link stext-106 trans-04 size"
-								data-filter="3">Large</a></li>
+							<li class="p-b-6"><button
+									class="filter-link stext-106 trans-04 size" data-filter="3">Large</button></li>
 
 						</ul>
 					</div>
@@ -100,22 +92,26 @@
 						<ul>
 							<li class="p-b-6"><span class="fs-15 lh-12 m-r-6"
 								style="color: #222;"> <i class="zmdi zmdi-circle"></i>
-							</span> <a class="filter-link stext-106 trans-04 color"
-									data-filter="1"> Black </a></li>
+							</span>
+								<button class="filter-link stext-106 trans-04 color"
+									data-filter="1">Black</button></li>
 							<li class="p-b-6"><span class="fs-15 lh-12 m-r-6"
 								style="color: #00ad5f;"> <i class="zmdi zmdi-circle"></i>
-							</span> <a class="filter-link stext-106 trans-04 color"
-									data-filter="2"> Green </a></li>
+							</span>
+								<button class="filter-link stext-106 trans-04 color"
+									data-filter="2">Green</button></li>
 
 							<li class="p-b-6"><span class="fs-15 lh-12 m-r-6"
 								style="color: #fa4251;"> <i class="zmdi zmdi-circle"></i>
-							</span> <a class="filter-link stext-106 trans-04 color"
-									data-filter="3"> Red </a></li>
+							</span>
+								<button class="filter-link stext-106 trans-04 color"
+									data-filter="3">Red</button></li>
 
 							<li class="p-b-6"><span class="fs-15 lh-12 m-r-6"
 								style="color: #aaa;"> <i class="zmdi zmdi-circle-o"></i>
-							</span> <a class="filter-link stext-106 trans-04 color"
-									data-filter="4"> White </a></li>
+							</span>
+								<button class="filter-link stext-106 trans-04 color"
+									data-filter="4">White</button></li>
 						</ul>
 					</div>
 
@@ -123,24 +119,29 @@
 						<div class="mtext-102 cl2 p-b-15">Price</div>
 
 						<ul>
-							<li class="p-b-6"><a href="/product/productList"
-								class="filter-link stext-106 trans-04 filter-link-active">
-									All </a></li>
+							<li class="p-b-6"><button
+									class="filter-link stext-106 trans-04 price" data-filter=0
+									data-limit=500000>All</button></li>
 
-							<li class="p-b-6"><a href="#"
-								class="filter-link stext-106 trans-04"> 0won - 50,000won </a></li>
+							<li class="p-b-6"><button
+									class="filter-link stext-106 trans-04 price" data-filter=50000
+									data-limit=150000>50,000won - 150,000won</button></li>
 
-							<li class="p-b-6"><a href="#"
-								class="filter-link stext-106 trans-04"> 50,000won -
-									100,000won </a></li>
+							<li class="p-b-6"><button
+									class="filter-link stext-106 trans-04 price" data-filter=150000
+									data-limit=250000>150,000won - 250,000won</button></li>
 
-							<li class="p-b-6"><a href="#"
-								class="filter-link stext-106 trans-04"> 100,000won -
-									150,000won </a></li>
+							<li class="p-b-6"><button
+									class="filter-link stext-106 trans-04 price" data-filter=250000
+									data-limit=350000>250,000won - 350,000won</button></li>
 
 						</ul>
 					</div>
-				<button id="searchBtn">검색!!!!!!!!!!!!!!!!!!!</button>
+					<div
+						style="width: 100%; display: flex; justify-content: center; padding: 20px 0">
+						<button id="searchBtn"
+							class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">Filtering</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -153,7 +154,7 @@
 						<div class="block2-pic hov-img0"
 							style="height: 300px; overflow: hidden;">
 							<img src="/resources/images/products/${product.img }"
-								alt="IMG-PRODUCT"> <a href="#"
+								alt="IMG-PRODUCT" style="height: 100%;"> <a href="#"
 								class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
 								Quick View </a>
 						</div>
@@ -163,7 +164,8 @@
 								<a href="/product/productDetail"
 									class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
 									${product.product_name } </a> <span class="stext-105 cl3">
-									${product.price } </span>
+									<fmt:formatNumber type="number" maxFractionDigits="3" value="${product.price}" />
+									 won</span>
 							</div>
 
 							<div class="block2-txt-child2 flex-r p-t-3">
@@ -184,121 +186,79 @@
 
 
 		<div class="flex-c-m flex-w w-full p-t-45">
-			<a href="#"
+			<!-- <a href="#"
 				class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
-				Load More </a>
+				Load More </a> -->
+			<nav >
+				<ul class="pagina">
+				<c:if test="${pageMaker.prev }">				
+					<li >
+						<button class="pageBtn" data-filter="prev" onclick="location.href='/product/productList?category_id=0&pageStart=${pageMaker.cri.pageNum - 1}'" >
+							Previous
+						</button>
+					</li>
+				</c:if>
+					<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+						<li>
+							<button class="pageBtn "  onclick="pageNum(${num})" data-filter="${num }" >
+								${num }
+							</button>
+						</li>
+					</c:forEach>
+					
+					<c:if test="${pageMaker.next }">
+					<li >
+						<button class="pageBtn" data-filter="next" onclick="location.href='/product/productList?category_id=0&pageStart=${pageMaker.cri.pageNum + 1}'" >
+							Next
+						</button>
+					</li>
+					</c:if>
+					
+				</ul>
+			</nav>
 		</div>
 	</div>
 </div>
 <%@include file="../includes/footer.jsp"%>
 <script type="text/javascript">
-
-
 	var url = "/product/productList?category_id=";
+	var href = $(location).attr("href");
 	
-	$(document).ready(
-			function() {
-				var isotopeButton = $('.filter-tope-group button');
-
-				isotopeButton.each(function() {
-					$(this).on('click', function() {
-						var filter = $(this).attr("data-filter");
-
-						// 현재 선택된 버튼에 클래스 추가
-						$(this).addClass('how-active1');
-
-						// 다른 버튼에서 클래스 제거
-						isotopeButton.not(this).removeClass('how-active1');
-
-						// localStorage에 선택된 필터 저장
-						localStorage.setItem('selectedFilter', filter);
-
-					});
-				});
-
-				// 저장된 필터가 있으면 해당 필터에 클래스 추가
-				var storedFilter = localStorage.getItem('selectedFilter');
-
-				if (storedFilter) {
-					isotopeButton
-							.filter('[data-filter="' + storedFilter + '"]')
-							.addClass('how-active1');
-				}
-
-				// 가격 오름차순
-				var sort = $(".sort");
-				var currentUrl = $(location).attr("href");
-				
-				sort.each(function() {
-					$(this).on("click",function() {
-						var filter = $(this).attr("data-filter");
-
-						// 현재 URL에 sort 파라미터가 이미 있는지 확인
-						if (currentUrl.indexOf('sort=') !== -1) {
-							// sort 파라미터가 이미 있다면 새 값으로 교체
-							currentUrl = currentUrl.replace(/sort=[^&]*/, 'sort=' + filter);
-						} else {
-				            // sort 파라미터가 없다면 URL에 추가
-				            currentUrl += '&sort=' + filter;
-				        };
-				        // location.href = currentUrl;
-				        
-				        // 검색버튼으로 보내기 위해 localStorage에 저장
-						localStorage.setItem("currentUrl",currentUrl);
-			
-					})		
-				})
-				var currentItem =localStorage.getItem('currentUrl')
-				
-				
-				
-				// 사이즈 순
-				var size = $(".size");
-				size.each(function () {
-					$(this).on("click",function(){
-						var filter = $(this).attr("data-filter");
-						
-						if (currentUrl.indexOf('size_id=') !== -1) {
-							// sort 파라미터가 이미 있다면 새 값으로 교체
-							currentUrl = currentUrl.replace(/size_id=[^&]*/, 'size_id=' + filter);
-						} else {
-				            // sort 파라미터가 없다면 URL에 추가
-				            currentUrl += '&size_id=' + filter;
-				        };
-				        localStorage.setItem("currentUrl",currentUrl);
-				        
-					})
-				})
-				
-				// 컬러 순
-				var color = $(".color");
-				color.each(function () {
-					$(this).on("click",function(){
-						var filter = $(this).attr("data-filter");
-						
-						if(currentUrl.indexOf('color_id') !== -1){
-															
-							currentUrl = currentUrl.replace(/color_id=[^&]*/,'color_id=' + filter); 
-						}else{
-							currentUrl += '&color_id=' + filter;
-						}
-						localStorage.setItem("currentUrl",currentUrl);
-					})
-				})
-				
-				var searchBtn = $("#searchBtn");
-				searchBtn.on("click",function(){
-					location.href = currentItem;
-				})
-				console.log(currentItem)
-				// 다른 페이지로 이동할 때 저장된 필터 삭제
-				window.addEventListener('beforeunload', function() {
-					localStorage.removeItem('selectedFilter');
-				});
-
-			});
-		function filterPage(element) {
-			location.href = url + $(element).attr("data-filter");
+	function filterPage(element) {
+		location.href = url + $(element).attr("data-filter");
+	}
 	
+	function pageNum(number) {
+		if(href.indexOf('pageStart') !== -1){
+			location.href = location.href.replace(/pageStart=[^&]*/,'pageStart=' + number);
+		}else{
+			location.href = href + '&pageStart=' + number;
 		}
+	}
+	 $(document).ready(function () {
+		 var pageBtn = $('.pageBtn');
+		 var pagenation = localStorage.getItem('pagenation');
+		 pageBtn.on('click', function() {
+			 	var filter = $(this).attr("data-filter");
+				// 현재 선택된 버튼에 클래스 추가
+				$(this).addClass("pageActive");
+			
+				// 다른 버튼에서 클래스 제거	
+				pageBtn.not(this).removeClass("pageActive");
+				
+				// pageBtn에 선택된 필터 저장
+				localStorage.setItem('pagenation', filter);
+			});
+		 if (pagenation) {
+			 pageBtn.filter('[data-filter="' + pagenation + '"]')
+						.addClass("pageActive");
+			}
+		 window.addEventListener('beforeunload', function() {
+				localStorage.removeItem('selectedFilter');		
+			});
+		 console.log(pagenation);
+	})
+
+</script>
+<script type="text/javascript" src="/resources/js/productList.js">
 </script>

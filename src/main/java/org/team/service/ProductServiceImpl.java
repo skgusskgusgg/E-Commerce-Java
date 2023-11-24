@@ -18,16 +18,34 @@ public class ProductServiceImpl implements ProductService{
 	private ProductMapper mapper;
 	
 	@Override
-	public List<ProductVO> getList() {
-		List<ProductVO> list = mapper.getList();
+	public List<ProductVO> getList(Criteria cri) {
+		List<ProductVO> list = mapper.getList(cri);
 		
 		return list;
 	}
 
+
+
 	@Override
-	public List<ProductVO> selectList(ProductVO vo, Criteria cri,String sort) {
-		List<ProductVO> selectList = mapper.selectList(vo,cri,sort);
+	public List<ProductVO> selectList(ProductVO vo, Criteria cri, String sort, int row, int high) {
+		List<ProductVO> selectList = mapper.selectList(vo,cri,sort,row,high);
 		return selectList;
+	}
+
+
+
+	@Override
+	public int getTotal() {
+		int total = mapper.getTotal();
+		return total;
+	}
+
+
+
+	@Override
+	public int selectTotal(ProductVO vo, Criteria cri, String sort, int row, int high) {
+		int total = mapper.selectTotal(vo, cri, sort, row, high);
+		return total;
 	}
 	
 }

@@ -3079,7 +3079,10 @@ transform:translate(-50%,-50%);
   border-color: #797979;
 }
 
-
+.how-active2 {
+  color: #6c7ae0;
+ font-weight:bold;
+}
 /*---------------------------------------------*/
 .wrap-input1 {
   position: relative;

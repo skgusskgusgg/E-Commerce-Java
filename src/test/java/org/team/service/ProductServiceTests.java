@@ -23,18 +23,20 @@ public class ProductServiceTests {
 	
 	@Test
 	public void getListTests() {
-		List<ProductVO> list = service.getList();
+		Criteria cri = new Criteria(1,2,"");
+		List<ProductVO> list = service.getList(cri);
 		list.forEach(e->log.info(e));
 	}
 	
 	@Test
 	public void selectListTests() {
 		ProductVO vo = new ProductVO();
-		vo.setCategory_id("2");
+		vo.setCategory_id("1");
 		vo.setColor_id("1");
 		vo.setSize_id("3");
-		Criteria cri = new Criteria(1,2);
-		List<ProductVO> seleList = service.selectList(vo,cri,"desc");
+
+		Criteria cri = new Criteria(1,2,"");
+		List<ProductVO> seleList = service.selectList(vo,cri,"desc",50000,150000);
 		seleList.forEach(e->log.info(e));
 	}
 }	
