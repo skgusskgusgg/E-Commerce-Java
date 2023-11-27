@@ -13,4 +13,6 @@ public interface ProductService {
 	public int getTotal();
 	
 	public int selectTotal(ProductVO vo, Criteria cri, String sort, int row, int high);
+
+	public ProductVO detail(int id);
 }

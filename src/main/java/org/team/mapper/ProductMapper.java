@@ -17,4 +17,6 @@ public interface ProductMapper {
 	
 	public int selectTotal(@Param("vo") ProductVO vo, @Param("cri") Criteria cri,
 			@Param("sort") String sort, @Param("row") int row, @Param("high") int high); 
+
+	public ProductVO detail(int id);
 }

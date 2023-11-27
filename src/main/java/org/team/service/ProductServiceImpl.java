@@ -47,5 +47,13 @@ public class ProductServiceImpl implements ProductService{
 		int total = mapper.selectTotal(vo, cri, sort, row, high);
 		return total;
 	}
+
+
+
+	@Override
+	public ProductVO detail(int id) {
+		ProductVO vo = mapper.detail(id);
+		return vo;
+	}
 	
 }

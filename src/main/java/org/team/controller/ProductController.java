@@ -51,6 +51,7 @@ public class ProductController {
 			model.addAttribute("product", list);
 			model.addAttribute("pageMaker", pDto);
 			log.info("상품 리스트 페이지");
+			log.info("keyword : " + keyword);
 		}else {
 			ProductVO vo = new ProductVO();
 			vo.setCategory_id(category_id);
@@ -72,12 +73,16 @@ public class ProductController {
 			log.info(sort + " : 정렬 순서");
 			log.info("row price : " + row);
 			log.info("high price : " + high);
+			log.info("keyword : " + keyword);
 		}
 	}
 
-	@GetMapping("/productDetail")
-	public void detail(Model model) {
-		log.info("상품 디테일 페이지");
+	@GetMapping(value = "/productDetail")
+	public void detail(@RequestParam(name = "id")int product_id, Model model) {
+		ProductVO vo = service.detail(product_id);
+		model.addAttribute("product", vo);
+		
+		log.info("상품 디테일 페이지 : " + vo);
 	}
 
 }

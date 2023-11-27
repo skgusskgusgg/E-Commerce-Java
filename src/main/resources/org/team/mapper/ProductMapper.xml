@@ -71,4 +71,8 @@
 		</choose>
 		limit #{cri.pageStart}, #{cri.amount}
 	</select>
+	
+	<select id="detail" resultType="org.team.domain.ProductVO">
+		select * from product where product_id = #{id}
+	</select>
 </mapper>
