@@ -1,10 +1,5 @@
 package org.team.join;
 
-import com.google.protobuf.Timestamp;
-
-
-
-
 public class MemberDTO {
 	private Integer id;
 	private String user_name;

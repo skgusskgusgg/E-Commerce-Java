@@ -1873,7 +1873,7 @@ input.num-product::-webkit-inner-spin-button {
 #modalContainer{
     margin: 0 auto;
     padding: 0px 15px;
-    width: 50%;
+    width: 90%;
     display: flex;
     flex-flow: column;
     justify-content: center;
@@ -1912,6 +1912,7 @@ input.num-product::-webkit-inner-spin-button {
   visibility: hidden;
   opacity: 0;
 }
+
 .wrap-modal-login {
     position: fixed;
     width: 100vw;
@@ -1961,6 +1962,9 @@ transform:translate(-50%,-50%);
   visibility: visible;
   opacity: 1;
 }
+
+
+
 
 /*//////////////////////////////////////////////////////////////////
 [ Table Shopping Cart ]*/
