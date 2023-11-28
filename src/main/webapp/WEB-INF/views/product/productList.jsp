@@ -169,7 +169,7 @@
 							</div>
 
 							<div class="block2-txt-child2 flex-r p-t-3">
-								<a href="#"
+								<a 
 									class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
 									<img class="icon-heart1 dis-block trans-04"
 									src="/resources/images/icons/icon-heart-01.png" alt="ICON">
@@ -258,7 +258,28 @@
 			});
 		 console.log(pagenation);
 	})
+		$('.js-addwish-b2').each(function() {
+		var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
+		$(this).on('click', function() {
+			Swal.fire({
+				  title: "Do you want to save the WishLists?",
+				  showDenyButton: true,
+				  showCancelButton: true,
+				  confirmButtonText: "Add",
+				  denyButtonText: `Delete`
+				}).then((result) => {
+				  /* Read more about isConfirmed, isDenied below */
+				  if (result.isConfirmed) {
+				    Swal.fire("Added to wishlist!", "", "success");
+				  } else if (result.isDenied) {
+				    Swal.fire("Removed from wishlist", "", "success");
+				  }
+				});
 
+			$(this).toggleClass('js-addedwish-b2');
+			
+		});
+	});
 </script>
 <script type="text/javascript" src="/resources/js/productList.js">
 </script>

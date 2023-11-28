@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.team.domain.Criteria;
 import org.team.domain.ProductVO;
+import org.team.join.MemberDTO;
 
 public interface ProductMapper {
 	public List<ProductVO> getList(@Param("cri") Criteria cri);
@@ -19,4 +20,8 @@ public interface ProductMapper {
 			@Param("sort") String sort, @Param("row") int row, @Param("high") int high); 
 
 	public ProductVO detail(int id);
+	
+	public int postWish(@Param("pVo") ProductVO Pvo,@Param("mVo") MemberDTO mVo );
+
+	public int deleteWish(@Param("pVo") ProductVO Pvo,@Param("mVo") MemberDTO mVo );
 }

@@ -75,4 +75,24 @@
 	<select id="detail" resultType="org.team.domain.ProductVO">
 		select * from product where product_id = #{id}
 	</select>
+	
+	<!-- <insert id="postCart">
+		insert into wish(product_id, member_id) values(
+				(select product_id from product where product_name = #{pVo.product_name} and color_id = #{pVo.color_id} and size_id = #{pVo.size_id} ),
+                (select id from member where id = #{mVo.id})
+                )
+	</insert> -->
+	<insert id="postWish">
+		insert into wish(product_id, member_id) values(
+				(select product_id from product 
+									where product_name = #{pVo.product_name} 
+									and color_id = "black" 
+									and size_id = "S" ),
+                (select id from member 
+                			where id = #{mVo.id})
+                )
+	</insert>
+	<delete id="deleteWish">
+		delete from wish where product_id = #{pVo.product_id} and member_id = #{mVo.id}
+	</delete>
 </mapper>

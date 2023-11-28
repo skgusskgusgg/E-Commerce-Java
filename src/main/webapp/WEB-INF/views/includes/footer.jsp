@@ -228,33 +228,15 @@
 <script src="/resources/vendor/isotope/isotope.pkgd.min.js"></script>
 <!--===============================================================================================-->
 <script src="/resources/vendor/sweetalert/sweetalert.min.js"></script>
+<script src="/resources/vendor/sweetalert2/sweetalert2.all.min.js"></script>
 <script>
 	$('.js-addwish-b2').on('click', function(e) {
 		e.preventDefault();
 	});
 
-	$('.js-addwish-b2').each(function() {
-		var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
-		$(this).on('click', function() {
-			swal(nameProduct, "is added to wishlist !", "success");
+	/* 위시리스트 모달 -> productList, productDetailModal에 각각 있음. */
 
-			$(this).addClass('js-addedwish-b2');
-			$(this).off('click');
-		});
-	});
-
-	$('.js-addwish-detail').each(
-			function() {
-				var nameProduct = $(this).parent().parent().parent().find(
-						'.js-name-detail').html();
-
-				$(this).on('click', function() {
-					swal(nameProduct, "is added to wishlist !", "success");
-
-					$(this).addClass('js-addedwish-detail');
-					$(this).off('click');
-				});
-			});
+	
 
 	/*---------------------------------------------*/
 
@@ -263,7 +245,13 @@
 				var nameProduct = $(this).parent().parent().parent().parent()
 						.find('.js-name-detail').html();
 				$(this).on('click', function() {
-					swal(nameProduct, "is added to cart !", "success");
+					Swal.fire({
+						  position: "center",
+						  icon: "success",
+						  title: "Added to your cart!",
+						  showConfirmButton: false,
+						  timer: 1500
+						});
 				});
 			});
 </script>

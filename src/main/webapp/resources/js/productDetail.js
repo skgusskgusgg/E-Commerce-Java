@@ -2,6 +2,7 @@ $(document).ready(function(){
 	 var modalImgList = $(".modalImgList");
 	 var productName = $(".productName");
 	 var productPrice = $(".productPrice");
+	 var productId = $(".product_id");
 	 
 	 $('.js-show-modal1').on('click',function(e){	 
      e.preventDefault();
@@ -28,22 +29,24 @@ $(document).ready(function(){
         		
         		modalImgList.html(html);
         		productName.html(data.product_name);
+        		productId.attr("value",data.product_id);
         		var price = data.price;
         		var formattedPrice = price.toLocaleString();
         		productPrice.html(formattedPrice + " won");
         		$('.js-modal1').addClass('show-modal1');        
- 
+		
+				
         	},
         	error : function(){
         		console.log("error");
         	}
         })
     });
-    
+
   $('.js-hide-modal1').on('click',function(){
         $('.js-modal1').removeClass('show-modal1');
     });
    
   
-
+	
 })

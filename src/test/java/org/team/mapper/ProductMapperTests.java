@@ -7,6 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.team.domain.Criteria;
 import org.team.domain.ProductVO;
+import org.team.join.MemberDTO;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -48,6 +49,28 @@ public class ProductMapperTests {
 		
 		Criteria cri = new Criteria(1,2,"");
 		 log.info(mapper.selectTotal(vo,cri,"desc",50000,150000)); 
+	}
+	@Test
+	public void postWish() {
+		ProductVO pVo = new ProductVO();
+		MemberDTO mDto = new MemberDTO();
+		
+		pVo.setProduct_name("Aviator Bomber");
+		
+		mDto.setId(2);
+		
+		mapper.postWish(pVo, mDto);
+	}
+	
+	@Test
+	public void deleteWish() {
+		ProductVO pVo = new ProductVO();
+		MemberDTO mDto = new MemberDTO();
+		
+		pVo.setProduct_id(25);
+		mDto.setId(2);
+		
+		mapper.deleteWish(pVo, mDto);
 	}
 	
 }

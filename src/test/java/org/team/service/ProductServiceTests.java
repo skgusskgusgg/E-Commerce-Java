@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.team.domain.Criteria;
 import org.team.domain.ProductVO;
+import org.team.join.MemberDTO;
 import org.team.mapper.ProductMapperTests;
 
 import lombok.Setter;
@@ -38,5 +39,26 @@ public class ProductServiceTests {
 		Criteria cri = new Criteria(1,2,"");
 		List<ProductVO> seleList = service.selectList(vo,cri,"desc",50000,150000);
 		seleList.forEach(e->log.info(e));
+	}
+	
+	@Test 
+	public void postWish() {
+		ProductVO vo = new ProductVO();
+		MemberDTO mDto = new MemberDTO();
+		
+		vo.setProduct_name("Classic Wool Overcoat");
+		mDto.setId(2);
+		
+		service.postWish(vo, mDto);
+	}
+	@Test 
+	public void deleteWish() {
+		ProductVO vo = new ProductVO();
+		MemberDTO mDto = new MemberDTO();
+		
+		vo.setProduct_id(37);
+		mDto.setId(2);
+		
+		service.deleteWish(vo, mDto);
 	}
 }	

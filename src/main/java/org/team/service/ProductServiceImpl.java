@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.team.domain.Criteria;
 import org.team.domain.ProductVO;
+import org.team.join.MemberDTO;
 import org.team.mapper.ProductMapper;
 
 import lombok.Setter;
@@ -54,6 +55,22 @@ public class ProductServiceImpl implements ProductService{
 	public ProductVO detail(int id) {
 		ProductVO vo = mapper.detail(id);
 		return vo;
+	}
+
+
+
+	@Override
+	public int postWish(ProductVO pVo, MemberDTO mDto) {
+		int result =  mapper.postWish(pVo, mDto);	
+		return result;
+	}
+
+
+
+	@Override
+	public int deleteWish(ProductVO pVo, MemberDTO mDto) {
+	  int result = mapper.deleteWish(pVo, mDto);
+		return result;
 	}
 	
 }
