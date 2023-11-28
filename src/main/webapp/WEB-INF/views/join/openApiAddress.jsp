@@ -55,7 +55,7 @@ function init(){
   //alert(str);
     opener.document.frm.address.value = zipcode+","+addr;
     
-  	this.close();
+     this.close();
   }  
 }
 

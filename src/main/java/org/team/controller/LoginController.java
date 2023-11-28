@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.team.member.MemberService;
+import org.team.member.LoginService;
 import org.team.member.MemberVO;
 
 import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
-public class MemberController {
+public class LoginController {
 
     @Autowired
-    private MemberService memberService;
+    private LoginService memberService;
 
     @PostMapping(value = "/login")
     @ResponseBody
