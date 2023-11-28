@@ -83,7 +83,7 @@
                      published. Required fields are marked *</p>
 
                   
-                  <form action="register" id="register" method="post" name="frm" accept-charset="UTF-8">
+                  <form action="register" id="register" method="post" name="frm1" accept-charset="UTF-8">
                   
                   <input type="hidden" id="id" name="id">
                   <input type="hidden" id="email" name="email">
@@ -470,7 +470,7 @@ var birthdateCheck = false;
                         var phone = $('#phone').val();
                         
                         
-                        if(phone.length>9 && validateAge(콜) ){
+                        if(phone.length>9 && validateAge(phone) ){
                            $('.phone_input_re_1').css("display","inline-block"); //v
                            $('.phone_input_re_2').css("display", "none");       //x
                            phoneCheck=true;
@@ -550,9 +550,9 @@ var birthdateCheck = false;
    });//document ready 종료
    
    //phone 숫자only 확인                  
-   function validateAge(콜) {
+   function validateAge(phone) {
         var re = /^\d+$/;
-        return re.test(콜);
+        return re.test(phone);
    } // phone 숫자only 확인 종료
    
 </script>
