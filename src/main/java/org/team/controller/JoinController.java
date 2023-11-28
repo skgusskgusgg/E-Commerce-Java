@@ -57,7 +57,7 @@ public class JoinController {
       
       log.info("register: "+ member);
       memberService.register(member);
-      return "redirect:/join/join";
+      return "redirect:/";
    }
    
    
