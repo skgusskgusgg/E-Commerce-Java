@@ -258,7 +258,7 @@
         $('.js-modal-login').addClass('show-modal-login');
     });
 
-    $('.js-hide-modal-login').on('click',function(){
+    $('.js-hide-modal-login').on('click',function(e){
         $('.js-modal-login').removeClass('show-modal-login');
     });
 

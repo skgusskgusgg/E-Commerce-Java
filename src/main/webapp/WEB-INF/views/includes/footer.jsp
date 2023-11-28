@@ -138,13 +138,13 @@
 											<h4 class="text-center mb-4">로그인</h4>
 											<form id="loginForm"name="frm" action="login" method="post">
 												<div class="form-group">
-													<label for="email"><strong>이메일</strong></label> <input
-														type="text" class="form-control" id="email" name="email"
+													<label for="lemail"><strong>이메일</strong></label> <input
+														type="text" class="form-control" id="lemail" name="email"
 														placeholder="이메일">
 												</div>
 												<div class="form-group">
-													<label for="password"><strong>비밀번호</strong></label> <input
-														type="password" class="form-control" id="password"
+													<label for="lpassword"><strong>비밀번호</strong></label> <input
+														type="password" class="form-control" id="lpassword"
 														name="password" placeholder="암호">
 
 														<p class="form-check-label" id="Msg" style="color: red;">
@@ -293,8 +293,8 @@
 function login() {
 	
     // 폼 데이터 가져오기
-    var email = document.getElementById("email").value;
-    var password = document.getElementById("password").value;
+    var email = document.getElementById("lemail").value;
+    var password = document.getElementById("lpassword").value;
 
     // JSON 객체 생성
     var loginData = {
@@ -321,9 +321,9 @@ function login() {
                 } else {
                     // 모달에 오류 메시지 표시
                     document.getElementById("Msg").innerHTML = "";
-                    if (document.getElementById("email").value == ""){
+                    if (document.getElementById("lemail").value == ""){
                     	document.getElementById("Msg").innerHTML = "<br> 이메일을 입력하세요"
-                    } else if (document.getElementById("password").value == ""){
+                    } else if (document.getElementById("lpassword").value == ""){
                     	document.getElementById("Msg").innerHTML = "<br> 비밀번호를 입력하세요"
                     } else {
                     	 document.getElementById("Msg").innerHTML = "<br> 로그인 정보가 틀립니다.";

@@ -25,5 +25,5 @@
 	
 	<mybatis-spring:scan base-package="org.team.mapper"/>
 	
-	<context:component-scan base-package="org.team.service"></context:component-scan>
+	<context:component-scan base-package="org.team.*"></context:component-scan>
 </beans>
