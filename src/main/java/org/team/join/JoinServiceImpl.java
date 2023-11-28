@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.team.mapper.MemberMapper;
 
 @Service
-public class MemberServiceImpl implements MemberService {
+public class JoinServiceImpl implements JoinService {
 	
 	@Autowired
 	MemberMapper membermapper;
