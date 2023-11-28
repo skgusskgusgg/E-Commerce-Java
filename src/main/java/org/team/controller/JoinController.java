@@ -1,4 +1,8 @@
 package org.team.controller;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 41591b960ff13fd88a2504f7f2686a6ee800de2c
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -60,4 +64,8 @@ public class JoinController {
 	}
 	
 	
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 41591b960ff13fd88a2504f7f2686a6ee800de2c

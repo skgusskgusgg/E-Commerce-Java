@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!-- Footer -->
 <footer class="bg3 p-t-75 p-b-32">
 	<div class="container">
@@ -116,7 +117,7 @@
 	</span>
 </div>
 
-<%@include file="../product/productDetailModal.jsp" %>
+<%@include file="../product/productDetailModal.jsp"%>
 <!-- Modal login -->
 <div class="wrap-modal-login js-modal-login p-t-60 p-b-20">
 	<div class="overlay-modal-login js-hide-modal-login"></div>
@@ -126,7 +127,6 @@
 			<button class="how-pos3 hov3 trans-04 js-hide-modal-login">
 				<img src="/resources/images/icons/icon-close.png" alt="CLOSE">
 			</button>
-
 			<div class="authincation h-100">
 				<div class="container-fluid h-100">
 					<div class="row justify-content-center h-100 align-items-center">
@@ -135,34 +135,48 @@
 								<div class="row no-gutters">
 									<div class="col-xl-12">
 										<div class="auth-form">
+<<<<<<< HEAD
 											<h4 class="text-center mb-4">Sign in your account</h4>
 											<form action="login">
+=======
+											<h4 class="text-center mb-4">로그인</h4>
+											<form id="loginForm"name="frm" action="login" method="post">
+>>>>>>> 41591b960ff13fd88a2504f7f2686a6ee800de2c
 												<div class="form-group">
-													<label><strong>Email</strong></label> <input type="email"
-														class="form-control" value="hello@example.com">
+													<label for="email"><strong>이메일</strong></label> <input
+														type="text" class="form-control" id="email" name="email"
+														placeholder="이메일">
 												</div>
 												<div class="form-group">
-													<label><strong>Password</strong></label> <input
-														type="password" class="form-control" value="Password">
+													<label for="password"><strong>비밀번호</strong></label> <input
+														type="password" class="form-control" id="password"
+														name="password" placeholder="암호">
+
+														<p class="form-check-label" id="Msg" style="color: red;">
+															<br>${Msg}
+														</p>
+													
+
 												</div>
+
 												<div
 													class="form-row d-flex justify-content-between mt-4 mb-2">
 													<div class="form-group">
 														<div class="form-check ml-2">
 															<input class="form-check-input" type="checkbox"
 																id="basic_checkbox_1"> <label
-																class="form-check-label" for="basic_checkbox_1">Remember
-																me</label>
+																class="form-check-label" for="basic_checkbox_1">
+																자동 로그인 </label>
 														</div>
 													</div>
 													<div class="form-group">
-														<a href="page-forgot-password.html">Forgot Password?</a>
+														<a href="page-forgot-password.html">비밀번호 찾기</a>
 													</div>
 												</div>
 												<div class="text-center">
-													<button type="submit" class="btn btn-primary btn-block">Sign
-														me in</button>
+													<button type="submit" class="btn btn-primary btn-block" onclick="return login()">로그인</button>
 												</div>
+												<%-- <input name="${_csrf.parameterName}" type="hidden" value="${_crsf.token}"> --%>
 											</form>
 											<div class="new-account mt-3">
 												<p>
@@ -181,6 +195,9 @@
 		</div>
 	</div>
 </div>
+
+
+
 <!--===============================================================================================-->
 <script src="/resources/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
@@ -289,5 +306,60 @@
 <script src="/resources/js/main.js"></script>
 <script src="/resources/js/wishList.js"></script>
 <script src="/resources/js/productDetail.js"></script>
+<script>
+function login() {
+	
+    // 폼 데이터 가져오기
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+
+    // JSON 객체 생성
+    var loginData = {
+        email: email,
+        password: password
+    };
+
+    // 서버에 AJAX 요청 보내기
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/login", true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+            if (xhr.status == 200) {
+                // 응답 파싱
+                var response = xhr.responseText;
+
+                if (response === "success") {
+                    // 로그인 성공 시 모달 닫기
+                    document.querySelector('.js-hide-modal-login').click();
+                    window.location.reload(); // 예시: 페이지 새로고침
+                    href.location="home";
+                } else {
+                    // 모달에 오류 메시지 표시
+                    document.getElementById("Msg").innerHTML = "";
+                    if (document.getElementById("email").value == ""){
+                    	document.getElementById("Msg").innerHTML = "<br> 이메일을 입력하세요"
+                    } else if (document.getElementById("password").value == ""){
+                    	document.getElementById("Msg").innerHTML = "<br> 비밀번호를 입력하세요"
+                    } else {
+                    	 document.getElementById("Msg").innerHTML = "<br> 로그인 정보가 틀립니다.";
+                    }
+           	
+                }
+            } else {
+                // 예외 처리
+                console.error("로그인 요청 실패");
+            }
+        }
+    };
+
+    xhr.send(JSON.stringify(loginData));
+
+    // 전통적인 방식으로 폼 제출을 방지
+    return false;
+}
+</script>
+
 </body>
 </html>
