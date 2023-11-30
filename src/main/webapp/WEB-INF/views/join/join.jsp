@@ -83,7 +83,7 @@
                      published. Required fields are marked *</p>
 
                   
-                  <form action="register" id="register" method="post" name="frm" accept-charset="UTF-8">
+                  <form action="register" id="register" method="post" name="frm1" accept-charset="UTF-8">
                   
                   <input type="hidden" id="id" name="id">
                   <input type="hidden" id="email" name="email">

@@ -44,10 +44,7 @@
 				</div>
 				
 				<!-- Search product -->
-				<%@include file="search.jsp" %>
-
-				<!-- Filter -->
-				<%@include file="filter.jsp" %>
+			
 
 			<div class="row isotope-grid">
 				

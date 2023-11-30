@@ -37,11 +37,7 @@
 					</div>
 				</div>
 				
-				<!-- Search product -->
-				<%@include file="../includes/search.jsp" %>
-
-				<!-- Filter -->
-				<%@include file="../includes/filter.jsp" %>
+			
 
 			<div class="row isotope-grid">
 			
