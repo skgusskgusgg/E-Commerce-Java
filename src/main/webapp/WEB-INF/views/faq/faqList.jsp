@@ -4,7 +4,7 @@
 <!-- Title page -->
 <section class="bg-img1 txt-center p-lr-15 p-tb-92"
 	style="background-image: url('/resources/images/bg-02.jpg');">
-	<h2 class="ltext-105 cl0 txt-center">Help&FaQs</h2>
+	<h2 class="ltext-105 cl0 txt-center">Help&FAQs</h2>
 </section>
 
 
@@ -23,7 +23,7 @@
 				<div class="p-r-0-lg">
 					<!-- item Q&A -->
 					<div class="p-t-55">
-						<h3 class="mtext-112 cl2 p-b-10">Help&FaQs</h3>
+						<h3 class="mtext-112 cl2 p-b-10">Help&FAQs</h3>
 						<hr class="bor21">
 
 						<table class="table-content-board">
@@ -35,33 +35,37 @@
 								<th class="column-5">Date</th>
 								<th class="column-6">views</th>
 							</tr>
+							<c:forEach items="${list}" var="FAQ">
 							<tr class="table_row">
-								<td class="column-1">13135</td>
+								<td class="column-1"><c:out value="${FAQ.faqId}"/></td>
 								<td class="column-2 has-img"><img
-									src="/resources/images/item-cart-04.jpg" alt="IMG"></td>
-								<td class="column-3"><a href="/faq/faqDetail"
-									class="cl13 hov-cl1 trans-04">Free shipping for standard
-										order over $100</a></td>
-								<td class="column-4">admin</td>
-								<td class="column-5">2023.11.15</td>
-								<td class="column-6">13156</td>
+									src="/resources/images/item-cart-04.jpg" alt="IMG">
+									<c:out value="${FAQ.img}"/>
+									</td>
+								<td class="column-3"><a href="/faq/faqDetail?faqId=${FAQ.faqId}"
+									class="cl13 hov-cl1 trans-04"><c:out value="${FAQ.faqTitle}"/></a></td>
+								<td class="column-4"><c:out value="${FAQ.user_id}"/></td>
+								<td class="column-5"><c:out value="${FAQ.updateDate}"/></td>
+								<td class="column-6"><c:out value="${FAQ.viewCount}"/></td>
 							</tr>
-
+						</c:forEach>
 						</table>
 					</div>
 					<!-- Pagination -->
-					<div class="flex-l-m flex-w w-full p-t-10 m-lr--7">
-						<a href="#"
-							class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">
-							1 </a> <a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7">
-							2 </a> <a href="#" class="flex-r-m how-pagination1 trans-04 m-all-7">
-							글쓰기 </a>
+					<div class="flex-l-m flex-w w-full p-t-10 m-lr-7">
+						<c:forEach begin="1" end="${pageNum}" var="num">
+							<a href="faqListPage?page=${num}"class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination2">${num}</a>
+						</c:forEach>
+						<!-- footer-->
+						<a href="/faq/writeFAQs" class="flex-r-m how-pagination1 trans-04 m-all-7" onclick="return loginCheck_help()">
+						글쓰기
+						</a>
 					</div>
 
 				</div>
 			</div>
 		</div>
 	</div>
-
 </section>
+
 <%@include file="../includes/footer.jsp"%>

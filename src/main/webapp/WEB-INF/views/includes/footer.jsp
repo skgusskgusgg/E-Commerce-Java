@@ -136,7 +136,7 @@
 									<div class="col-xl-12">
 										<div class="auth-form">
 											<h4 class="text-center mb-4">로그인</h4>
-											<form id="loginForm"name="frm" action="login" method="post">
+											<form id="loginForm" name="frm" action="login" method="post">
 												<div class="form-group">
 													<label for="lemail"><strong>이메일</strong></label> <input
 														type="text" class="form-control" id="lemail" name="email"
@@ -147,10 +147,10 @@
 														type="password" class="form-control" id="lpassword"
 														name="password" placeholder="암호">
 
-														<p class="form-check-label" id="Msg" style="color: red;">
-															<br>${Msg}
-														</p>
-													
+													<p class="form-check-label" id="Msg" style="color: red;">
+														<br>${Msg}
+													</p>
+
 
 												</div>
 
@@ -169,7 +169,8 @@
 													</div>
 												</div>
 												<div class="text-center">
-													<button type="submit" class="btn btn-primary btn-block" onclick="return login()">로그인</button>
+													<button type="submit" class="btn btn-primary btn-block"
+														onclick="return login()">로그인</button>
 												</div>
 												<%-- <input name="${_csrf.parameterName}" type="hidden" value="${_crsf.token}"> --%>
 											</form>
@@ -178,6 +179,7 @@
 													Don't have an account? <a class="text-primary"
 														href="/join/join">Sign up</a>
 												</p>
+
 											</div>
 										</div>
 									</div>
@@ -189,8 +191,9 @@
 			</div>
 		</div>
 	</div>
-</div>
 
+
+</div>
 
 
 <!--===============================================================================================-->
@@ -240,44 +243,32 @@
 <script src="/resources/vendor/isotope/isotope.pkgd.min.js"></script>
 <!--===============================================================================================-->
 <script src="/resources/vendor/sweetalert/sweetalert.min.js"></script>
+<script src="/resources/vendor/sweetalert2/sweetalert2.all.min.js"></script>
 <script>
 	$('.js-addwish-b2').on('click', function(e) {
 		e.preventDefault();
 	});
 
-	$('.js-addwish-b2').each(function() {
-		var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
-		$(this).on('click', function() {
-			swal(nameProduct, "is added to wishlist !", "success");
+	/* 위시리스트 모달 -> productList, productDetailModal에 각각 있음. */
 
-			$(this).addClass('js-addedwish-b2');
-			$(this).off('click');
-		});
-	});
-
-	$('.js-addwish-detail').each(
-			function() {
-				var nameProduct = $(this).parent().parent().parent().find(
-						'.js-name-detail').html();
-
-				$(this).on('click', function() {
-					swal(nameProduct, "is added to wishlist !", "success");
-
-					$(this).addClass('js-addedwish-detail');
-					$(this).off('click');
-				});
-			});
+	
 
 	/*---------------------------------------------*/
 
-	$('.js-addcart-detail').each(
+	/* $('.js-addcart-detail').each(
 			function() {
 				var nameProduct = $(this).parent().parent().parent().parent()
 						.find('.js-name-detail').html();
 				$(this).on('click', function() {
-					swal(nameProduct, "is added to cart !", "success");
+					Swal.fire({
+						  position: "center",
+						  icon: "success",
+						  title: "Added to your cart!",
+						  showConfirmButton: false,
+						  timer: 1500
+						});
 				});
-			});
+			}); */
 </script>
 <!--===============================================================================================-->	
 <script src="/resources/vendor/sweetalert2/sweetalert2.all.min.js"></script>
@@ -359,6 +350,16 @@ function login() {
     return false;
 }
 </script>
-
+<script>
+	function loginCheck_help() {
+		var mVO = <%= session.getAttribute("mVO") %>;
+		if (mVO === null) {
+			alert("로그인을 해주세요");
+			return false;
+		} else {
+			return true;
+		}
+	}
+</script>
 </body>
 </html>
