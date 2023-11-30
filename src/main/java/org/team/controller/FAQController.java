@@ -22,7 +22,7 @@ public class FAQController {
 	private FAQService FAQservice;
 	
 	@GetMapping("/faqList")
-	public void faqList(Model model) {
+	public void faqList(Model model) throws Exception {
 		log.info("FAQList");
 		List<FAQBoardVO> list = null;
 		list = FAQservice.getList();
@@ -49,7 +49,7 @@ public class FAQController {
 	}
 
 	@GetMapping("/faqInsert")
-	public void faqInsert() {
+	public void faqInsert() throws Exception {
 
 	}
 
@@ -91,6 +91,6 @@ public class FAQController {
 	    model.addAttribute("pageNum", pageNum);
 	    model.addAttribute("currentPage", page); // 추가된 부분: 현재 페이지 정보 전달
 
-	    return "redirect:/faq/faqList"; // 뷰 페이지의 이름을 반환
+	    return "/faq/faqList"; // 뷰 페이지의 이름을 반환
 	}
 }
