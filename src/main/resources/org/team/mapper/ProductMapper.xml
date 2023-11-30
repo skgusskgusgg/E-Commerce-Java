@@ -3,15 +3,19 @@
 <mapper namespace="org.team.mapper.ProductMapper">
 	<select id="getList" resultType="org.team.domain.ProductVO">
 		select * from product
-		where size_id = (select code_name
+		where
+		size_id = (select code_name
 		from code
 		where code_id = "size_id"
-		and code_name = "S"
+		and
+		code_name = "S"
 		)
 		and color_id = "black"
-		and product_name like concat('%', #{cri.keyword}, '%')
+		and product_name like
+		concat('%', #{cri.keyword}, '%')
 		order by price asc
-		limit #{cri.pageStart}, #{cri.amount}
+		limit
+		#{cri.pageStart}, #{cri.amount}
 	</select>
 	<select id="selectList" resultType="org.team.domain.ProductVO">
 	<![CDATA[	select * from product
@@ -39,7 +43,8 @@
 		limit #{cri.pageStart}, #{cri.amount}
 	</select>
 	<select id="getTotal" resultType="int">
-		select count(*) from product where size_id = (select code_name
+		select count(*) from product
+		where size_id = (select code_name
 		from code
 		where code_id = "size_id"
 		and code_name = "S"
@@ -71,28 +76,42 @@
 		</choose>
 		limit #{cri.pageStart}, #{cri.amount}
 	</select>
-	
+
 	<select id="detail" resultType="org.team.domain.ProductVO">
-		select * from product where product_id = #{id}
+		select * from product where
+		product_id = #{id}
 	</select>
-	
-	<!-- <insert id="postCart">
-		insert into wish(product_id, member_id) values(
-				(select product_id from product where product_name = #{pVo.product_name} and color_id = #{pVo.color_id} and size_id = #{pVo.size_id} ),
-                (select id from member where id = #{mVo.id})
-                )
-	</insert> -->
+
+	<!-- <insert id="postCart"> insert into wish(product_id, member_id) values( 
+		(select product_id from product where product_name = #{pVo.product_name} 
+		and color_id = #{pVo.color_id} and size_id = #{pVo.size_id} ), (select id 
+		from member where id = #{mVo.id}) ) </insert> -->
 	<insert id="postWish">
 		insert into wish(product_id, member_id) values(
-				(select product_id from product 
-									where product_name = #{pVo.product_name} 
-									and color_id = "black" 
-									and size_id = "S" ),
-                (select id from member 
-                			where id = #{mVo.id})
-                )
+		(select product_id from product
+		where product_name = #{pVo.product_name}
+		and color_id = "black"
+		and size_id = "S" ),
+		(select id from member
+		where id = #{mVo})
+		)
 	</insert>
 	<delete id="deleteWish">
-		delete from wish where product_id = #{pVo.product_id} and member_id = #{mVo.id}
+		delete from wish where product_id = #{pVo.product_id}
+		and member_id = #{mVo}
 	</delete>
+	<select id="countWish" resultType="int">
+		SELECT COUNT(*) > 0 AS exists_in_wishlist
+		FROM wish
+		WHERE product_id = #{product_id} AND member_id = #{member_id}
+	</select>
+	<insert id="postCart">
+		insert into cart(member_id,product_id,`count`) 
+					values(#{mVo},
+							(select product_id 
+									from product where color_id = #{pVo.color_id} 
+									and size_id=#{pVo.size_id} 
+									and product_name=#{pVo.product_name})
+						 ,#{count});
+	</insert>
 </mapper>

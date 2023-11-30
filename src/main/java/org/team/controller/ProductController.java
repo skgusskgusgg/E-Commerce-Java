@@ -84,5 +84,5 @@ public class ProductController {
 		
 		log.info("상품 디테일 페이지 : " + vo);
 	}
-
+	
 }

@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.team.domain.Criteria;
 import org.team.domain.ProductVO;
 import org.team.join.MemberDTO;
+import org.team.member.MemberVO;
 
 public interface ProductMapper {
 	public List<ProductVO> getList(@Param("cri") Criteria cri);
@@ -21,7 +22,11 @@ public interface ProductMapper {
 
 	public ProductVO detail(int id);
 	
-	public int postWish(@Param("pVo") ProductVO Pvo,@Param("mVo") MemberDTO mVo );
+	public int postWish(@Param("pVo") ProductVO Pvo,@Param("mVo") int mVo );
 
-	public int deleteWish(@Param("pVo") ProductVO Pvo,@Param("mVo") MemberDTO mVo );
+	public int deleteWish(@Param("pVo") ProductVO Pvo,@Param("mVo") int mVo );
+	
+	public int countWish(@Param("product_id") int productId, @Param("member_id") int member_id);
+	
+	public int postCart(@Param("pVo") ProductVO pVo, @Param("mVo") int mVo, @Param("count") int count);
 }

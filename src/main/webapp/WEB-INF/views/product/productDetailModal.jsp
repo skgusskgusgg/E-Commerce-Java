@@ -39,8 +39,9 @@
 
 				<div class="col-md-6 col-lg-5 p-b-30">
 					<div class="p-r-50 p-t-5 p-lr-0-lg">
-						<input type="hidden" name="product_id" class="product_id">
-						<h4 class="mtext-105 cl2 js-name-detail p-b-14 productName">Lightweight
+						<input type="hidden" name="product_id" data-product_id="">
+						<input type="hidden" name="product_name" data-product_name="">
+						<h4 class="mtext-105 cl2 js-name-b2 p-b-14 productName">Lightweight
 							Jacket</h4>
 
 						<span class="mtext-106 cl2 productPrice"> $58.79 </span>
@@ -52,11 +53,11 @@
 
 								<div class="size-204 respon6-next">
 									<div class="rs1-select2 bor8 bg0">
-										<select class="js-select2" name="size">
-											<option>Choose an option</option>
-											<option value="1">Size S</option>
-											<option value="2">Size M</option>
-											<option value="3">Size L</option>
+										<select class="js-select2 size_id" name="size">
+											<option value="">Choose an option</option>
+											<option value="s">Size S</option>
+											<option value="m">Size M</option>
+											<option value="l">Size L</option>
 										</select>
 										<div class="dropDownSelect2"></div>
 									</div>
@@ -68,12 +69,12 @@
 
 								<div class="size-204 respon6-next">
 									<div class="rs1-select2 bor8 bg0">
-										<select class="js-select2" name="color">
-											<option>Choose an option</option>
-											<option value="1">Black</option>
-											<option value="2">Green</option>
-											<option value="3">Red</option>
-											<option value="4">White</option>
+										<select class="js-select2 color_id" name="color">
+											<option value="">Choose an option</option>
+											<option value="black">Black</option>
+											<option value="green">Green</option>
+											<option value="red">Red</option>
+											<option value="white">White</option>
 										</select>
 										<div class="dropDownSelect2"></div>
 									</div>
@@ -81,8 +82,8 @@
 							</div>
 
 							<div class="flex-w flex-r-m p-b-10">
-								<div class="size-204 flex-w flex-m respon6-next">
-									<div class="wrap-num-product flex-w m-r-20 m-tb-10">
+								<div class="size-204 flex-w respon6-next" style="justify-content:flex-end ;">
+									<div class="wrap-num-product flex-w m-r-20 m-tb-10" >
 										<div
 											class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
 											<i class="fs-16 zmdi zmdi-minus"></i>
@@ -90,41 +91,27 @@
 
 										<!-- 이 부분이 수량 조정 부분 -->
 										<input class="mtext-104 cl3 txt-center num-product"
-											type="number" name="num-product" value="1">
+											type="number" name="num-product" value="1" >
 
 										<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
 											<i class="fs-16 zmdi zmdi-plus"></i>
 										</div>
 									</div>
-
+									<div  style="display: flex; justify-content: space-between; margin:10px 0; width: 100%;" >
+									
 									<button
-										class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-										Add to cart</button>
+									class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail modalCart">
+											Add to cart</button>
+									<button
+									class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addwish-detail"data-product_name="" data-product_id="">
+											wishLists</button>
+									</div>
 								</div>
 							</div>
 						</div>
 
 						<!--  -->
-						<div class="flex-w flex-m p-l-100 p-t-40 respon7">
-							<div class="flex-m bor9 p-r-10 m-r-11">
-								<a href="#"
-									class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100"
-									data-tooltip="Add to Wishlist"> <i
-									class="zmdi zmdi-favorite"></i>
-								</a>
-							</div>
-
-							<a href="#"
-								class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
-								data-tooltip="Facebook"> <i class="fa fa-facebook"></i>
-							</a> <a href="#"
-								class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
-								data-tooltip="Twitter"> <i class="fa fa-twitter"></i>
-							</a> <a href="#"
-								class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
-								data-tooltip="Google Plus"> <i class="fa fa-google-plus"></i>
-							</a>
-						</div>
+					
 					</div>
 				</div>
 			</div>
@@ -133,49 +120,92 @@
 
 </div>
 <script type="text/javascript">
-$(document).on('click', '.js-addwish-detail', function () {
-    var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
-    var product_name = $(".productName").html();
-    var productId = $(".product_id").val();
-	console.log("click!!!!!!!!!!!!!!!!!!!!!!!");
-    Swal.fire({
-        title: "WishLists에 저장하시겠습니까?",
-        showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonText: "추가",
-        denyButtonText: `삭제`
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                type: 'POST',
-                url: "/productDetail/postWish",
-                contentType: 'application/json',
-                data: JSON.stringify({ product_name: product_name }),
-                success: function (response) {
-                    Swal.fire("WishList에 추가되었습니다!", "", "success");
-                   
-                },
-                error: function (xhr, status, error) {
-                    Swal.fire("WishList 추가 중 오류가 발생했습니다.", "", "error");
-                }
-            });
-        } else if (result.isDenied) {
-            $.ajax({
-                type: 'DELETE',
-                url: '/productDetail/deleteWish',
-                contentType: 'application/json',
-                data: JSON.stringify({ product_id: productId}),
-                success: function (response) {
-                    Swal.fire("WishList에서 제거되었습니다.", "", "success");
-                    
-                },
-                error: function (xhr, status, error) {
-                    Swal.fire("WishList 제거 중 오류가 발생했습니다.", "", "error");
-                }
-            });
-        }
-    });
+$('.js-addwish-detail').each(function() {
+			var nameProduct = $(this).parent().parent().parent().parent()
+					.find('.js-name-detail').html();
+			$(this).on('click', function() 
+					{
+				var pName = $("button[data-product_name]").val();
+				var pId = $("input[data-product_id]").val();
+				
+				console.log(pName);
+				  $.ajax({
+		                type: 'POST',
+		                url: "/productDetail/postWish",
+		                contentType: 'application/json',
+		                data: JSON.stringify({ product_name: pName }),
+		                success: function (response) {
+		                	 
+		                    	Swal.fire({
+				  					  position: "center",
+				  					  icon: "success",
+				  					  title: "Added to your wishLists!",
+				  					  showConfirmButton: false,
+				  					  timer: 1500
+				  					});
+		                    	
+		                
+		                },
+		                error: function (xhr, status, error) {
+		                	
+		                    Swal.fire("This product has already been registered on WishList.", "", "error");
+		                }
+		            });
+				  $.ajax({
+			            type: 'GET',
+			            url: '/productDetail/checkWishStatus/' + pId,
+			            success: function (response) {
+			                if (response === "exists") {
+			                	
+			                    console.log("존재" + pId)
+			                } else {
+			                	console.log("존재안함" + pId)
+			                }
+			            },
+			            error: function (xhr, status, error) {
+			                console.error(xhr.responseText);
+			            }
+			        });
+				
+			});
+		});
+
+$('.modalCart').each(function() {
 	
-    $(this).toggleClass('js-addedwish-detail');
-});
+	
+	$(this).on("click",function(){
+	
+		var color_id = $(".color_id").val(); 
+		var size_id = $(".size_id").val();
+		var count = $(".num-product").val();
+		var product_name = $("button[data-product_name]").val();
+		console.log("color_id -> " + color_id + ", size_id -> " + size_id + ", count -> " + count + ", product_name -> " + product_name)
+		
+	
+		
+		$.ajax({
+            type: 'POST',
+            url: "/productDetail/postCart?count=" + count,
+            contentType: 'application/json',
+            data: JSON.stringify({product_name: product_name,color_id: color_id, size_id: size_id}),
+            success: function (response) {
+            	 
+                	Swal.fire({
+	  					  position: "center",
+	  					  icon: "success",
+	  					  title: "Added to your cart!",
+	  					  showConfirmButton: false,
+	  					  timer: 1500
+	  					});
+                	
+            
+            },
+            error: function (xhr, status, error) {
+            	
+                Swal.fire("This product has already been registered on WishList.", "", "error");
+            }
+        });
+	})
+	
+})
 </script>

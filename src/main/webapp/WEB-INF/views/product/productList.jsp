@@ -148,6 +148,8 @@
 
 		<div class="row ">
 			<c:forEach items="${product }" var="product">
+			<input type="hidden" class="product_id" >
+			<input type="hidden" class="productName" >
 				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
 					<!-- Block2 -->
 					<div class="block2">
@@ -161,22 +163,21 @@
 
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
-								<a href="/product/productDetail?id=${product.product_id }"
-									class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-									${product.product_name } </a> <span class="stext-105 cl3">
+								<a href="/product/productDetail?id=${product.product_id }" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 ">
+									${product.product_name } 
+								</a> 
+								<span class="stext-105 cl3">
 									<fmt:formatNumber type="number" maxFractionDigits="3" value="${product.price}" />
-									 won</span>
+									 won
+								</span>
 							</div>
 
-							<div class="block2-txt-child2 flex-r p-t-3">
-								<a 
-									class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-									<img class="icon-heart1 dis-block trans-04"
-									src="/resources/images/icons/icon-heart-01.png" alt="ICON">
-									<img class="icon-heart2 dis-block trans-04 ab-t-l"
-									src="/resources/images/icons/icon-heart-02.png" alt="ICON">
+						 <div class="block2-txt-child2 flex-r p-t-3">
+								<a class="btn-addwish-b2 dis-block pos-relative js-addwish-b2" data-product_id = "${product.product_id }" data-product_name = "${product.product_name }">
+									<img class="icon-heart1 dis-block trans-04" src="/resources/images/icons/icon-heart-01.png" alt="ICON">
+									<img class="icon-heart2 dis-block trans-04 ab-t-l" src="/resources/images/icons/icon-heart-02.png" alt="ICON">
 								</a>
-							</div>
+							</div> 
 						</div>
 					</div>
 				</div>
@@ -186,9 +187,7 @@
 
 
 		<div class="flex-c-m flex-w w-full p-t-45">
-			<!-- <a href="#"
-				class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
-				Load More </a> -->
+		
 			<nav >
 				<ul class="pagina">
 				<c:if test="${pageMaker.prev }">				
@@ -220,6 +219,9 @@
 	</div>
 </div>
 <%@include file="../includes/footer.jsp"%>
+<script type="text/javascript" src="/resources/js/addWish.js">
+
+</script>
 <script type="text/javascript">
 	var url = "/product/productList?category_id=";
 	var href = $(location).attr("href");
@@ -257,29 +259,38 @@
 				localStorage.removeItem('selectedFilter');		
 			});
 		 console.log(pagenation);
-	})
-		$('.js-addwish-b2').each(function() {
-		var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
-		$(this).on('click', function() {
-			Swal.fire({
-				  title: "Do you want to save the WishLists?",
-				  showDenyButton: true,
-				  showCancelButton: true,
-				  confirmButtonText: "Add",
-				  denyButtonText: `Delete`
-				}).then((result) => {
-				  /* Read more about isConfirmed, isDenied below */
-				  if (result.isConfirmed) {
-				    Swal.fire("Added to wishlist!", "", "success");
-				  } else if (result.isDenied) {
-				    Swal.fire("Removed from wishlist", "", "success");
-				  }
-				});
+		 
+		 $('.btn-addwish-b2').each(function () {
+		        var pId = $(this).data('product_id');
+		        var element = $(this);  
+				console.log(pId)
+		        $.ajax({
+		            type: 'GET',
+		            url: '/productDetail/checkWishStatus/' + pId,
+		            success: function (response) {
+		                if (response === "exists") {
+		                	element.addClass('js-addedwish-b2');
+		                    console.log("존재" + pId)
+		                } else {
+		                	console.log("존재안함" + pId)
+		                }
+		            },
+		            error: function (xhr, status, error) {
+		                console.error(xhr.responseText);
+		            }
+		        });
+		    });
 
-			$(this).toggleClass('js-addedwish-b2');
 			
-		});
-	});
+		 
+	})
+	
+  $('.js-hide-modal1').on('click',function(){
+        $('.js-modal1').removeClass('show-modal1');
+        location.reload();
+    });
+ 
+		
 </script>
 <script type="text/javascript" src="/resources/js/productList.js">
 </script>

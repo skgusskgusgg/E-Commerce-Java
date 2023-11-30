@@ -53,24 +53,30 @@ public class ProductMapperTests {
 	@Test
 	public void postWish() {
 		ProductVO pVo = new ProductVO();
-		MemberDTO mDto = new MemberDTO();
 		
 		pVo.setProduct_name("Aviator Bomber");
-		
-		mDto.setId(2);
-		
-		mapper.postWish(pVo, mDto);
+	
+		mapper.postWish(pVo, 2);
 	}
 	
 	@Test
 	public void deleteWish() {
 		ProductVO pVo = new ProductVO();
-		MemberDTO mDto = new MemberDTO();
+
 		
 		pVo.setProduct_id(25);
-		mDto.setId(2);
+
+		mapper.deleteWish(pVo, 2);
+	}
+	
+	@Test
+	public void postCart() {
+		ProductVO pVo =new ProductVO();
+		pVo.setColor_id("red");
+		pVo.setSize_id("M");
+		pVo.setProduct_name("Elegance Trench");
 		
-		mapper.deleteWish(pVo, mDto);
+		mapper.postCart(pVo, 2, 3);
 	}
 	
 }

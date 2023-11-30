@@ -44,21 +44,17 @@ public class ProductServiceTests {
 	@Test 
 	public void postWish() {
 		ProductVO vo = new ProductVO();
-		MemberDTO mDto = new MemberDTO();
 		
 		vo.setProduct_name("Classic Wool Overcoat");
-		mDto.setId(2);
-		
-		service.postWish(vo, mDto);
+
+		service.postWish(vo, 2);
 	}
 	@Test 
 	public void deleteWish() {
 		ProductVO vo = new ProductVO();
-		MemberDTO mDto = new MemberDTO();
-		
+	
 		vo.setProduct_id(37);
-		mDto.setId(2);
-		
-		service.deleteWish(vo, mDto);
+	
+		service.deleteWish(vo, 2);
 	}
 }	

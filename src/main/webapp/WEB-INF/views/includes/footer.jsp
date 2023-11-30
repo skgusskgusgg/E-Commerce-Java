@@ -252,7 +252,7 @@
 
 	/*---------------------------------------------*/
 
-	$('.js-addcart-detail').each(
+	/* $('.js-addcart-detail').each(
 			function() {
 				var nameProduct = $(this).parent().parent().parent().parent()
 						.find('.js-name-detail').html();
@@ -265,7 +265,7 @@
 						  timer: 1500
 						});
 				});
-			});
+			}); */
 </script>
 <!--===============================================================================================-->
 <script

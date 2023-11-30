@@ -8,6 +8,7 @@ import org.team.domain.Criteria;
 import org.team.domain.ProductVO;
 import org.team.join.MemberDTO;
 import org.team.mapper.ProductMapper;
+import org.team.member.MemberVO;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -60,16 +61,32 @@ public class ProductServiceImpl implements ProductService{
 
 
 	@Override
-	public int postWish(ProductVO pVo, MemberDTO mDto) {
-		int result =  mapper.postWish(pVo, mDto);	
+	public int postWish(ProductVO pVo, int mVo) {
+		int result =  mapper.postWish(pVo, mVo);	
 		return result;
 	}
 
 
 
 	@Override
-	public int deleteWish(ProductVO pVo, MemberDTO mDto) {
-	  int result = mapper.deleteWish(pVo, mDto);
+	public int deleteWish(ProductVO pVo, int mVo) {
+	  int result = mapper.deleteWish(pVo, mVo);
+		return result;
+	}
+
+
+
+	@Override
+	public boolean countWish(int product_id, int member_id) {
+		int count = mapper.countWish(product_id, member_id);
+		return count > 0;
+	}
+
+
+
+	@Override
+	public int postCart(ProductVO pVo, int mVo, int count) {
+		int result = mapper.postCart(pVo, mVo, count);
 		return result;
 	}
 	
