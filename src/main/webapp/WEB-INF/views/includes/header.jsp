@@ -34,8 +34,8 @@
 	<link rel="stylesheet" type="text/css" href="/resources/css/util.css">
 	<link rel="stylesheet" type="text/css" href="/resources/css/main.css">
 	<link rel="stylesheet" type="text/css" href="/resources/css/admin.css">
-
-	
+	<link rel="stylesheet" type="text/css" href="/resources/css/productList.css">
+	<script src="/resources/vendor/jquery/jquery-3.2.1.min.js"></script>
 </head>
 <body class="animsition">
 	
@@ -120,11 +120,11 @@
 							</li>
 
 							<li>
-								<a href="/product/productList">Shop</a>
+								<a href="/product/productList?category_id=0" class="navFilter" data-filter="0">Shop</a>
 								<ul class="sub-menu">
-									<li><a href="/product/list">Outer</a></li>
-									<li><a href="/product/list">Top</a></li>
-									<li><a href="/product/list">Pants</a></li>
+									<li><a href="/product/productList?category_id=1" class="navFilter" data-filter="1" >Outer</a></li>
+									<li><a href="/product/productList?category_id=2" class="navFilter" data-filter="2" >Top</a></li>
+									<li><a href="/product/productList?category_id=3" class="navFilter" data-filter="3" >Pants</a></li>
 								</ul>
 							</li>
 
@@ -271,6 +271,28 @@
                      
             </li>
 
+
+				<li>
+					<a href="/product/productList?category_id=0">Shop</a>
+					<ul class="sub-menu-m">
+						<li><a href="/product/productList?category_id=1">Outer</a></li>
+						<li><a href="/product/productList?category_id=2">Top</a></li>
+						<li><a href="/product/productList?category_id=3">Pants</a></li>
+					</ul>
+					<span class="arrow-main-menu-m">
+						<i class="fa fa-angle-right" aria-hidden="true"></i>
+					</span>
+				</li>
+				<li class="active-menu">
+					<a href="/qna/list">Board</a>
+					<ul class="sub-menu">
+						<li><a href="/qna/list">Notice</a></li>
+						<li><a href="/qna/list">QnA</a></li>
+						<li><a href="/qna/list">Review</a></li>
+					</ul>
+							
+				</li>
+
          </ul>
       </div>
 
@@ -281,13 +303,62 @@
                <img src="/resources/images/icons/icon-close2.png" alt="CLOSE">
             </button>
 
-            <form class="wrap-search-header flex-w p-l-15">
-               <button class="flex-c-m trans-04">
-                  <i class="zmdi zmdi-search"></i>
-               </button>
-               <input class="plh3" type="text" name="search" placeholder="Search...">
-            </form>
-         </div>
-      </div>
-   <%@include file="../wishList/wish.jsp" %>
-   </header>
+		<!-- Modal Search -->
+		<div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
+			<div class="container-search-header">
+				<button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
+					<img src="/resources/images/icons/icon-close2.png" alt="CLOSE">
+				</button>
+
+				<form class="wrap-search-header flex-w p-l-15">
+					<button class="flex-c-m trans-04">
+						<i class="zmdi zmdi-search"></i>
+					</button>
+					<input class="plh3" type="text" name="search" placeholder="Search...">
+				</form>
+			</div>
+		</div>
+	<%@include file="../wishList/wish.jsp" %>
+	</header>
+	<script type="text/javascript">
+	$(document).ready(function () {
+	    var navFilter = $(".navFilter");
+	    setActiveMenu();
+
+	    // 메뉴 클릭 시 이벤트 처리
+	    $(".main-menu a").on('click', function (e) {
+	        // 현재 클릭한 메뉴 항목에 active-menu 클래스 추가
+	        $(this).closest('li').addClass('active-menu');
+
+	        // 다른 메뉴 항목에서 active-menu 클래스 제거
+	        $(".main-menu li").not($(this).closest('li')).removeClass('active-menu');
+
+	        // 클릭 이벤트가 정상적으로 발생하는지 확인하기 위한 로그
+	        console.log("Menu clicked:", $(this).text());
+	    });
+
+	    // URL이 변경될 때 활성 메뉴 설정
+	    $(window).on('popstate', function () {
+	        console.log('popstate event occurred');
+	        setActiveMenu();
+	    });
+
+	    function setActiveMenu() {
+	    	console.log('setActiveMenu function called');
+	        var path = window.location.pathname; // window.location.href 대신 window.location.pathname을 사용
+	     
+	        if(path.includes("/product/productList")){
+	        	path += "?category_id=0"
+	        }
+	        // 현재 페이지의 경로와 일치하는 메뉴 항목에 active-menu 클래스 추가
+	        $('.main-menu a[href="' + path + '"]').closest('li').addClass('active-menu');
+	        console.log('Current path:', path);
+	    }
+
+	    navFilter.on("click", function () {
+	        var filter = $(this).attr("data-filter");
+	        localStorage.setItem('navFilter', filter);
+	    });
+	});
+
+	</script>
