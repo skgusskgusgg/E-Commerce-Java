@@ -34,8 +34,10 @@
 	<link rel="stylesheet" type="text/css" href="/resources/css/util.css">
 	<link rel="stylesheet" type="text/css" href="/resources/css/main.css">
 	<link rel="stylesheet" type="text/css" href="/resources/css/admin.css">
+	<link rel="stylesheet" type="text/css" href="/resources/css/search.css">
 	<link rel="stylesheet" type="text/css" href="/resources/css/productList.css">
 	<script src="/resources/vendor/jquery/jquery-3.2.1.min.js"></script>
+
 </head>
 <body class="animsition">
 	
@@ -138,7 +140,7 @@
 
 					<!-- Icon header -->
 					<div class="wrap-icon-header flex-w flex-r-m">
-						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 show-search-modal">
 							<i class="zmdi zmdi-search"></i>
 						</div>
 						
@@ -163,7 +165,7 @@
 
          <!-- Icon header -->
          <div class="wrap-icon-header flex-w flex-r-m m-r-15">
-            <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
+            <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 show-search-modal">
                <i class="zmdi zmdi-search"></i>
             </div>
 
@@ -297,6 +299,11 @@
       </div>
 
       <!-- Modal Search -->
+
+      <%@include file="../search/search.jsp" %>
+   <%@include file="../wishList/wish.jsp" %>
+   </header>
+
       <div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
          <div class="container-search-header">
             <button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
@@ -362,3 +369,4 @@
 	});
 
 	</script>
+
