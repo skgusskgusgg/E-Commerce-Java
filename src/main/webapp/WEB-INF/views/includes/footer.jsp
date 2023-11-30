@@ -136,7 +136,7 @@
 									<div class="col-xl-12">
 										<div class="auth-form">
 											<h4 class="text-center mb-4">로그인</h4>
-											<form id="loginForm"name="frm" action="login" method="post">
+											<form id="loginForm" name="frm" action="login" method="post">
 												<div class="form-group">
 													<label for="lemail"><strong>이메일</strong></label> <input
 														type="text" class="form-control" id="lemail" name="email"
@@ -147,10 +147,10 @@
 														type="password" class="form-control" id="lpassword"
 														name="password" placeholder="암호">
 
-														<p class="form-check-label" id="Msg" style="color: red;">
-															<br>${Msg}
-														</p>
-													
+													<p class="form-check-label" id="Msg" style="color: red;">
+														<br>${Msg}
+													</p>
+
 
 												</div>
 
@@ -169,7 +169,8 @@
 													</div>
 												</div>
 												<div class="text-center">
-													<button type="submit" class="btn btn-primary btn-block" onclick="return login()">로그인</button>
+													<button type="submit" class="btn btn-primary btn-block"
+														onclick="return login()">로그인</button>
 												</div>
 												<%-- <input name="${_csrf.parameterName}" type="hidden" value="${_crsf.token}"> --%>
 											</form>
@@ -178,6 +179,7 @@
 													Don't have an account? <a class="text-primary"
 														href="/join/join">Sign up</a>
 												</p>
+
 											</div>
 										</div>
 									</div>
@@ -189,8 +191,9 @@
 			</div>
 		</div>
 	</div>
-</div>
 
+
+</div>
 
 
 <!--===============================================================================================-->
@@ -355,6 +358,16 @@ function login() {
     return false;
 }
 </script>
-
+<script>
+	function loginCheck_help() {
+		var mVO = <%= session.getAttribute("mVO") %>;
+		if (mVO === null) {
+			alert("로그인을 해주세요");
+			return false;
+		} else {
+			return true;
+		}
+	}
+</script>
 </body>
 </html>
