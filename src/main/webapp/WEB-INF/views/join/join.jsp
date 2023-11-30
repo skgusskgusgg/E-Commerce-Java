@@ -121,8 +121,8 @@
                            <td><span class="password_input_re_1">v</span>
                            <span class="password_input_re_2">x</span></td>
                            <td colspan="4" class="bor19 size-100"><input
-                              class="stext-111 cl2 plh3 size-126 p-lr-18" type="text"
-                              id="password" name="password" placeholder="password *"></td>
+                              class="stext-111 cl2 plh3 size-126 p-lr-18" type="password"
+                              id="password" name="password" placeholder="password *" maxlength="19"></td>
                         </tr>
                         <tr>
                            <td><label for="password2" class="size-220">비밀번호
@@ -130,9 +130,9 @@
                            <td><span class="password2_input_re_1">v</span>
                            <span class="password2_input_re_2">x</span></td>
                            <td colspan="4" class="bor19 size-100"><input
-                              class="stext-111 cl2 plh3 size-126 p-lr-18" type="text"
+                              class="stext-111 cl2 plh3 size-126 p-lr-18" type="password"
                               id="password2" name="password2"
-                              placeholder="password check *"></td>
+                              placeholder="password check *" maxlength="19"></td>
                         </tr>
                         <tr>
                            <td><label for="user_name" class="size-220">이름: </label></td>
@@ -470,7 +470,7 @@ var birthdateCheck = false;
                         var phone = $('#phone').val();
                         
                         
-                        if(phone.length>9 && validateAge(콜) ){
+                        if(phone.length>9 && validateAge(phone) ){
                            $('.phone_input_re_1').css("display","inline-block"); //v
                            $('.phone_input_re_2').css("display", "none");       //x
                            phoneCheck=true;
@@ -550,9 +550,9 @@ var birthdateCheck = false;
    });//document ready 종료
    
    //phone 숫자only 확인                  
-   function validateAge(콜) {
+   function validateAge(phone) {
         var re = /^\d+$/;
-        return re.test(콜);
+        return re.test(phone);
    } // phone 숫자only 확인 종료
    
 </script>

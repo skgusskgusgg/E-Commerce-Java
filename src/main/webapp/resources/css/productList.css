@@ -1,0 +1,21 @@
+@charset "UTF-8";
+.pagina{
+	display:flex;
+
+}
+.pageBtn{
+	color: #222;
+	background-color: #e6e6e6;
+	padding: 10px 20px;
+	margin:0 1px;
+	 transition: all 0.4s;
+}
+
+.pageBtn:hover{
+	background-color:#222;
+	color:#fff;
+}
+.pageActive{
+	background-color:#222;
+	color:#fff;
+}
