@@ -20,7 +20,7 @@ import lombok.extern.log4j.Log4j;
 public class FAQController {
 	@Autowired
 	private FAQService FAQservice;
-
+	
 	@GetMapping("/faqList")
 	public void faqList(Model model) {
 		log.info("FAQList");
@@ -91,6 +91,6 @@ public class FAQController {
 	    model.addAttribute("pageNum", pageNum);
 	    model.addAttribute("currentPage", page); // 추가된 부분: 현재 페이지 정보 전달
 
-	    return "faq/faqList"; // 뷰 페이지의 이름을 반환
+	    return "redirect:/faq/faqList"; // 뷰 페이지의 이름을 반환
 	}
 }
