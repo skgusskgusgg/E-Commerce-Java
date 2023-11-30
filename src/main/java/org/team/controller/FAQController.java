@@ -20,7 +20,7 @@ import lombok.extern.log4j.Log4j;
 public class FAQController {
 	@Autowired
 	private FAQService FAQservice;
-
+	
 	@GetMapping("/faqList")
 	public void faqList(Model model) {
 		log.info("FAQList");
