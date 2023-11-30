@@ -67,7 +67,7 @@
 						<c:choose>
 							<c:when test="${loginOK == 1}">
 								
-								<a href="/faq/faqList?page=1" class="flex-c-m trans-04 p-lr-25">
+								<a href="/faq/faqListPage?page=1" class="flex-c-m trans-04 p-lr-25">
 								고객센터 & FAQs
 								</a>
 								<a href="/mypage/myPage" class="flex-c-m trans-04 p-lr-25">
@@ -79,7 +79,7 @@
 							</c:when>
 							
 							<c:when test="${loginOK == 99 }">
-								<a href="/faq/faqList?page=1" class="flex-c-m trans-04 p-lr-25">
+								<a href="/faq/faqListPage?page=1" class="flex-c-m trans-04 p-lr-25">
 								고객센터 & FAQs 관리
 								</a>
 								<a href="/mypage/myPage" class="flex-c-m trans-04 p-lr-25">
@@ -91,7 +91,7 @@
 							</c:when>
 							
 							<c:otherwise>
-								<a href="/faq/faqList?page=1" class="flex-c-m trans-04 p-lr-25">
+								<a href="/faq/faqListPage?page=1" class="flex-c-m trans-04 p-lr-25">
 								고객센터 & FAQs
 								</a>
 								<a href="#" class="flex-c-m trans-04 p-lr-25 js-show-modal-login">
@@ -205,7 +205,7 @@
 						<a class="flex-c-m p-lr-10 trans-04">
 						${mVO.user_name}님 안녕하세요	
 						</a>
-						<a href="/faq/faqList" class="flex-c-m p-lr-10 trans-04">
+						<a href="/faq/faqListPage?page=1" class="flex-c-m p-lr-10 trans-04">
 						고객센터 & FAQs
 						</a>
 						<a href="/mypage/myPage" class="fflex-c-m p-lr-10 trans-04">
@@ -220,7 +220,7 @@
 						<a class="flex-c-m p-lr-10 trans-04">
 						관리자 ${mVO.user_name}님 안녕하세요
 						</a>
-						<a href="/faq/faqList" class="flex-c-m p-lr-10 trans-04">
+						<a href="/faq/faqListPage?page=1" class="flex-c-m p-lr-10 trans-04">
 						고객센터 & FAQs 관리
 						</a>
 						<a href="/mypage/myPage" class="flex-c-m p-lr-10 trans-04">
@@ -231,7 +231,7 @@
 						</a>
 					</c:when>
 					<c:otherwise>
-						<a href="/faq/faqList" class="flex-c-m p-lr-10 trans-04">
+						<a href="/faq/faqListPage?page=1" class="flex-c-m p-lr-10 trans-04">
 						고객센터 & FAQs
 						</a>
 						<a href="#" class="flex-c-m p-lr-10 trans-04 js-show-modal-login">
