@@ -86,14 +86,8 @@
 						</ul>
 					</div>
 
-				</div>
-				
-			
-
-
 					<div class="filter-col3 p-r-15 p-b-27">
 						<div class="mtext-102 cl2 p-b-15">Color</div>
-
 
 						<ul>
 							<li class="p-b-6"><span class="fs-15 lh-12 m-r-6"
