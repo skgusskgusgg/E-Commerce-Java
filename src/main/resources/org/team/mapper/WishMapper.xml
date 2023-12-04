@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.team.mapper.WishMapper">
+	<select id="getWishList" resultType="org.team.domain.ProductVO">
+		select * from product
+		where
+		product_id in (select product_id
+		from wish
+		where member_id = #{mVo})
+
+	</select>
+
+	<delete id="deleteWish">
+		delete from wish where product_id in
+		(<foreach collection="pVo" item="product_id" separator=",">
+		 #{product_id}
+		</foreach>)
+		and member_id = #{mVo}
+	</delete>
+
+	<insert id="addCart" >
+		insert into cart(member_id, product_id, `count`)
+			values 
+		<foreach collection="addVo" item="product" separator=",">
+			    (#{mVo},
+			    (select product_id 
+			    from product 
+			    where color_id = #{product.product.color_id} 
+			    and size_id = #{product.product.size_id} 
+			    and product_name = #{product.product.product_name}),
+			    #{product.count})			
+		</foreach>
+		on duplicate key update
+		 <foreach collection="addVo" item="product" separator=",">
+	        product_id = VALUES(product_id),
+	        `count` = CASE product_id 
+	        		  WHEN (select product_id 
+	        		  		from product 
+	        		  		where color_id = #{product.product.color_id} 
+	        		  		and size_id = #{product.product.size_id} 
+	        		  		and product_name = #{product.product.product_name}) 
+	        		  THEN `count` + #{product.count} 
+	        		  ELSE `count` END
+	    </foreach>
+	</insert>
+	<select id="wishTotal" resultType="int">
+		select count(*) from wish where member_id = #{mVo}
+	</select>
+	
+	<select id="cartTotal" resultType="int">
+		select count(*) from cart where member_id = #{mVo}
+	</select>
+</mapper>
