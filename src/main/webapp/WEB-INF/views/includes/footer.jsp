@@ -270,6 +270,9 @@
 				});
 			}); */
 </script>
+<!--===============================================================================================-->	
+<script src="/resources/vendor/sweetalert2/sweetalert2.all.min.js"></script>
+<script src="/resources/js/search-detail.js"></script>
 <!--===============================================================================================-->
 <script
 	src="/resources/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
@@ -292,6 +295,7 @@
 <script src="/resources/js/main.js"></script>
 <script src="/resources/js/wishList.js"></script>
 <script src="/resources/js/productDetail.js"></script>
+<script src="/resources/js/search.js"></script>
 <script>
 function login() {
 	

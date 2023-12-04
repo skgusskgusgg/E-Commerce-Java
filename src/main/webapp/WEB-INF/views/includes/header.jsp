@@ -42,12 +42,13 @@
 <link rel="stylesheet" type="text/css"
 	href="/resources/vendor/perfect-scrollbar/perfect-scrollbar.css">
 <!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" href="/resources/css/util.css">
-<link rel="stylesheet" type="text/css" href="/resources/css/main.css">
-<link rel="stylesheet" type="text/css" href="/resources/css/admin.css">
-<link rel="stylesheet" type="text/css"
-	href="/resources/css/productList.css">
-<script src="/resources/vendor/jquery/jquery-3.2.1.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="/resources/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/resources/css/main.css">
+	<link rel="stylesheet" type="text/css" href="/resources/css/admin.css">
+	<link rel="stylesheet" type="text/css" href="/resources/css/search.css">
+	<link rel="stylesheet" type="text/css" href="/resources/css/productList.css">
+	<script src="/resources/vendor/jquery/jquery-3.2.1.min.js"></script>
 </head>
 <body class="animsition">
 
@@ -76,17 +77,19 @@
 
 						<c:choose>
 							<c:when test="${loginOK == 1}">
-
-								<a href="/faq/faqList?page=1" class="flex-c-m trans-04 p-lr-25">
-									고객센터 & FAQs </a>
+								
+								<a href="/faq/faqListPage?page=1" class="flex-c-m trans-04 p-lr-25">
+								고객센터 & FAQs
+								</a>
 								<a href="/mypage/myPage" class="flex-c-m trans-04 p-lr-25">
 									내 정보 </a>
 								<a href="/logout" class="flex-c-m trans-04 p-lr-25 logoutBtn"> 로그아웃 </a>
 							</c:when>
 
 							<c:when test="${loginOK == 99 }">
-								<a href="/faq/faqList?page=1" class="flex-c-m trans-04 p-lr-25">
-									고객센터 & FAQs 관리 </a>
+								<a href="/faq/faqListPage?page=1" class="flex-c-m trans-04 p-lr-25">
+								고객센터 & FAQs 관리
+								</a>
 								<a href="/mypage/myPage" class="flex-c-m trans-04 p-lr-25">
 									관리자 페이지 </a>
 								<a href="/logout" class="flex-c-m trans-04 p-lr-25"> 관리자 모드
@@ -94,10 +97,11 @@
 							</c:when>
 
 							<c:otherwise>
-								<a href="/faq/faqList?page=1" class="flex-c-m trans-04 p-lr-25">
-									고객센터 & FAQs </a>
-								<a href="#"
-									class="flex-c-m trans-04 p-lr-25 js-show-modal-login"> 로그인
+								<a href="/faq/faqListPage?page=1" class="flex-c-m trans-04 p-lr-25">
+								고객센터 & FAQs
+								</a>
+								<a href="#" class="flex-c-m trans-04 p-lr-25 js-show-modal-login">
+									로그인
 								</a>
 								<a href="/join/join" class="flex-c-m trans-04 p-lr-25"> 회원가입
 								</a>
@@ -138,8 +142,10 @@
 
 					<!-- Icon header -->
 					<div class="wrap-icon-header flex-w flex-r-m">
+<
 						<div
 							class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
+
 							<i class="zmdi zmdi-search"></i>
 						</div>
 
@@ -158,6 +164,7 @@
 		</div>
 
 		<!-- Header Mobile -->
+
 		<div class="wrap-header-mobile">
 			<!-- Logo moblie -->
 			<div class="logo-mobile">
@@ -239,6 +246,7 @@
 
 			<ul class="main-menu-m">
 				<li><a href="/">Home</a></li>
+
 
 				<li><a href="/product/productList?category_id=0">Shop</a>
 					<ul class="sub-menu-m">
