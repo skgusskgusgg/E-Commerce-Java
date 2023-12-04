@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="org.team.mapper.AdminMapper">
+ 	<!-- 회원목록 -->
+	<select id="memberList" resultType="org.team.join.MemberDTO" >
+		select * from member limit #{cri.startPage}, #{cri.amount}
+	</select>
+	<!-- 회원 숫자 total -->
+	<select id="memberTotal" resultType="int" >
+		select count(*) from member
+	</select>
+	
+
+  </mapper>

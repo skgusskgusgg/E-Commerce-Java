@@ -10,5 +10,7 @@ public interface MemberMapper {
 	public void register(MemberDTO member);
 	public int emailCheck(String email);
 	public MemberVO memberLogin(MemberVO mVO);
+	public int update(MemberDTO member);
+	public int passwordCheck(MemberDTO member);
 
 }
