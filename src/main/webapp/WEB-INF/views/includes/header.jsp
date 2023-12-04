@@ -77,16 +77,18 @@
 						<c:choose>
 							<c:when test="${loginOK == 1}">
 
-								<a href="/faq/faqListPage?page=1" class="flex-c-m trans-04 p-lr-25">
-									고객센터 & FAQs </a>
+
+								<a href="/faq/faqListPage?page=1"
+									class="flex-c-m trans-04 p-lr-25"> 고객센터 & FAQs </a>
 								<a href="/mypage/myPage" class="flex-c-m trans-04 p-lr-25">
 									내 정보 </a>
-								<a href="/logout" class="flex-c-m trans-04 p-lr-25 logoutBtn"> 로그아웃 </a>
+								<a href="/logout" class="flex-c-m trans-04 p-lr-25"> 로그아웃 </a>
 							</c:when>
 
 							<c:when test="${loginOK == 99 }">
-								<a href="/faq/faqList?page=1" class="flex-c-m trans-04 p-lr-25">
-									고객센터 & FAQs 관리 </a>
+								<a href="/faq/faqListPage?page=1"
+									class="flex-c-m trans-04 p-lr-25"> 고객센터 & FAQs 관리 </a>
+
 								<a href="/mypage/myPage" class="flex-c-m trans-04 p-lr-25">
 									관리자 페이지 </a>
 								<a href="/logout" class="flex-c-m trans-04 p-lr-25"> 관리자 모드
@@ -94,8 +96,10 @@
 							</c:when>
 
 							<c:otherwise>
-								<a href="/faq/faqListPage?page=1" class="flex-c-m trans-04 p-lr-25">
-									고객센터 & FAQs </a>
+
+								<a href="/faq/faqListPage?page=1"
+									class="flex-c-m trans-04 p-lr-25"> 고객센터 & FAQs </a>
+
 								<a href="#"
 									class="flex-c-m trans-04 p-lr-25 js-show-modal-login"> 로그인
 								</a>
@@ -131,7 +135,9 @@
 										class="navFilter" data-filter="3">Pants</a></li>
 								</ul></li>
 
-							<li><a href="/qna/qnaList">Notice</a></li>
+
+							<li><a href="/board/boardListPage?page=1">Notice</a></li>
+
 
 						</ul>
 					</div>
@@ -144,12 +150,14 @@
 						</div>
 
 						<a href="/cart/cartList"
-							class="data-noti-cart icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti "
-							data-notify="0"> <i class="zmdi zmdi-shopping-cart"></i>
+
+							class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti "
+							data-notify="2"> <i class="zmdi zmdi-shopping-cart"></i>
 						</a>
-						<!-- js-wish-cart -->
-						<a 
-							class="data-noti-wish icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-cart icon-header-noti"
+						<!-- js-show-cart -->
+						<a href="#"
+							class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-cart"
+
 							data-notify="0"> <i class="zmdi zmdi-favorite-outline"></i>
 						</a>
 					</div>
@@ -173,16 +181,27 @@
 				</div>
 
 
-				<a href="/cart/cartList"
-					class="data-noti-cart icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti "
-					data-notify="0"> <i class="zmdi zmdi-shopping-cart"></i>
-				</a>
-				<!-- js-show-wish -->
+				<div
+					class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti "
+					data-notify="2">
+					<a href="/cart/cartList" style="color: inherit;"> <i
+						class="zmdi zmdi-shopping-cart"></i>
+					</a>
+				</div>
+
 				<a href="#"
-					class="data-noti-wish icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-cart icon-header-noti"
+					class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
 					data-notify="0"> <i class="zmdi zmdi-favorite-outline"></i>
 				</a>
 			</div>
+
+			<!-- Button show menu -->
+			<div class="btn-show-menu-mobile hamburger hamburger--squeeze">
+				<span class="hamburger-box"> <span class="hamburger-inner"></span>
+				</span>
+			</div>
+		</div>
+
 
 			<!-- Button show menu -->
 			<div class="btn-show-menu-mobile hamburger hamburger--squeeze">
@@ -206,26 +225,32 @@
 							<c:when test="${loginOK == 1}">
 								<a class="flex-c-m p-lr-10 trans-04"> ${mVO.user_name}님
 									안녕하세요 </a>
-								<a href="/faq/faqListPage?page=1" class="flex-c-m p-lr-10 trans-04">
-									고객센터 & FAQs </a>
+
+								<a href="/faq/faqListPage?page=1"
+									class="flex-c-m p-lr-10 trans-04"> 고객센터 & FAQs </a>
 								<a href="/mypage/myPage" class="fflex-c-m p-lr-10 trans-04">
 									내 정보 </a>
-								<a href="/logout" class="flex-c-m p-lr-10 trans-04 logoutBtn"> 로그아웃 </a>
+								<a href="/logout" class="flex-c-m p-lr-10 trans-04"> 로그아웃 </a>
+
 							</c:when>
 
 							<c:when test="${loginOK == 99 }">
 								<a class="flex-c-m p-lr-10 trans-04"> 관리자 ${mVO.user_name}님
 									안녕하세요 </a>
+
 								<a href="/faq/faqListPage?page=1" class="flex-c-m p-lr-10 trans-04">
 									고객센터 & FAQs 관리 </a>
+
 								<a href="/mypage/myPage" class="flex-c-m p-lr-10 trans-04">
 									관리자 페이지 </a>
 								<a href="/logout" class="flex-c-m p-lr-10 trans-04"> 관리자 모드
 									종료 </a>
 							</c:when>
 							<c:otherwise>
+
 								<a href="/faq/faqListPage?page=1" class="flex-c-m p-lr-10 trans-04">
 									고객센터 & FAQs </a>
+
 								<a href="#"
 									class="flex-c-m p-lr-10 trans-04 js-show-modal-login"> 로그인
 								</a>
@@ -238,6 +263,7 @@
 			</ul>
 
 			<ul class="main-menu-m">
+
 				<li><a href="/">Home</a></li>
 
 				<li><a href="/product/productList?category_id=0">Shop</a>
@@ -255,6 +281,7 @@
 					</ul> <span class="arrow-main-menu-m"> <i
 						class="fa fa-angle-right" aria-hidden="true"></i>
 				</span></li>
+
 			</ul>
 		</div>
 
@@ -285,7 +312,12 @@
 						</form>
 					</div>
 				</div>
-				<%@include file="../wishList/wish.jsp"%>
+
+			</div>
+		</div>
+
+		<%@include file="../wishList/wish.jsp"%>
+
 	</header>
 	<script type="text/javascript">
 		$(document).ready(
@@ -331,6 +363,8 @@
 						var filter = $(this).attr("data-filter");
 						localStorage.setItem('navFilter', filter);
 					});
+
+				});
 					$.ajax({
 						type : 'GET',
 						url : '/wish/wishTotal',
@@ -364,4 +398,16 @@
 					})
 
 				});
+	</script>
+	<script>
+		function toDelete() {
+			var deleteVal = confirm("삭제하시겠습니까?");
+			if (deleteVal == true) {
+				alert("삭제 완료");
+				location.replace("/board/boardListPage?page=1");
+				return deleteVal;
+			} else {
+				return deleteVal;
+			}
+		}
 	</script>
