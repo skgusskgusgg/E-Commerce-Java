@@ -40,6 +40,7 @@
 	href="/resources/vendor/MagnificPopup/magnific-popup.css">
 <!--===============================================================================================-->
 <<<<<<< HEAD
+<<<<<<< HEAD
 <link rel="stylesheet" type="text/css"
 	href="/resources/vendor/perfect-scrollbar/perfect-scrollbar.css">
 <!--===============================================================================================-->
@@ -50,14 +51,23 @@
 	href="/resources/css/productList.css">
 <script src="/resources/vendor/jquery/jquery-3.2.1.min.js"></script>
 =======
+=======
+<link rel="stylesheet" type="text/css"
+	href="/resources/vendor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
+
+>>>>>>> c49a246c35c2a89884a2e24238842eeee268df9f
 	<link rel="stylesheet" type="text/css" href="/resources/css/util.css">
 	<link rel="stylesheet" type="text/css" href="/resources/css/main.css">
 	<link rel="stylesheet" type="text/css" href="/resources/css/admin.css">
 	<link rel="stylesheet" type="text/css" href="/resources/css/search.css">
 	<link rel="stylesheet" type="text/css" href="/resources/css/productList.css">
 	<script src="/resources/vendor/jquery/jquery-3.2.1.min.js"></script>
+<<<<<<< HEAD
 
 >>>>>>> 295796f402ad7dd1d97f28f09ff8fd473d9b5545
+=======
+>>>>>>> c49a246c35c2a89884a2e24238842eeee268df9f
 </head>
 <body class="animsition">
 
@@ -87,21 +97,28 @@
 						<c:choose>
 							<c:when test="${loginOK == 1}">
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 								<a href="/faq/faqList?page=1" class="flex-c-m trans-04 p-lr-25">
 									고객센터 & FAQs </a>
 =======
+=======
+>>>>>>> c49a246c35c2a89884a2e24238842eeee268df9f
 								
 								<a href="/faq/faqListPage?page=1" class="flex-c-m trans-04 p-lr-25">
 								고객센터 & FAQs
 								</a>
+<<<<<<< HEAD
 >>>>>>> 295796f402ad7dd1d97f28f09ff8fd473d9b5545
+=======
+>>>>>>> c49a246c35c2a89884a2e24238842eeee268df9f
 								<a href="/mypage/myPage" class="flex-c-m trans-04 p-lr-25">
 									내 정보 </a>
 								<a href="/logout" class="flex-c-m trans-04 p-lr-25 logoutBtn"> 로그아웃 </a>
 							</c:when>
 
 							<c:when test="${loginOK == 99 }">
+<<<<<<< HEAD
 <<<<<<< HEAD
 								<a href="/faq/faqList?page=1" class="flex-c-m trans-04 p-lr-25">
 									고객센터 & FAQs 관리 </a>
@@ -110,6 +127,11 @@
 								고객센터 & FAQs 관리
 								</a>
 >>>>>>> 295796f402ad7dd1d97f28f09ff8fd473d9b5545
+=======
+								<a href="/faq/faqListPage?page=1" class="flex-c-m trans-04 p-lr-25">
+								고객센터 & FAQs 관리
+								</a>
+>>>>>>> c49a246c35c2a89884a2e24238842eeee268df9f
 								<a href="/mypage/myPage" class="flex-c-m trans-04 p-lr-25">
 									관리자 페이지 </a>
 								<a href="/logout" class="flex-c-m trans-04 p-lr-25"> 관리자 모드
@@ -117,6 +139,7 @@
 							</c:when>
 
 							<c:otherwise>
+<<<<<<< HEAD
 <<<<<<< HEAD
 								<a href="/faq/faqList?page=1" class="flex-c-m trans-04 p-lr-25">
 									고객센터 & FAQs </a>
@@ -126,6 +149,13 @@
 								<a href="/faq/faqListPage?page=1" class="flex-c-m trans-04 p-lr-25">
 								고객센터 & FAQs
 >>>>>>> 295796f402ad7dd1d97f28f09ff8fd473d9b5545
+=======
+								<a href="/faq/faqListPage?page=1" class="flex-c-m trans-04 p-lr-25">
+								고객센터 & FAQs
+								</a>
+								<a href="#" class="flex-c-m trans-04 p-lr-25 js-show-modal-login">
+									로그인
+>>>>>>> c49a246c35c2a89884a2e24238842eeee268df9f
 								</a>
 								<a href="/join/join" class="flex-c-m trans-04 p-lr-25"> 회원가입
 								</a>
@@ -167,11 +197,18 @@
 					<!-- Icon header -->
 					<div class="wrap-icon-header flex-w flex-r-m">
 <<<<<<< HEAD
+<<<<<<< HEAD
 						<div
 							class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
 =======
 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 show-search-modal">
 >>>>>>> 295796f402ad7dd1d97f28f09ff8fd473d9b5545
+=======
+<
+						<div
+							class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
+
+>>>>>>> c49a246c35c2a89884a2e24238842eeee268df9f
 							<i class="zmdi zmdi-search"></i>
 						</div>
 
@@ -190,6 +227,7 @@
 		</div>
 
 		<!-- Header Mobile -->
+
 		<div class="wrap-header-mobile">
 			<!-- Logo moblie -->
 			<div class="logo-mobile">
@@ -198,12 +236,16 @@
 			</div>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c49a246c35c2a89884a2e24238842eeee268df9f
 			<!-- Icon header -->
 			<div class="wrap-icon-header flex-w flex-r-m m-r-15">
 				<div
 					class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
 					<i class="zmdi zmdi-search"></i>
 				</div>
+<<<<<<< HEAD
 =======
          <!-- Icon header -->
          <div class="wrap-icon-header flex-w flex-r-m m-r-15">
@@ -230,6 +272,8 @@
          </div>
       </div>
 >>>>>>> 295796f402ad7dd1d97f28f09ff8fd473d9b5545
+=======
+>>>>>>> c49a246c35c2a89884a2e24238842eeee268df9f
 
 
 				<a href="/cart/cartList"
@@ -244,12 +288,16 @@
 			</div>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c49a246c35c2a89884a2e24238842eeee268df9f
 			<!-- Button show menu -->
 			<div class="btn-show-menu-mobile hamburger hamburger--squeeze">
 				<span class="hamburger-box"> <span class="hamburger-inner"></span>
 				</span>
 			</div>
 		</div>
+<<<<<<< HEAD
 =======
             <li>
             <div class="right-top-bar flex-w h-full">
@@ -299,6 +347,8 @@
             </li>
          </ul>
 >>>>>>> 295796f402ad7dd1d97f28f09ff8fd473d9b5545
+=======
+>>>>>>> c49a246c35c2a89884a2e24238842eeee268df9f
 
 
 		<!-- Menu Mobile -->
@@ -349,12 +399,16 @@
 			<ul class="main-menu-m">
 				<li><a href="/">Home</a></li>
 
+
 				<li><a href="/product/productList?category_id=0">Shop</a>
 					<ul class="sub-menu-m">
 						<li><a href="/product/productList?category_id=1">Outer</a></li>
 						<li><a href="/product/productList?category_id=2">Top</a></li>
 						<li><a href="/product/productList?category_id=3">Pants</a></li>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c49a246c35c2a89884a2e24238842eeee268df9f
 					</ul> <span class="arrow-main-menu-m"> <i
 						class="fa fa-angle-right" aria-hidden="true"></i>
 				</span></li>
@@ -397,6 +451,7 @@
 				</div>
 				<%@include file="../wishList/wish.jsp"%>
 	</header>
+<<<<<<< HEAD
 =======
 					</ul>
 					<span class="arrow-main-menu-m">
@@ -423,6 +478,8 @@
    </header>
 
 >>>>>>> 295796f402ad7dd1d97f28f09ff8fd473d9b5545
+=======
+>>>>>>> c49a246c35c2a89884a2e24238842eeee268df9f
 	<script type="text/javascript">
 		$(document).ready(
 				function() {
@@ -464,6 +521,9 @@
 					}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c49a246c35c2a89884a2e24238842eeee268df9f
 					navFilter.on("click", function() {
 						var filter = $(this).attr("data-filter");
 						localStorage.setItem('navFilter', filter);
@@ -502,7 +562,10 @@
 
 				});
 	</script>
+<<<<<<< HEAD
 =======
 	</script>
 
 >>>>>>> 295796f402ad7dd1d97f28f09ff8fd473d9b5545
+=======
+>>>>>>> c49a246c35c2a89884a2e24238842eeee268df9f
