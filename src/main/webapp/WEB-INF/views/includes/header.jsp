@@ -39,6 +39,7 @@
 <link rel="stylesheet" type="text/css"
 	href="/resources/vendor/MagnificPopup/magnific-popup.css">
 <!--===============================================================================================-->
+<<<<<<< HEAD
 <link rel="stylesheet" type="text/css"
 	href="/resources/vendor/perfect-scrollbar/perfect-scrollbar.css">
 <!--===============================================================================================-->
@@ -48,6 +49,15 @@
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/productList.css">
 <script src="/resources/vendor/jquery/jquery-3.2.1.min.js"></script>
+=======
+	<link rel="stylesheet" type="text/css" href="/resources/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/resources/css/main.css">
+	<link rel="stylesheet" type="text/css" href="/resources/css/admin.css">
+	<link rel="stylesheet" type="text/css" href="/resources/css/search.css">
+	<link rel="stylesheet" type="text/css" href="/resources/css/productList.css">
+	<script src="/resources/vendor/jquery/jquery-3.2.1.min.js"></script>
+
+>>>>>>> 295796f402ad7dd1d97f28f09ff8fd473d9b5545
 </head>
 <body class="animsition">
 
@@ -76,17 +86,30 @@
 
 						<c:choose>
 							<c:when test="${loginOK == 1}">
+<<<<<<< HEAD
 
 								<a href="/faq/faqList?page=1" class="flex-c-m trans-04 p-lr-25">
 									고객센터 & FAQs </a>
+=======
+								
+								<a href="/faq/faqListPage?page=1" class="flex-c-m trans-04 p-lr-25">
+								고객센터 & FAQs
+								</a>
+>>>>>>> 295796f402ad7dd1d97f28f09ff8fd473d9b5545
 								<a href="/mypage/myPage" class="flex-c-m trans-04 p-lr-25">
 									내 정보 </a>
 								<a href="/logout" class="flex-c-m trans-04 p-lr-25 logoutBtn"> 로그아웃 </a>
 							</c:when>
 
 							<c:when test="${loginOK == 99 }">
+<<<<<<< HEAD
 								<a href="/faq/faqList?page=1" class="flex-c-m trans-04 p-lr-25">
 									고객센터 & FAQs 관리 </a>
+=======
+								<a href="/faq/faqListPage?page=1" class="flex-c-m trans-04 p-lr-25">
+								고객센터 & FAQs 관리
+								</a>
+>>>>>>> 295796f402ad7dd1d97f28f09ff8fd473d9b5545
 								<a href="/mypage/myPage" class="flex-c-m trans-04 p-lr-25">
 									관리자 페이지 </a>
 								<a href="/logout" class="flex-c-m trans-04 p-lr-25"> 관리자 모드
@@ -94,10 +117,15 @@
 							</c:when>
 
 							<c:otherwise>
+<<<<<<< HEAD
 								<a href="/faq/faqList?page=1" class="flex-c-m trans-04 p-lr-25">
 									고객센터 & FAQs </a>
 								<a href="#"
 									class="flex-c-m trans-04 p-lr-25 js-show-modal-login"> 로그인
+=======
+								<a href="/faq/faqListPage?page=1" class="flex-c-m trans-04 p-lr-25">
+								고객센터 & FAQs
+>>>>>>> 295796f402ad7dd1d97f28f09ff8fd473d9b5545
 								</a>
 								<a href="/join/join" class="flex-c-m trans-04 p-lr-25"> 회원가입
 								</a>
@@ -138,8 +166,12 @@
 
 					<!-- Icon header -->
 					<div class="wrap-icon-header flex-w flex-r-m">
+<<<<<<< HEAD
 						<div
 							class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
+=======
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 show-search-modal">
+>>>>>>> 295796f402ad7dd1d97f28f09ff8fd473d9b5545
 							<i class="zmdi zmdi-search"></i>
 						</div>
 
@@ -165,12 +197,39 @@
 					alt="IMG-LOGO"></a>
 			</div>
 
+<<<<<<< HEAD
 			<!-- Icon header -->
 			<div class="wrap-icon-header flex-w flex-r-m m-r-15">
 				<div
 					class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
 					<i class="zmdi zmdi-search"></i>
 				</div>
+=======
+         <!-- Icon header -->
+         <div class="wrap-icon-header flex-w flex-r-m m-r-15">
+            <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 show-search-modal">
+               <i class="zmdi zmdi-search"></i>
+            </div>
+
+            <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti " data-notify="2">
+               <a href="/cart/cartList" style="color: inherit;">
+               <i class="zmdi zmdi-shopping-cart"></i>
+               </a>
+            </div>
+
+            <a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="0">
+               <i class="zmdi zmdi-favorite-outline"></i>
+            </a>
+         </div>
+
+         <!-- Button show menu -->
+         <div class="btn-show-menu-mobile hamburger hamburger--squeeze">
+            <span class="hamburger-box">
+               <span class="hamburger-inner"></span>
+            </span>
+         </div>
+      </div>
+>>>>>>> 295796f402ad7dd1d97f28f09ff8fd473d9b5545
 
 
 				<a href="/cart/cartList"
@@ -184,12 +243,62 @@
 				</a>
 			</div>
 
+<<<<<<< HEAD
 			<!-- Button show menu -->
 			<div class="btn-show-menu-mobile hamburger hamburger--squeeze">
 				<span class="hamburger-box"> <span class="hamburger-inner"></span>
 				</span>
 			</div>
 		</div>
+=======
+            <li>
+            <div class="right-top-bar flex-w h-full">
+            	<c:choose>
+					<c:when test="${loginOK == 1}">
+						<a class="flex-c-m p-lr-10 trans-04">
+						${mVO.user_name}님 안녕하세요	
+						</a>
+						<a href="/faq/faqListPage?page=1" class="flex-c-m p-lr-10 trans-04">
+						고객센터 & FAQs
+						</a>
+						<a href="/mypage/myPage" class="fflex-c-m p-lr-10 trans-04">
+						내 정보
+						</a>
+						<a href="/logout" class="flex-c-m p-lr-10 trans-04">
+						로그아웃
+						</a>
+					</c:when>
+					
+					<c:when test="${loginOK == 99 }">
+						<a class="flex-c-m p-lr-10 trans-04">
+						관리자 ${mVO.user_name}님 안녕하세요
+						</a>
+						<a href="/faq/faqListPage?page=1" class="flex-c-m p-lr-10 trans-04">
+						고객센터 & FAQs 관리
+						</a>
+						<a href="/mypage/myPage" class="flex-c-m p-lr-10 trans-04">
+						관리자 페이지
+						</a>
+						<a href="/logout" class="flex-c-m p-lr-10 trans-04">
+						관리자 모드 종료
+						</a>
+					</c:when>
+					<c:otherwise>
+						<a href="/faq/faqListPage?page=1" class="flex-c-m p-lr-10 trans-04">
+						고객센터 & FAQs
+						</a>
+						<a href="#" class="flex-c-m p-lr-10 trans-04 js-show-modal-login">
+							로그인
+						</a>
+						<a href="/join/join" class="flex-c-m p-lr-10 trans-04">
+							회원가입
+						</a>
+					</c:otherwise>
+					</c:choose>
+               </div>
+            </li>
+         </ul>
+>>>>>>> 295796f402ad7dd1d97f28f09ff8fd473d9b5545
 
 
 		<!-- Menu Mobile -->
@@ -245,6 +354,7 @@
 						<li><a href="/product/productList?category_id=1">Outer</a></li>
 						<li><a href="/product/productList?category_id=2">Top</a></li>
 						<li><a href="/product/productList?category_id=3">Pants</a></li>
+<<<<<<< HEAD
 					</ul> <span class="arrow-main-menu-m"> <i
 						class="fa fa-angle-right" aria-hidden="true"></i>
 				</span></li>
@@ -287,6 +397,32 @@
 				</div>
 				<%@include file="../wishList/wish.jsp"%>
 	</header>
+=======
+					</ul>
+					<span class="arrow-main-menu-m">
+						<i class="fa fa-angle-right" aria-hidden="true"></i>
+					</span>
+				</li>
+				<li class="active-menu">
+					<a href="/qna/list">Board</a>
+					<ul class="sub-menu">
+						<li><a href="/qna/list">Notice</a></li>
+						<li><a href="/qna/list">QnA</a></li>
+						<li><a href="/qna/list">Review</a></li>
+					</ul>
+							
+				</li>
+
+         </ul>
+      </div>
+
+      <!-- Modal Search -->
+
+      <%@include file="../search/search.jsp" %>
+   <%@include file="../wishList/wish.jsp" %>
+   </header>
+
+>>>>>>> 295796f402ad7dd1d97f28f09ff8fd473d9b5545
 	<script type="text/javascript">
 		$(document).ready(
 				function() {
@@ -327,6 +463,7 @@
 						console.log('Current path:', path);
 					}
 
+<<<<<<< HEAD
 					navFilter.on("click", function() {
 						var filter = $(this).attr("data-filter");
 						localStorage.setItem('navFilter', filter);
@@ -365,3 +502,7 @@
 
 				});
 	</script>
+=======
+	</script>
+
+>>>>>>> 295796f402ad7dd1d97f28f09ff8fd473d9b5545
