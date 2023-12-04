@@ -105,13 +105,22 @@
 		FROM wish
 		WHERE product_id = #{product_id} AND member_id = #{member_id}
 	</select>
+
 	<insert id="postCart">
-		insert into cart(member_id,product_id,`count`) 
-					values(#{mVo},
-							(select product_id 
-									from product where color_id = #{pVo.color_id} 
-									and size_id=#{pVo.size_id} 
-									and product_name=#{pVo.product_name})
-						 ,#{count});
+	   insert into cart(member_id, product_id, `count`)
+		select 
+		    #{mVo},
+		    (select product_id
+			     from product
+			     where color_id = #{aVo.product.color_id}
+		       	 and size_id = #{aVo.product.size_id}
+		         and product_name = #{aVo.product.product_name}) as product_id,
+		    #{aVo.count}
+		from dual
+		on duplicate key update
+		`count` = `count` + #{aVo.count}
 	</insert>
+
+	
+	
 </mapper>
