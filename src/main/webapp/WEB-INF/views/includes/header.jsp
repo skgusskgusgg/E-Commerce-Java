@@ -36,6 +36,7 @@
 	<link rel="stylesheet" type="text/css" href="/resources/css/admin.css">
 	<link rel="stylesheet" type="text/css" href="/resources/css/search.css">
 	<link rel="stylesheet" type="text/css" href="/resources/css/productList.css">
+	<link rel="stylesheet" type="text/css" href="/resources/css/cart.css">
 	<script src="/resources/vendor/jquery/jquery-3.2.1.min.js"></script>
 
 </head>
@@ -143,10 +144,11 @@
 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 show-search-modal">
 							<i class="zmdi zmdi-search"></i>
 						</div>
-						
-						<a href="/cart/cartList" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti " data-notify="2">
-							<i class="zmdi zmdi-shopping-cart"></i>
-						</a>
+						<div class="icon-header-item p-l-22 p-r-11 cart-header-icon-desktop">
+							<a href="/cart/cartList" class=" cl2 hov-cl1 trans-04">
+								<i class="zmdi zmdi-shopping-cart"></i>
+							</a>
+						</div>
 						<!-- js-show-cart -->
 						<a href="#" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-cart" data-notify="0">
 							<i class="zmdi zmdi-favorite-outline"></i>
@@ -168,12 +170,12 @@
             <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 show-search-modal">
                <i class="zmdi zmdi-search"></i>
             </div>
-
-            <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti " data-notify="2">
-               <a href="/cart/cartList" style="color: inherit;">
-               <i class="zmdi zmdi-shopping-cart"></i>
-               </a>
-            </div>
+			
+			<div class="icon-header-item p-l-10 p-r-11 cart-header-icon-mobile">
+				<a href="/cart/cartList" class=" cl2 hov-cl1 trans-04" style="color: inherit;">
+					<i class="zmdi zmdi-shopping-cart"></i>
+				</a>
+			</div>
 
             <a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="0">
                <i class="zmdi zmdi-favorite-outline"></i>

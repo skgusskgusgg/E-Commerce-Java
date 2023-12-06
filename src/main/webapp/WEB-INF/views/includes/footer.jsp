@@ -220,6 +220,49 @@
 <script src="/resources/vendor/slick/slick.min.js"></script>
 <script src="/resources/js/slick-custom.js"></script>
 <!--===============================================================================================-->
+<script>
+$(document).ready(function () {
+	$.ajax({
+        url: '/cart/headerIcon',
+        method: 'GET',
+        data: {
+            "memberId": parseInt($('#memberId').val())
+        },
+        success: function(data, textStatus, xhr) {
+            updateCartIcon(data);
+            updataCartIconMobile(data);
+        },
+
+        error: function(xhr, textStatus, errorThrown) {
+            console.error("Cart header icon error:", errorThrown);
+    	}
+	});
+	function updateCartIcon(data) {
+	    var cartIconUpdate = "<a href='/cart/cartList' class='cl2 hov-cl1 trans-04'>";
+	    cartIconUpdate += "<i class='zmdi zmdi-shopping-cart'></i>";
+	    cartIconUpdate += "</a>";
+
+	    if (data !== "fail") {
+	        cartIconUpdate += "<div class='icon-header-noti' data-notify='" + data + "'></div>";
+	    }
+
+	    $('.cart-header-icon-desktop').html(cartIconUpdate);
+	}
+	function updataCartIconMobile(data){
+	    var cartIconUpdate = "<a href='/cart/cartList' class='cl2 hov-cl1 trans-04' style='color: inherit;'>";
+	    cartIconUpdate += "<i class='zmdi zmdi-shopping-cart'></i>";
+	    cartIconUpdate += "</a>";
+
+	    if (data !== "fail") {
+	        cartIconUpdate += "<div class='icon-header-noti' data-notify='" + data + "'></div>";
+	    }
+
+	    $('.cart-header-icon-mobile').html(cartIconUpdate);
+	}
+	
+});
+</script>
+<!--===============================================================================================-->
 <script src="/resources/vendor/parallax100/parallax100.js"></script>
 <script>
 	$('.parallax100').parallax100();
@@ -296,6 +339,7 @@
 <script src="/resources/js/wishList.js"></script>
 <script src="/resources/js/productDetail.js"></script>
 <script src="/resources/js/search.js"></script>
+<script src="/resources/js/cart.js"></script>
 <script>
 function login() {
 	

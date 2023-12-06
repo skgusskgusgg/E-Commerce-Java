@@ -26,11 +26,20 @@ public class CartServiceImpl implements CartService {
 		return mapper.getCartList(member_id);
 
 	}
+	
+	@Override
+	public Integer getCartCount(int member_id){
+		log.info("get cart count..." + member_id);
+
+		return mapper.getCartCount(member_id);
+	}
+	
 	@Override
 	public boolean deleteCartList(List<String> cartSelectList) {
 		log.info("Delete cart list..." + cartSelectList);
 		return mapper.deleteCartList(cartSelectList);
 	}
+	
 	@Override
 	public boolean updateCartAmount(Map<String,String> amountMap) {
 		log.info("Update cart amount..." + amountMap);
