@@ -44,6 +44,7 @@ public class CartController {
         }
 		 return "redirect:/";
     }
+	
 	public List<Map<String, Object>> getCartListService(int member_id){
 		List<CartVO> cartListResult = service.getCartList(member_id);
         List<Map<String, Object>> resultAsMapList = new ArrayList<>();
@@ -64,6 +65,22 @@ public class CartController {
         }
 		return resultAsMapList;
 	}
+	
+	@GetMapping("/headerIcon")
+    public ResponseEntity<?> getCartCount(HttpSession session, Model model) {
+		MemberVO mVO = (MemberVO)session.getAttribute("mVO");
+		HttpHeaders headers = new HttpHeaders();
+		String message = "";
+		if (mVO != null) {
+		    int memberId = mVO.getId();
+		    message=Integer.toString(service.getCartCount(memberId));
+
+            return new ResponseEntity<>(message,headers, HttpStatus.OK);
+        }
+		message="fail";
+		return new ResponseEntity<>(message,headers, HttpStatus.OK);
+    }
+	
 	@PostMapping(value = "/delete")
 	public ResponseEntity<?> delete(@RequestParam("cartSelectList") List<String> cartSelectList,
     						@RequestParam("memberId") Integer memberId,
@@ -79,6 +96,7 @@ public class CartController {
 		headers.add("Location", "/");
         return new ResponseEntity<>(headers, HttpStatus.OK);
     }
+	
 	@PostMapping(value = "/update")
 	public ResponseEntity<?> update(@RequestParam("numProduct") String productAmount,
 							@RequestParam("cart_id") String cart_id,

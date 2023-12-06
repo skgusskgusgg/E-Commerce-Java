@@ -13,6 +13,12 @@
 	]]>
 	</select>
 	
+	<select id="getCartCount" resultType="Integer">
+	<![CDATA[ 
+		SELECT count(*) FROM cart where member_id=#{member_id};
+	]]>
+	</select>
+	
 	<delete id="deleteCartList" parameterType="java.util.List">
         DELETE FROM cart
     WHERE cart_id IN
