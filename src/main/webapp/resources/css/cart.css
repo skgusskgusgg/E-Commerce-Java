@@ -1,0 +1,121 @@
+@charset "EUC-KR";
+
+.cart-container {max-width: 1380px;}
+
+@media (max-width: 1600px) {
+  .cart-container {max-width: 1200px;}
+}
+.cart-list-subtotal-content{
+	display:flex;
+}
+
+/*//////////////////////////////////////////////////////////////////
+[ Table Shopping Cart ]*/
+
+.wrap-shopping-cart-table {
+  overflow: auto;
+  border-left: 1px solid #e6e6e6;
+  border-right: 1px solid #e6e6e6;
+}
+
+.shopping-cart-table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 680px;
+  border-bottom: 1px solid #dfdfdf;
+}
+
+
+.shopping-cart-table .table_head {
+  border: 1px solid #dfdfdf;
+}
+.shopping-cart-table tr {
+  border-left: 1px solid #dfdfdf;
+  border-right: 1px solid #dfdfdf;
+}
+
+.shopping-cart-table .cart-check {
+  width: 80px;
+  padding-left: 15px;
+}
+
+.shopping-cart-table .column-1 {
+  width: 133px;
+  padding-left: 10px;
+}
+
+.shopping-cart-table .column-2 {
+  width: 220px;
+  font-size: 15px;
+}
+
+.shopping-cart-table .column-3 {
+  width: 120px;
+  font-size: 16px;
+}
+
+.shopping-cart-table .column-4 {
+  width: 145px;
+  text-align: center;
+}
+
+.shopping-cart-table .column-5 {
+  width: 172px;
+  padding-right: 50px;
+  text-align: right;
+  font-size: 16px;
+}
+
+.shopping-cart-table .table_row {
+  height: 185px;
+}
+.shopping-cart-table .table_row2 {
+  height: 80px;
+}
+.shopping-cart-table .table_row .cart-check {
+	text-align: center;
+    vertical-align: middle;
+}
+
+.shopping-cart-table .table_row td {
+  padding-bottom: 20px;
+}
+
+.shopping-cart-table .table_row td.column-1 {
+  padding-bottom: 30px;
+}
+
+.shopping-cart-table .table_head th {
+  font-family: Poppins-Bold;
+  font-size: 13px;
+  color: #555;
+  text-transform: uppercase;
+  line-height: 1.6;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.shopping-cart-table td {
+  font-family: Poppins-Regular;
+  color: #555;
+  line-height: 1.6;
+}
+.shopping-cart-table .table-product-option {
+	height: 50px;
+	padding-top: 10px;
+  	padding-bottom: 10px;
+	border-bottom: 1px solid #dfdfdf;
+}
+.shopping-cart-table .table-product-option .table-product-option-title {
+  font-family: Poppins-Bold;
+  font-size: 13px;
+  color: #555;
+  text-transform: uppercase;
+}
+
+.num-product-up-btn,
+.num-product-down-btn {
+  width: 45px;
+  height: 100%;
+  cursor: pointer;
+}

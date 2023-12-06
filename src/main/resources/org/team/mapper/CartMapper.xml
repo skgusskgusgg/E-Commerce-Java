@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.team.mapper.CartMapper">
+
+	<select id="getCartList" resultType="org.team.cart.CartVO">
+	<![CDATA[ 
+		SELECT cart.cart_id, cart.member_id, cart.product_id, cart.count, product.product_name, product.price, product.img, product.color_id, product.size_id
+		FROM cart
+		JOIN product ON cart.product_id = product.product_id
+		WHERE cart.member_id = #{member_id}
+	]]>
+	</select>
+	
+	<delete id="deleteCartList" parameterType="java.util.List">
+        DELETE FROM cart
+    WHERE cart_id IN
+    <foreach collection="list" item="cart_id" index="index" open="(" close=")" separator=",">
+		#{cart_id}
+    </foreach>
+	</delete>
+	
+	<update id="updateCartAmount" parameterType="Map">
+	UPDATE cart
+     SET count = #{productAmount}
+     WHERE member_id=#{member_id} and cart_id=#{cart_id}
+	</update>
+	
+</mapper>
