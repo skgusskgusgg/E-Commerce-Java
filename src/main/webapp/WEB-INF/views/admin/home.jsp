@@ -1,6 +1,6 @@
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page session="true" %>
-<%@ include file="includes/header.jsp" %>
+<%@ include file="../includes/header.jsp" %>
 	<!-- Slider -->
 	<section class="section-slide">
 		<div class="wrap-slick1">
@@ -94,7 +94,7 @@
 		</div>
 	</div>
 
-<%@include file="includes/productOverView.jsp" %>
+<%@include file="../includes/productOverView.jsp" %>
 	
 			<!-- Load more -->
 			<div class="flex-c-m flex-w w-full p-t-45">
@@ -104,4 +104,4 @@
 			</div>
 		</div>
 	</section>
-<%@ include file="includes/footer.jsp" %>
+<%@ include file="../includes/footer.jsp" %>

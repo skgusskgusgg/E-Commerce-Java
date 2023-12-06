@@ -363,13 +363,17 @@ function login() {
             if (xhr.status == 200) {
                 // 응답 파싱
                 var response = xhr.responseText;
-
-                if (response === "success") {
+					console.log(response)
+                if (response === "user") {
                     // 로그인 성공 시 모달 닫기
                     document.querySelector('.js-hide-modal-login').click();
                     window.location.reload(); // 예시: 페이지 새로고침
-                    href.location="home";
-                } else {
+                
+                }else if(response === "admin"){
+                	document.querySelector('.js-hide-modal-login').click();
+                    window.location.reload(); // 예시: 페이지 새로고침
+                   
+                }else {
                     // 모달에 오류 메시지 표시
                     document.getElementById("Msg").innerHTML = "";
                     if (document.getElementById("lemail").value == ""){
@@ -381,6 +385,12 @@ function login() {
                     }
            	
                 }
+				
+				if(response === "admin"){
+					location.href = "/admin/home";
+				}else if(response === "user"){
+					location.href = "/";
+				}
             } else {
                 // 예외 처리
                 console.error("로그인 요청 실패");

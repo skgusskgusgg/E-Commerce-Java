@@ -29,18 +29,21 @@ public class LoginController {
         MemberVO member = memberService.memberLogin(mVO);
         log.info("작동");
         session.setAttribute("mVO", member);
+        log.info("로그인 요청 받음: " + mVO.getEmail()); // 추가된 로그
         if (member != null) {
-            if (member.getEmail().equals("admin")) {
+            if (member.getAuth() == 1) {
                 session.setAttribute("loginOK", 99);
-                return "success";
+                log.info("admin" + member.getAuth());
+                return "admin";
             } else {
                 session.setAttribute("loginOK", 1);
-                return "success";
+                log.info("admin" + member.getAuth());
+                return "user";
             }
         } else {
             int result = 0;
             session.setAttribute("result", result);
-            return "failure";
+            return "fail";
         }
     
 }

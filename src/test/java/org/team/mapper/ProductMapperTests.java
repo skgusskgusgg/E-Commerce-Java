@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.team.domain.AddProducts;
 import org.team.domain.Criteria;
 import org.team.domain.ProductVO;
 import org.team.join.MemberDTO;
@@ -22,7 +23,7 @@ public class ProductMapperTests {
 	
 	@Test
 	public void getListTests() {
-		Criteria cri = new Criteria(1,2,"");
+		Criteria cri = new Criteria(1,10,"");
 		mapper.getList(cri).forEach(e-> log.info(e));
 	}
 	@Test
@@ -71,12 +72,14 @@ public class ProductMapperTests {
 	
 	@Test
 	public void postCart() {
-		ProductVO pVo =new ProductVO();
-		pVo.setColor_id("red");
-		pVo.setSize_id("M");
-		pVo.setProduct_name("Elegance Trench");
-		
-		mapper.postCart(pVo, 2, 3);
+		AddProducts pVo =new AddProducts();
+		pVo.getProduct().setColor_id("black");
+		pVo.getProduct().setSize_id("M");
+		pVo.getProduct().setProduct_name("Sleek Leather Leggings");
+		pVo.setCount(1);
+		mapper.postCart(pVo, 2);
 	}
+	
+	
 	
 }
