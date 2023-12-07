@@ -96,6 +96,8 @@
 									</c:if>
 								</tr>
 							</table>
+							<button class=" paginate_button stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 category" style=" position: relative; right:0;margin-left:35%; font-weight: bolder;" onclick="location.href='/mypage/myPage'">뒤로</button>
+							
 						</div>
 
 

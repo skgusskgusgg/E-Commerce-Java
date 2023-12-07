@@ -20,25 +20,7 @@
 				<div class="p-r-0-lg">
 					<!-- My Page -->
 					<div class="mypage-wrap">
-						<ul>
-							<li>아이디 : ${mVO.id}  
-							<li>이름 : ${mVO.user_name}
-							<li>비밀번호 : ${mVO.password}
-							<li>이메일 : ${mVO.email}
-							<li>주소 : ${mVO.address}
-							<c:if test="${mVO.gender==1}">
-										<li>성별 : 남자
-									</c:if>
-							<c:if test="${mVO.gender==2}">
-										<li>성별 : 여자
-									</c:if>
-							
-
-							<li>생일 :${mVO.birth_date}
-							<li>전화번호 : ${mVO.phone}
-							<li>포인트 : ${mVO.point}
-							<li>회원가입일자: ${mVO.join_date}
-							</ul>        
+						     
 						<ul>
 							<li class="p-b-80">
 								<h2>MY PAGE</h2>

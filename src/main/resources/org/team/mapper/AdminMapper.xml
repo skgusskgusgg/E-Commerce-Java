@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="org.team.mapper.AdminMapper">
+ 	<!-- admin 회원관리-->
  	<!-- 회원목록 -->
 	<select id="memberList" resultType="org.team.join.MemberDTO" >
 		select * from member limit #{cri.startPage}, #{cri.amount}
@@ -11,6 +12,87 @@
 	<select id="memberTotal" resultType="int" >
 		select count(*) from member
 	</select>
+	<!-- 특정 회원 수정 -->
+	<update id="modifyMember" parameterType="org.team.join.MemberDTO">
+	update member set password = #{password}, user_name=#{user_name},
+	email=#{email}, address = #{address}, gender=#{gender}, birth_date=#{birth_date}, 
+	phone = #{phone}, point=#{point}, join_date=#{join_date} where id = #{id} 
+	</update>
 	
+	<!-- 특정 회원 삭제 -->
+	<delete id="deleteMember" >
+	delete from member where id=#{id}
+	
+	</delete>
+	<!-- 키워드 입력 후 회원목록 -->
+	<select id="keywordMemberList" resultType="org.team.join.MemberDTO" >
+		 SELECT * FROM member 
+		 WHERE id LIKE CONCAT('%', #{keyword}, '%') 
+		 OR password LIKE CONCAT('%', #{keyword}, '%') 
+		 or user_name LIKE CONCAT('%', #{keyword}, '%')
+		 or email LIKE CONCAT('%', #{keyword}, '%')
+		 or address LIKE CONCAT('%', #{keyword}, '%')
+		 or birth_date LIKE CONCAT('%', #{keyword}, '%')
+		 or phone LIKE CONCAT('%', #{keyword}, '%')
+		 or point LIKE CONCAT('%', #{keyword}, '%')
+		 or join_date LIKE CONCAT('%', #{keyword}, '%') limit #{cri.startPage}, #{cri.amount}
+	</select>
+	<!-- 키워드 입력 후 회원 숫자 total -->
+	<select id="keywordMemberTotal" resultType="int" >
+		 SELECT COUNT(*) FROM member 
+		 WHERE id LIKE CONCAT('%', #{keyword}, '%') 
+		 OR password LIKE CONCAT('%', #{keyword}, '%') 
+		 or user_name LIKE CONCAT('%', #{keyword}, '%')
+		 or email LIKE CONCAT('%', #{keyword}, '%')
+		 or address LIKE CONCAT('%', #{keyword}, '%')
+		 or birth_date LIKE CONCAT('%', #{keyword}, '%')
+		 or phone LIKE CONCAT('%', #{keyword}, '%')
+		 or point LIKE CONCAT('%', #{keyword}, '%')
+		 or join_date LIKE CONCAT('%', #{keyword}, '%')
+	</select>
+	
+	<!-- Order -->
+	 	<!-- 오더리스트 -->
+	<select id="orderList" resultType="org.team.mypage.orderDTO" >
+	<![CDATA[
+		select * from nahyun.order limit #{cri.startPage}, #{cri.amount}
+		]]>
+	</select>
+	
+	<select id="orderTotal" resultType="int">
+		select count(*) from nahyun.order
+	</select>
+	<select id="orderKeywordSearch" resultType="org.team.mypage.orderDTO">
+		 SELECT * FROM nahyun.order 
+		 <where>
+		  <if test="orderSort != null and keyword != null">
+            ${orderSort} = #{keyword}
+        </if>
+        </where>
+		 limit #{cri.startPage}, #{cri.amount}
+	</select>
+	<select id="orderKeywordSearchTotal" resultType="int">
+		 SELECT count(*) FROM nahyun.order 
+		 <where>
+		  <if test="orderSort != null and keyword != null">
+            ${orderSort} = #{keyword}
+        </if>
+        </where>
+	</select>
+	
+	<delete id="deleteOrder">
+	delete from nahyun.order where order_id=#{id}
+	</delete>
+	<!--Delivery -->
+	<select id="deliveryTotal" resultType="int" >
+	<![CDATA[
+		select count(*) from delivery
+		]]>
+	</select>
+	<select id="deliveryList" resultType="org.team.delivery.deliveryDTO" >
+	<![CDATA[
+		select * from delivery limit #{cri.startPage}, #{cri.amount}
+		]]>
+	</select>
 
   </mapper>

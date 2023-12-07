@@ -44,5 +44,10 @@ public class orderDTO {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+	@Override
+	public String toString() {
+		return "orderDTO [order_id=" + order_id + ", delivery_id=" + delivery_id + ", product_id=" + product_id
+				+ ", product_count=" + product_count + ", price=" + price + ", status=" + status + "]";
+	}
 
 }

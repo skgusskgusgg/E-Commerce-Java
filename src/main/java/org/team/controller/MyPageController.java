@@ -44,10 +44,11 @@ public class MyPageController {
 		log.info("cri : "+cri);
 		List<orderDTO> oDTO = orderservice.orderListWithPaging(cri);
 		
-		model.addAttribute("orderList", oDTO);
+		
 		
 		int total = orderservice.getTotalOrderCount(cri);
-		
+		log.info("total : "+total);
+		model.addAttribute("orderList", oDTO);
 		model.addAttribute("pageMaker", new PageDTO(cri,total));
 		
 	}
