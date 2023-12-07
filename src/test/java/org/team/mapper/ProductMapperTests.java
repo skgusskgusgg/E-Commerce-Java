@@ -33,8 +33,8 @@ public class ProductMapperTests {
 		vo.setColor_id("1");
 		vo.setSize_id("1");
 		
-		Criteria cri = new Criteria(1,2,"");
-		mapper.selectList(vo,cri,"desc",50000,150000).forEach(e->log.info(e));
+		Criteria cri = new Criteria(1,10,"");
+		mapper.selectList(vo,cri,"asc",200000,350000).forEach(e->log.info(e));
 	}
 	
 	@Test 
@@ -44,11 +44,11 @@ public class ProductMapperTests {
 	@Test 
 	public void selectTotal() {
 		ProductVO vo = new ProductVO();
-		vo.setCategory_id("1");
+		vo.setCategory_id("2");
 		vo.setColor_id("1");
-		vo.setSize_id("3");
+		vo.setSize_id("1");
 		
-		Criteria cri = new Criteria(1,2,"");
+		Criteria cri = new Criteria(1,10,"");
 		 log.info(mapper.selectTotal(vo,cri,"desc",50000,150000)); 
 	}
 	@Test

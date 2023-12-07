@@ -116,14 +116,18 @@ $(document).ready(
 					
 					if(currentUrl.indexOf('row') !== -1){
 						currentUrl = currentUrl.replace(/row=[^&]*/,'row=' + filter);
+						console.log("row : " + currentUrl);
 					}else{
 						currentUrl += '&row=' + filter;
+						console.log("row : " + currentUrl);
 					}
 					var limit = $(this).attr("data-limit");
 					if(currentUrl.indexOf('high') !== -1){
 						currentUrl = currentUrl.replace(/high=[^&]*/,'high=' + limit);
+						console.log("high : " + currentUrl);
 					}else{
 						currentUrl += '&high=' + limit;
+						console.log("high : " + currentUrl);
 					}
 					localStorage.setItem("currentUrl",currentUrl);
 				}
