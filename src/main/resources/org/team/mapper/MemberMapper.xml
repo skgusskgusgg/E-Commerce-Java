@@ -16,6 +16,14 @@
 	<select id="memberLogin" parameterType="org.team.member.MemberVO" resultType="org.team.member.MemberVO">
 		select * from member where email=#{email} and password=#{password}
 	</select>
+	<!--  회원정보 업데이트  -->
+	<update id="update" parameterType="org.team.join.MemberDTO"> 
+		update member set password = #{password}, address = #{address}, phone = #{phone} where id = #{id} 
+	</update>
+	<!--  현재 패스워드 동일 체크  -->
+	<select id="passwordCheck" resultType="int"> 
+		select count(*) from member where password = #{password} and id=#{id} 
+	</select>
   </mapper>
   <!-- 
 CREATE TABLE member (

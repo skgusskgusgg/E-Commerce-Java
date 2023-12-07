@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.team.domain.AddProducts;
 import org.team.domain.Criteria;
 import org.team.domain.ProductVO;
 import org.team.mapper.ProductMapper;
@@ -83,12 +82,9 @@ public class ProductServiceImpl implements ProductService{
 
 
 	@Override
-	public int postCart(AddProducts aVo, int mVo) {
-		int result = mapper.postCart(aVo, mVo);
+	public int postCart(ProductVO pVo, int mVo, int count) {
+		int result = mapper.postCart(pVo, mVo, count);
 		return result;
 	}
-
-
-
 	
 }

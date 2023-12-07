@@ -53,8 +53,9 @@ function init(){
 
   //nexacro platform onusernotify  이벤트 발생
   //alert(str);
-    opener.document.frm1.address.value = zipcode+","+addr;
-    
+  
+    opener.document.form369.newAddress.value = zipcode+","+addr;
+  	
      this.close();
   }  
 }

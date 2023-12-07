@@ -29,7 +29,7 @@
 	</beans:bean>
 
 	<context:component-scan
-		base-package="org.team.controller, org.team.join" />
+		base-package="org.team.controller, org.team.join, org.team.*" />
 
 	<interceptors>
 		<interceptor>
