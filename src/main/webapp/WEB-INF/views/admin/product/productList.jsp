@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@include file="../includes/header.jsp"%>
+<%@include file="../../includes/header.jsp"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <div class="bg0 m-t-23 p-b-140">
@@ -195,7 +195,7 @@
 					<c:if test="${pageMaker.prev }">
 						<li>
 							<button class="pageBtn" data-filter="prev"
-								onclick="location.href='/product/productList?category_id=0&pageStart=${pageMaker.cri.pageNum - 1}'">
+								onclick="location.href='/admin/product/productList?category_id=0&pageStart=${pageMaker.cri.pageNum - 1}'">
 								Previous</button>
 						</li>
 					</c:if>
@@ -220,12 +220,12 @@
 		</div>
 	</div>
 </div>
-<%@include file="../includes/footer.jsp"%>
+<%@include file="../../includes/footer.jsp"%>
 <script type="text/javascript" src="/resources/js/addWish.js">
 
 </script>
 <script type="text/javascript">
-	var url = "/product/productList?category_id=";
+	var url = "/admin/product/productList?category_id=";
 	var href = $(location).attr("href");
 	
 	function filterPage(element) {

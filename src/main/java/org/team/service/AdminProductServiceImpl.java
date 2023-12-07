@@ -4,27 +4,22 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.team.domain.AddProducts;
 import org.team.domain.Criteria;
 import org.team.domain.ProductVO;
-import org.team.mapper.ProductMapper;
+import org.team.mapper.AdminProductMapper;
 
 import lombok.Setter;
 
 @Service
-public class ProductServiceImpl implements ProductService{
-
+public class AdminProductServiceImpl  implements AdminProductService{
 	@Setter(onMethod_ = @Autowired)
-	private ProductMapper mapper;
-	
+	private AdminProductMapper mapper;
+
 	@Override
 	public List<ProductVO> getList(Criteria cri) {
 		List<ProductVO> list = mapper.getList(cri);
-		
 		return list;
 	}
-
-
 
 	@Override
 	public List<ProductVO> selectList(ProductVO vo, Criteria cri, String sort, int row, int high) {
@@ -32,15 +27,11 @@ public class ProductServiceImpl implements ProductService{
 		return selectList;
 	}
 
-
-
 	@Override
 	public int getTotal() {
 		int total = mapper.getTotal();
 		return total;
 	}
-
-
 
 	@Override
 	public int selectTotal(ProductVO vo, Criteria cri, String sort, int row, int high) {
@@ -48,47 +39,29 @@ public class ProductServiceImpl implements ProductService{
 		return total;
 	}
 
-
-
 	@Override
 	public ProductVO detail(int id) {
 		ProductVO vo = mapper.detail(id);
 		return vo;
 	}
 
-
-
 	@Override
-	public int postWish(ProductVO pVo, int mVo) {
-		int result =  mapper.postWish(pVo, mVo);	
+	public int register(ProductVO pVo) {
+		int result = mapper.register(pVo);
 		return result;
 	}
 
-
-
 	@Override
-	public int deleteWish(ProductVO pVo, int mVo) {
-	  int result = mapper.deleteWish(pVo, mVo);
+	public int update(ProductVO pVo) {
+		int result = mapper.update(pVo);
 		return result;
 	}
 
-
-
 	@Override
-	public boolean countWish(int product_id, int member_id) {
-		int count = mapper.countWish(product_id, member_id);
-		return count > 0;
-	}
-
-
-
-	@Override
-	public int postCart(AddProducts aVo, int mVo) {
-		int result = mapper.postCart(aVo, mVo);
+	public int delete(int pVo) {
+		int result = mapper.delete(pVo);
 		return result;
 	}
-
-
-
+	
 	
 }

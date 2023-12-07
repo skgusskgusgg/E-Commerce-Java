@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="org.team.mapper.ProductMapper">
+<mapper namespace="org.team.mapper.AdminProductMapper">
 	<select id="getList" resultType="org.team.domain.ProductVO">
 		select *
 		FROM product p1
@@ -20,9 +20,8 @@
 		limit
 		#{cri.pageStart},
 		#{cri.amount}
-
 	</select>
-	<select id="selectList" resultType="org.team.domain.ProductVO">
+		<select id="selectList" resultType="org.team.domain.ProductVO">
 		SELECT p1.*
 		FROM product p1
 		<choose>
@@ -107,58 +106,26 @@
 		</choose>
 		limit #{cri.pageStart}, #{cri.amount}
 	</select>
-
 	<select id="detail" resultType="org.team.domain.ProductVO">
 		select * from product where
 		product_id = #{id}
 	</select>
-
-	<!-- <insert id="postCart"> insert into wish(product_id, member_id) values( 
-		(select product_id from product where product_name = #{pVo.product_name} 
-		and color_id = #{pVo.color_id} and size_id = #{pVo.size_id} ), (select id 
-		from member where id = #{mVo.id}) ) </insert> -->
-	<insert id="postWish">
-		insert into wish(product_id, member_id) values(
-		(select product_id from product
-		where product_name =
-		#{pVo.product_name}
-		and color_id = "black"
-		and size_id = "S" ),
-		(select
-		id from member
-		where id = #{mVo})
-		)
+	<insert id="register">
+		insert into
+		product(category_id,product_name,price,img,quantity,color_id,size_id)
+		values(#{pVo.category_id},#{pVo.product_name},#{pVo.price},#{pVo.img},#{pVo.quantity},#{pVo.color_id},#{pVo.size_id})
 	</insert>
-	<delete id="deleteWish">
-		delete from wish where product_id = #{pVo.product_id}
-		and member_id = #{mVo}
+	<update id="update">
+		update product set
+		category_id =
+		#{pVo.category_id},product_name = #{pVo.product_name},price =
+		#{pVo.price},img = #{pVo.img},quantity
+		= #{pVo.quantity},color_id
+		=#{pVo.color_id},size_id
+		=#{pVo.size_id} where product_id =
+		#{pVo.product_id}
+	</update>
+	<delete id="delete">
+		delete from product where product_id = #{pVo};
 	</delete>
-	<select id="countWish" resultType="int">
-		SELECT COUNT(*) > 0 AS
-		exists_in_wishlist
-		FROM wish
-		WHERE product_id = #{product_id} AND
-		member_id = #{member_id}
-	</select>
-
-	<insert id="postCart">
-		insert into cart(member_id, product_id, `count`)
-		select
-		#{mVo},
-		(select product_id
-		from product
-		where color_id =
-		#{aVo.product.color_id}
-		and size_id = #{aVo.product.size_id}
-		and
-		product_name = #{aVo.product.product_name}) as product_id,
-		#{aVo.count}
-		from dual
-		on duplicate key update
-		`count` = `count` +
-		#{aVo.count}
-	</insert>
-
-
-
 </mapper>
