@@ -276,7 +276,7 @@
 										<a href="/admin/faq/faqListPage?page=1"
 											class="flex-c-m trans-04 p-lr-25"> 고객센터 & FAQs 관리 </a>
 
-										<a href="/admin/mypage/myPage"
+										<a href="/admin/memberManagement"
 											class="flex-c-m trans-04 p-lr-25"> 관리자 페이지 </a>
 										<a href="/logout" class="flex-c-m trans-04 p-lr-25"> 관리자
 											모드 종료 </a>

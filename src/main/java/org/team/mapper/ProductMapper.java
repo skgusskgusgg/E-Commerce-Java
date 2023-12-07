@@ -3,9 +3,10 @@ package org.team.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
-import org.team.domain.AddProducts;
 import org.team.domain.Criteria;
 import org.team.domain.ProductVO;
+import org.team.join.MemberDTO;
+import org.team.member.MemberVO;
 
 public interface ProductMapper {
 	public List<ProductVO> getList(@Param("cri") Criteria cri);
@@ -27,7 +28,5 @@ public interface ProductMapper {
 	
 	public int countWish(@Param("product_id") int productId, @Param("member_id") int member_id);
 	
-	public int postCart(@Param("aVo") AddProducts aVo, @Param("mVo") int mVo);
-
-	
+	public int postCart(@Param("pVo") ProductVO pVo, @Param("mVo") int mVo, @Param("count") int count);
 }
