@@ -2,10 +2,9 @@ package org.team.service;
 
 import java.util.List;
 
+import org.team.domain.AddProducts;
 import org.team.domain.Criteria;
 import org.team.domain.ProductVO;
-import org.team.join.MemberDTO;
-import org.team.member.MemberVO;
 
 public interface ProductService {
 	public List<ProductVO> getList(Criteria cri);
@@ -24,5 +23,6 @@ public interface ProductService {
 	
 	public boolean countWish(int product_id, int member_id);
 	
-	public int postCart(ProductVO pVo, int mVo, int count);
+	public int postCart(AddProducts aVo, int mVo);
+
 }

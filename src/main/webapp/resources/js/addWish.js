@@ -31,6 +31,20 @@
 				            Swal.fire("Added to your wishLists!", "", "success");
 					     
 					        element.addClass('js-addedwish-b2');
+					        	$.ajax({
+								type : 'GET',
+								url : '/wish/wishTotal',
+								dataType : 'json',
+								success : function(data) {
+									// data-notify
+									$('.data-noti-wish').attr("data-notify",data);
+									
+								},
+						error: function () {
+							console.log("AJAX request failed")
+						}
+
+					})
                    
 		                },
 		                error: function (xhr, status, error) {
@@ -46,13 +60,27 @@
 		                contentType: 'application/json',
 		                data: JSON.stringify({ product_id: pId}),
 		                success: function (response) {
-		                    Swal.fire("WishList에서 제거되었습니다.", "", "success");	
-		                  
+		                    Swal.fire("Removed from wishList.", "", "success");	
+		                  	
 	                        element.removeClass('js-addedwish-b2');
+	                        	$.ajax({
+								type : 'GET',
+								url : '/wish/wishTotal',
+								dataType : 'json',
+								success : function(data) {
+									// data-notify
+									$('.data-noti-wish').attr("data-notify",data);
+									
+								},
+								error: function () {
+									console.log("AJAX request failed")
+								}
+		
+							})
 	                        	
 		                },
 		                error: function (xhr, status, error) {
-		                    Swal.fire("다시 시도하세요.", "", "error");
+		                    Swal.fire("Please try again.", "", "error");
 		                }
 		            });
 		        }
