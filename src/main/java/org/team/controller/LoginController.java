@@ -33,11 +33,11 @@ public class LoginController {
         if (member != null) {
             if (member.getAuth() == 1) {
                 session.setAttribute("loginOK", 99);
-                log.info("admin" + member.getAuth());
+                log.info("admin" + member.getAuth() + " , " + session.getAttribute("loginOK"));
                 return "admin";
             } else {
                 session.setAttribute("loginOK", 1);
-                log.info("admin" + member.getAuth());
+                log.info("user" + member.getAuth() + " , " + session.getAttribute("loginOK"));
                 return "user";
             }
         } else {
@@ -46,11 +46,7 @@ public class LoginController {
             return "fail";
         }
     
-}
-
-	
-	
-	
+}	
 	@GetMapping("/logout")
 	public String logout(HttpServletRequest request, HttpSession session) {
 		session.invalidate();

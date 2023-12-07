@@ -1,5 +1,7 @@
 package org.team.domain;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -13,4 +15,5 @@ public class ProductVO {
 	private int sell_count;
 	private String color_id;
 	private String size_id;
+	private MultipartFile file;
 }

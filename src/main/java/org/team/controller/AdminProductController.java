@@ -1,20 +1,28 @@
 package org.team.controller;
 
-import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 import org.team.domain.Criteria;
 import org.team.domain.PageDTO;
 import org.team.domain.ProductVO;
-import org.team.service.ProductService;
+import org.team.service.AdminProductService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -22,12 +30,11 @@ import lombok.extern.log4j.Log4j;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/product/*")
+@RequestMapping("/admin/product/*")
 @Log4j
-public class ProductController {
-
+public class AdminProductController {
 	@Setter(onMethod_ = @Autowired)
-	private ProductService service;
+	private AdminProductService service;
 
 	@GetMapping(value = "/productList")
 	public void selectList(@RequestParam(name = "category_id", required = false) String category_id,
@@ -84,7 +91,6 @@ public class ProductController {
 			log.info("keyword : " + keyword);
 		}
 	}
-
 	@GetMapping(value = "/productDetail")
 	public void detail(@RequestParam(name = "id") int product_id, Model model) {
 		ProductVO vo = service.detail(product_id);
@@ -92,5 +98,44 @@ public class ProductController {
 
 		log.info("상품 디테일 페이지 : " + vo);
 	}
+	@GetMapping(value = "/productModifyForm")
+	public void productModifyForm() {
+		
+	}
+	
+	@PostMapping("/productRegister")
+	public String register(@RequestParam MultipartFile file,
+			@ModelAttribute ProductVO pVo) {   
+		// 로그 추가
+	    log.info("file: " + file);
 
+	    if (!file.isEmpty()) {
+	        String uploadFolder = "C:/Users/Admin/Desktop/1st_project/src/main/webapp/resources/images/products/" + pVo.getCategory_id();
+	        File saveFile = new File(uploadFolder, file.getOriginalFilename());
+
+	        try {
+	            file.transferTo(saveFile);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    service.register(pVo);
+	    return "redirect:/admin/product/productList?category_id=0";
+	}
+
+
+
+	
+	@PostMapping(value = "/productUpdate")
+	public String update(ProductVO pVo) {
+		service.update(pVo);
+		return "redirect:/admin/product/productList?category=0";
+	}
+	@PostMapping(value = "/productDelete")
+	public String delete(int pVo) {
+		service.delete(pVo);
+		return "redirect:/admin/product/productList?category=0";
+	}
+	
 }
