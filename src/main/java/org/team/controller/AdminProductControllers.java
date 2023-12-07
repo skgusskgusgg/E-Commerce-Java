@@ -24,6 +24,8 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @Controller
+@RequestMapping("/admin/*")
+@Log4j
 public class AdminProductControllers {
 	@Autowired
 	private AdminService adminservice;
@@ -32,7 +34,7 @@ public class AdminProductControllers {
 	private ProductService service;
 	
 	@GetMapping(value= {"/","","/productManagement/","productmanagement","productManagement/"})
-	public void productManagement(
+	public String productManagement(
 			@RequestParam(name = "category_id",required = false) String category_id,
 			@RequestParam(name = "color_id", defaultValue = "1") String color_id, 
 			@RequestParam(name = "size_id", defaultValue = "1") String size_id,
@@ -49,7 +51,7 @@ public class AdminProductControllers {
 		PageDTO pDto = new PageDTO(cri, total);
 		model.addAttribute("product", list);
 		model.addAttribute("pageMaker", pDto);
-
+		return "admin/productManagement";
 
 	}
 	
