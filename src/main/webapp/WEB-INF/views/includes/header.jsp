@@ -39,15 +39,14 @@
 <link rel="stylesheet" type="text/css"
 	href="/resources/vendor/MagnificPopup/magnific-popup.css">
 <!--===============================================================================================-->
-<link rel="stylesheet" type="text/css"
-	href="/resources/vendor/perfect-scrollbar/perfect-scrollbar.css">
-<!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" href="/resources/css/util.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/main.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/admin.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/search.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/productList.css">
+
 <script src="/resources/vendor/jquery/jquery-3.2.1.min.js"></script>
+
 </head>
 <body class="animsition">
 	<c:choose>
@@ -157,6 +156,7 @@
 						</div>
 
 
+
 						<a href="/cart/cartList"
 							class="data-noti-cart icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti "
 							data-notify="0"> <i class="zmdi zmdi-shopping-cart"></i>
@@ -167,6 +167,7 @@
 							data-notify="0"> <i class="zmdi zmdi-favorite-outline"></i>
 						</a>
 					</div>
+
 
 
 

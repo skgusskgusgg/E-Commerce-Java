@@ -108,9 +108,6 @@ $(document).ready(function () {
 		  didOpen: () => {
 		    Swal.showLoading();
 		    const timer = Swal.getPopup().querySelector("b");
-		    timerInterval = setInterval(() => {
-		      timer.textContent = `${Swal.getTimerLeft()}`;
-		    }, 100);
 		  },
 		  willClose: () => {
 		    clearInterval(timerInterval);
@@ -143,7 +140,7 @@ $(document).ready(function () {
 			            listColumns[i] += "<img src='/resources/images/products/"+$(item).find("img").text()+"' alt='IMG'>";
 			            listColumns[i] += "<div class='block2-txt search-item-text-flex p-t-14'>";
 			            listColumns[i] += "<div class='search-text-child flex-col-c'>";
-			            listColumns[i] += "<a href='product-detail.html' class='stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6'>"+$(item).find("product_name").text()+"</a>";
+			            listColumns[i] += "<a href='/product/productDetail?id="+$(item).find("product_id").text()+"' class='stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6'>"+$(item).find("product_name").text()+"</a>";
 			            listColumns[i] += "<span class='stext-105 cl3'>"+$(item).find("price").text()+"</span>";
 			            listColumns[i] += "</div></div></div>";
 			        }
@@ -155,7 +152,7 @@ $(document).ready(function () {
 				            listColumns[i] += "<img src='/resources/images/products/"+$(item).parent().find("img").text()+"' alt='IMG'>";
 				            listColumns[i] += "<div class='block2-txt search-item-text-flex p-t-14'>";
 				            listColumns[i] += "<div class='search-text-child flex-col-c'>";
-				            listColumns[i] += "<a href='product-detail.html' class='stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6'>"+$(item).parent().find("product_name").text()+"</a>";
+				            listColumns[i] += "<a href='/product/productDetail?id="+$(item).parent().find("product_id").text()+"' class='stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6'>"+$(item).parent().find("product_name").text()+"</a>";
 				            listColumns[i] += "<span class='stext-105 cl3'>"+$(item).parent().find("price").text()+"</span>";
 				            listColumns[i] += "</div></div></div>";
 				        }
