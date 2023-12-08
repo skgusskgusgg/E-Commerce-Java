@@ -122,7 +122,7 @@
 							<!-- Icon header -->
 							<div class="wrap-icon-header flex-w flex-r-m">
 								<div
-									class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 show-modal-search">
+									class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 show-search-modal">
 									<i class="zmdi zmdi-search"></i>
 								</div>
 
@@ -442,7 +442,7 @@
 										<a href="/admin/faq/faqListPage?page=1"
 											class="flex-c-m p-lr-10 trans-04"> 고객센터 & FAQs 관리 </a>
 
-										<a href="/admin/mypage/myPage"
+										<a href="/admin/memberManagement"
 											class="flex-c-m p-lr-10 trans-04"> 관리자 페이지 </a>
 										<a href="/logout" class="flex-c-m p-lr-10 trans-04"> 관리자
 											모드 종료 </a>

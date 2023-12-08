@@ -55,9 +55,7 @@
 									<div class="rs1-select2 bor8 bg0">
 										<select class="js-select2 size_id" name="size">
 											<option value="">Choose an option</option>
-											<option value="s">Size S</option>
-											<option value="m">Size M</option>
-											<option value="l">Size L</option>
+											
 										</select>
 										<div class="dropDownSelect2"></div>
 									</div>
@@ -71,10 +69,6 @@
 									<div class="rs1-select2 bor8 bg0">
 										<select class="js-select2 color_id" name="color">
 											<option value="">Choose an option</option>
-											<option value="black">Black</option>
-											<option value="green">Green</option>
-											<option value="red">Red</option>
-											<option value="white">White</option>
 										</select>
 										<div class="dropDownSelect2"></div>
 									</div>
@@ -97,9 +91,9 @@
 											<i class="fs-16 zmdi zmdi-plus"></i>
 										</div>
 									</div>
-									<div  style="display: flex; justify-content: space-between; margin:10px 0; width: 100%;" >
+									<div  style="display: flex; justify-content: space-between; margin:10px 0; " >
 									
-									<button
+									<button style="margin-right: 10px"
 									class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail modalCart">
 											Add to cart</button>
 									<button
@@ -120,92 +114,138 @@
 
 </div>
 <script type="text/javascript">
-$('.js-addwish-detail').each(function() {
-			var nameProduct = $(this).parent().parent().parent().parent()
-					.find('.js-name-detail').html();
-			$(this).on('click', function() 
-					{
-				var pName = $("button[data-product_name]").val();
-				var pId = $("input[data-product_id]").val();
-				
-				console.log(pName);
-				  $.ajax({
-		                type: 'POST',
-		                url: "/productDetail/postWish",
-		                contentType: 'application/json',
-		                data: JSON.stringify({ product_name: pName }),
-		                success: function (response) {
-		                	 
-		                    	Swal.fire({
-				  					  position: "center",
-				  					  icon: "success",
-				  					  title: "Added to your wishLists!",
-				  					  showConfirmButton: false,
-				  					  timer: 1500
-				  					});
-		                    	
-		                
-		                },
-		                error: function (xhr, status, error) {
-		                	
-		                    Swal.fire("This product has already been registered on WishList.", "", "error");
-		                }
-		            });
-				  $.ajax({
-			            type: 'GET',
-			            url: '/productDetail/checkWishStatus/' + pId,
-			            success: function (response) {
-			                if (response === "exists") {
-			                	
-			                    console.log("존재" + pId)
-			                } else {
-			                	console.log("존재안함" + pId)
-			                }
-			            },
-			            error: function (xhr, status, error) {
-			                console.error(xhr.responseText);
-			            }
-			        });
-				
-			});
-		});
 
-$('.modalCart').each(function() {
-	
-	
-	$(this).on("click",function(){
-	
+$('.js-addwish-detail').each(function() {
+
+	$(this).on('click', function() {
+
+		var pId = $("input[data-product_id]").val();
 		var color_id = $(".color_id").val(); 
 		var size_id = $(".size_id").val();
 		var count = $(".num-product").val();
 		var product_name = $("button[data-product_name]").val();
-		console.log("color_id -> " + color_id + ", size_id -> " + size_id + ", count -> " + count + ", product_name -> " + product_name)
-		
-	
-		
-		$.ajax({
-            type: 'POST',
-            url: "/productDetail/postCart?count=" + count,
-            contentType: 'application/json',
-            data: JSON.stringify({product_name: product_name,color_id: color_id, size_id: size_id}),
-            success: function (response) {
-            	 
+		  $.ajax({
+                type: 'POST',
+                url: "/productDetail/postWish",
+                contentType: 'application/json',
+                data: JSON.stringify({product:{product_name: product_name,color_id: color_id, size_id: size_id},count:count}),
+                success: function (response) {
+                	 console.log(response)
                 	Swal.fire({
 	  					  position: "center",
 	  					  icon: "success",
-	  					  title: "Added to your cart!",
+	  					  title: "Added to your WishLists!",
 	  					  showConfirmButton: false,
 	  					  timer: 1500
-	  					});
-                	
-            
+	  					});        
+                	$.ajax({
+						type : 'GET',
+						url : '/wish/wishTotal',
+						dataType : 'json',
+						success : function(data) {
+							// data-notify
+							$('.data-noti-wish').attr("data-notify",data);
+							
+						},
+						error: function () {
+							console.log("AJAX request failed")
+						}
+
+					})
+            },
+            statusCode: {
+                200: function() {
+                    // 성공적으로 처리된 경우
+                    console.log("Success");
+                },
+                409: function() {
+                    // 중복 키 오류 (CONFLICT)인 경우
+                    Swal.fire("This product has already been registered on WishList.", "", "info");
+                },
+                500: function() {
+                    // 서버 오류인 경우
+                    Swal.fire("An error occurred on the server.", "", "error");
+                }
             },
             error: function (xhr, status, error) {
-            	
-                Swal.fire("This product has already been registered on WishList.", "", "error");
+            	 Swal.fire("An error occurred.", "", "error");
+              
             }
-        });
-	})
-	
+            });
+		  $.ajax({
+	            type: 'GET',
+	            url: '/productDetail/checkWishStatus/' + pId,
+	            success: function (response) {
+	                if (response === "exists") {
+	                	
+	                } else {
+	                	
+	                }
+	            },
+	            error: function (xhr, status, error) {
+	                console.error(xhr.responseText);
+	            }
+	        });
+		
+	});
+});
+
+$('.modalCart').each(function() {
+$(this).on("click",function(){
+
+var color_id = $(".color_id").val(); 
+var size_id = $(".size_id").val();
+var count = $(".num-product").val();
+var product_name = $("button[data-product_name]").val();
+
+$.ajax({
+    type: 'POST',
+    url: "/productDetail/postCart",
+    contentType: 'application/json',
+    data: JSON.stringify({product:{product_name: product_name,color_id: color_id, size_id: size_id},count:count}),
+    success: function (response) {    	 
+        	Swal.fire({
+					  position: "center",
+					  icon: "success",
+					  title: "Added to your cart!",
+					  showConfirmButton: false,
+					  timer: 1500
+					});        
+        	$.ajax({
+				type : 'GET',
+				url : '/wish/cartTotal',
+				dataType : 'json',
+				success : function(data) {
+					// data-notify
+					$('.data-noti-cart').attr("data-notify",data);
+					
+				},
+				error: function () {
+					console.log("AJAX request failed")
+				}
+
+			})
+    },
+    statusCode: {
+        200: function() {
+            // 성공적으로 처리된 경우
+            console.log("Success");
+        },
+        409: function() {
+            // 중복 키 오류 (CONFLICT)인 경우
+            Swal.fire("This product has already been registered on WishList.", "", "info");
+        },
+        500: function() {
+            // 서버 오류인 경우
+            Swal.fire("An error occurred on the server.", "", "error");
+        }
+    },
+    error: function (xhr, status, error) {
+    	 Swal.fire("An error occurred.", "", "error");
+      
+    }
+   }
+);
+})
 })
 </script>

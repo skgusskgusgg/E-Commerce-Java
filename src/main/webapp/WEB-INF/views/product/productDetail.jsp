@@ -362,7 +362,20 @@
 	                contentType: 'application/json',
 	                data: JSON.stringify({product_name: pName }),
 	                success: function (response) {
-	                	 
+	                	$.ajax({
+							type : 'GET',
+							url : '/wish/wishTotal',
+							dataType : 'json',
+							success : function(data) {
+								// data-notify
+								$('.data-noti-wish').attr("data-notify",data);
+								
+							},
+							error: function () {
+								console.log("AJAX request failed")
+							}
+
+						})
 	                    	Swal.fire({
 			  					  position: "center",
 			  					  icon: "success",
@@ -406,7 +419,20 @@
 	  					  showConfirmButton: false,
 	  					  timer: 1500
 	  					});
-                	
+                	$.ajax({
+						type : 'GET',
+						url : '/wish/cartTotal',
+						dataType : 'json',
+						success : function(data) {
+							// data-notify
+							$('.data-noti-cart').attr("data-notify",data);
+							
+						},
+						error: function () {
+							console.log("AJAX request failed")
+						}
+
+					})
             
             },
             error: function (xhr, status, error) {

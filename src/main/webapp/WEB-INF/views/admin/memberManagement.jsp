@@ -14,7 +14,7 @@
 					data-filter="0" onclick="location.href='/admin/memberManagement'">맴버관리</button>
 				<button
 					class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 category"
-					data-filter="1" onclick="location.href='/admin/productManagement'">상품관리</button>
+					data-filter="1" onclick="location.href='/admin/product/productManagement'">상품관리</button>
 
 				<button
 					class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 category"

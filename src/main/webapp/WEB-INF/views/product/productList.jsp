@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@include file="../includes/header.jsp"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
@@ -9,19 +9,16 @@
 	<div class="container">
 		<div class="flex-w flex-sb-m p-b-52">
 			<div class="flex-w flex-l-m filter-tope-group m-tb-10">
-				<button
-					class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 category"
-					data-filter="0" onclick="filterPage(this)">All Products</button>
-				<button
-					class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 category"
+				<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 category"
+					 data-filter="0" onclick="filterPage(this)">All
+					Products</button>
+				<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 category"
 					data-filter="1" onclick="filterPage(this)">Outer</button>
 
-				<button
-					class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 category"
+				<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 category"
 					data-filter="2" onclick="filterPage(this)">Top</button>
 
-				<button
-					class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 category"
+				<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 category"
 					data-filter="3" onclick="filterPage(this)">Pants</button>
 
 			</div>
@@ -78,8 +75,6 @@
 
 						<ul>
 							<li class="p-b-6"><button
-									class="filter-link stext-106 trans-04 size" data-filter="99">All</button></li>
-							<li class="p-b-6"><button
 									class="filter-link stext-106 trans-04 size" data-filter="1">Small</button></li>
 
 							<li class="p-b-6"><button
@@ -95,11 +90,6 @@
 						<div class="mtext-102 cl2 p-b-15">Color</div>
 
 						<ul>
-							<li class="p-b-6"><span class="fs-15 lh-12 m-r-6"
-								style="color: #222;"> <i class="zmdi zmdi-circle"></i>
-							</span>
-								<button class="filter-link stext-106 trans-04 color"
-									data-filter="99">All</button></li>
 							<li class="p-b-6"><span class="fs-15 lh-12 m-r-6"
 								style="color: #222;"> <i class="zmdi zmdi-circle"></i>
 							</span>
@@ -158,28 +148,36 @@
 
 		<div class="row ">
 			<c:forEach items="${product }" var="product">
-				<input type="hidden" class="product_id">
-				<input type="hidden" class="productName">
+			<input type="hidden" class="product_id" >
+			<input type="hidden" class="productName" >
 				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
 					<!-- Block2 -->
 					<div class="block2">
 						<div class="block2-pic hov-img0"
 							style="height: 300px; overflow: hidden;">
 							<img src="/resources/images/products/${product.img }"
-								alt="IMG-PRODUCT" style="height: 100%;">
+								alt="IMG-PRODUCT" style="height: 100%;"> <a href="#"
+								class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1" data-product_id="${product.product_id }">
+								Quick View </a>
 						</div>
 
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
-								<a href="/product/productDetail?id=${product.product_id }"
-									class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 ">
-									${product.product_name } </a> <span class="stext-105 cl3"> <fmt:formatNumber
-										type="number" maxFractionDigits="3" value="${product.price}" />
-									won
+								<a href="/product/productDetail?id=${product.product_id }" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 ">
+									${product.product_name } 
+								</a> 
+								<span class="stext-105 cl3">
+									<fmt:formatNumber type="number" maxFractionDigits="3" value="${product.price}" />
+									 won
 								</span>
 							</div>
 
-
+						 <div class="block2-txt-child2 flex-r p-t-3">
+								<a class="btn-addwish-b2 dis-block pos-relative js-addwish-b2" data-product_id = "${product.product_id }" data-product_name = "${product.product_name }">
+									<img class="icon-heart1 dis-block trans-04" src="/resources/images/icons/icon-heart-01.png" alt="ICON">
+									<img class="icon-heart2 dis-block trans-04 ab-t-l" src="/resources/images/icons/icon-heart-02.png" alt="ICON">
+								</a>
+							</div> 
 						</div>
 					</div>
 				</div>
@@ -189,32 +187,32 @@
 
 
 		<div class="flex-c-m flex-w w-full p-t-45">
-
-			<nav>
+		
+			<nav >
 				<ul class="pagina">
-					<c:if test="${pageMaker.prev }">
+				<c:if test="${pageMaker.prev }">				
+					<li >
+						<button class="pageBtn" data-filter="prev" onclick="location.href='/product/productList?category_id=0&pageStart=${pageMaker.cri.pageNum - 1}'" >
+							Previous
+						</button>
+					</li>
+				</c:if>
+					<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
 						<li>
-							<button class="pageBtn" data-filter="prev"
-								onclick="location.href='/product/productList?category_id=0&pageStart=${pageMaker.cri.pageNum - 1}'">
-								Previous</button>
-						</li>
-					</c:if>
-					<c:forEach var="num" begin="${pageMaker.startPage }"
-						end="${pageMaker.endPage }">
-						<li>
-							<button class="pageBtn " onclick="pageNum(${num})"
-								data-filter="${num }">${num }</button>
+							<button class="pageBtn ${pageMaker.cri.pageNum == num ? 'pageActive' : '' } "  onclick="pageNum(${num})" data-filter="${num }" >
+								${num }
+							</button>
 						</li>
 					</c:forEach>
-
+					
 					<c:if test="${pageMaker.next }">
-						<li>
-							<button class="pageBtn" data-filter="next"
-								onclick="location.href='/product/productList?category_id=0&pageStart=${pageMaker.cri.pageNum + 1}'">
-								Next</button>
-						</li>
+					<li >
+						<button class="pageBtn" data-filter="next" onclick="location.href='/product/productList?category_id=0&pageStart=${pageMaker.cri.pageNum + 1}'" >
+							Next
+						</button>
+					</li>
 					</c:if>
-
+					
 				</ul>
 			</nav>
 		</div>
@@ -229,16 +227,7 @@
 	var href = $(location).attr("href");
 	
 	function filterPage(element) {
-		    var categoryId = $(element).attr("data-filter");
-		    var colorId = $("button.color.pageActive").attr("data-filter");
-		    var sizeId = $("button.size.pageActive").attr("data-filter");
-		    var defaultColor = 99;
-		    var defaultSize = 99;
-		    
-		    colorId = colorId || defaultColor;
-		    sizeId = sizeId || defaultSize;
-		    
-		    location.href = url + categoryId + "&color_id=" + colorId + "&size_id=" + sizeId;
+		location.href = url + $(element).attr("data-filter");
 	}
 	
 	function pageNum(number) {
@@ -249,27 +238,11 @@
 		}
 	}
 	 $(document).ready(function () {
-		 var pageBtn = $('.pageBtn');
-		 var pagenation = localStorage.getItem('pagenation');
-		 pageBtn.on('click', function() {
-			 	var filter = $(this).attr("data-filter");
-				// 현재 선택된 버튼에 클래스 추가
-				$(this).addClass("pageActive");
-			
-				// 다른 버튼에서 클래스 제거	
-				pageBtn.not(this).removeClass("pageActive");
-				
-				// pageBtn에 선택된 필터 저장
-				localStorage.setItem('pagenation', filter);
-			});
-		 if (pagenation) {
-			 pageBtn.filter('[data-filter="' + pagenation + '"]')
-						.addClass("pageActive");
-			}
+		
 		 window.addEventListener('beforeunload', function() {
 				localStorage.removeItem('selectedFilter');		
 			});
-		 console.log(pagenation);
+		
 		 
 		 $('.btn-addwish-b2').each(function () {
 		        var pId = $(this).data('product_id');
@@ -298,7 +271,8 @@
 	
   $('.js-hide-modal1').on('click',function(){
         $('.js-modal1').removeClass('show-modal1');
-        location.reload();
+       location.reload();
+       
     });
  
 		

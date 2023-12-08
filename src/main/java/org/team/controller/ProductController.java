@@ -90,8 +90,10 @@ public class ProductController {
 	@GetMapping(value = "/productDetail")
 	public void detail(@RequestParam(name = "id") int product_id, Model model) {
 		ProductVO vo = service.detail(product_id);
+		
+		
 		model.addAttribute("product", vo);
-
+		
 		log.info("상품 디테일 페이지 : " + vo);
 	}
 

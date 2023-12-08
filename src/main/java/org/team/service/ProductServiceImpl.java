@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.team.domain.AddProducts;
 import org.team.domain.Criteria;
 import org.team.domain.ProductVO;
 import org.team.mapper.ProductMapper;
@@ -57,11 +58,6 @@ public class ProductServiceImpl implements ProductService{
 
 
 
-	@Override
-	public int postWish(ProductVO pVo, int mVo) {
-		int result =  mapper.postWish(pVo, mVo);	
-		return result;
-	}
 
 
 
@@ -82,9 +78,36 @@ public class ProductServiceImpl implements ProductService{
 
 
 	@Override
-	public int postCart(ProductVO pVo, int mVo, int count) {
-		int result = mapper.postCart(pVo, mVo, count);
+	public int postCart(AddProducts aVo, int mVo) {
+		int result = mapper.postCart(aVo, mVo);
 		return result;
 	}
+
+
+
+	@Override
+	public int postWish(AddProducts aVo, int mVo) {
+		int result = mapper.postWish(aVo, mVo);
+		return result;
+	}
+
+
+
+	@Override
+	public List<String> sizeTotal(ProductVO pVo) {
+		// TODO Auto-generated method stub
+		return mapper.sizeTotal(pVo);
+	}
+
+
+
+	@Override
+	public List<String> colorTotal(ProductVO pVo) {
+		// TODO Auto-generated method stub
+		return mapper.colorTotal(pVo);
+	}
+
+
+
 	
 }

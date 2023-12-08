@@ -1,9 +1,12 @@
 package org.team.controller;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.team.domain.AddProducts;
+import org.team.domain.ProductDetailResponse;
 import org.team.domain.ProductVO;
 
 import org.team.member.MemberVO;
@@ -39,35 +44,18 @@ public class ProductDetailModalController {
 	@GetMapping(value = "/productDetailModal/{product_id}",
 			produces = {MediaType.APPLICATION_XML_VALUE,
 						MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<ProductVO> detailModal(@PathVariable("product_id") int product_id){
+	public ResponseEntity<ProductDetailResponse> detailModal(@PathVariable("product_id") int product_id){
 		log.info("modal item : "  + product_id);
+		ProductVO pVo = service.detail(product_id);
+		
+		ProductDetailResponse response = new ProductDetailResponse();
+		response.setProductDetail(pVo);
+		response.setSizeTotal(service.sizeTotal(pVo));
+		response.setColorTotal(service.colorTotal(pVo));
 
-		return new ResponseEntity<>(service.detail(product_id),HttpStatus.OK);
+		return new ResponseEntity<>(response,HttpStatus.OK);
 	}
-	
-	@PostMapping(value = "/postWish",
-			consumes = "application/json",
-			produces = {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> postWish(@RequestBody ProductVO pVo, HttpSession session){
 
-		MemberVO memberVo = (MemberVO)session.getAttribute("mVO");
-	
-		int userId = memberVo.getId();
-		
-		log.info("post wish : " + pVo.getProduct_name());	
-		log.info("user : " +  userId);
-
-		
-		 if (userId == 0) { 
-			 // 로그인 정보가 없는 경우 처리 log.warn("User not logged in.");
-			 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED); 
-		 }
-		 
-		int result = service.postWish(pVo, userId);
-		
-		return result == 1 ? new ResponseEntity<String>("success",HttpStatus.OK)
-							: new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
-	}
 	
 	@GetMapping(value = "/checkWishStatus/{product_id}", produces = MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<String> checkWishStatus(@PathVariable("product_id") int product_id, HttpSession session) {
@@ -112,24 +100,64 @@ public class ProductDetailModalController {
 	@PostMapping(value = "/postCart",
 			consumes = "application/json",
 			produces = {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> postCart(@RequestBody ProductVO pVo, HttpSession session,@RequestParam int count){
+	public ResponseEntity<String> postCart(@RequestBody AddProducts aVo, HttpSession session){
 
 		MemberVO memberVo = (MemberVO)session.getAttribute("mVO");
 	
 		int userId = memberVo.getId();
 		
-		log.info("post Cart : " + pVo.getProduct_name());	
+		log.info("post Cart : " + aVo.getProduct().getProduct_name());	
 		log.info("user : " +  userId);
 		
+		
+		 if (userId == 0) { 
+			 // 로그인 정보가 없는 경우 처리 
+			 log.warn("User not logged in.");
+			 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED); 
+		 }
+		 
+		 try {
+		        // 서비스 메서드에서 중복 키 업데이트 여부에 따라 예외를 던짐
+		        service.postCart(aVo, userId);
+		        return new ResponseEntity<String>("success", HttpStatus.OK);
+		    } catch (DuplicateKeyException e) {
+		        // 중복 키 업데이트 예외 처리
+		        return new ResponseEntity<String>("Duplicate key update", HttpStatus.CONFLICT);
+		    } catch (Exception e) {
+		        // 그 외의 예외 처리
+		        return new ResponseEntity<String>("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
+		    }
+	}
+	
+	@PostMapping(value = "/postWish",
+			consumes = "application/json",
+			produces = {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> postWish(@RequestBody AddProducts aVo, HttpSession session){
+
+		MemberVO memberVo = (MemberVO)session.getAttribute("mVO");
+	
+		int userId = memberVo.getId();
+		
+		log.info("post wish : " + aVo.getProduct().getProduct_name());	
+		log.info("user : " +  userId);
+
 		
 		 if (userId == 0) { 
 			 // 로그인 정보가 없는 경우 처리 log.warn("User not logged in.");
 			 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED); 
 		 }
 		 
-		int result = service.postCart(pVo, userId,count);
-		
-		return result == 1 ? new ResponseEntity<String>("success",HttpStatus.OK)
-							: new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		 try {
+		        // 서비스 메서드에서 중복 키 업데이트 여부에 따라 예외를 던짐
+		        service.postWish(aVo, userId);
+		        return new ResponseEntity<String>("success", HttpStatus.OK);
+		    } catch (DuplicateKeyException e) {
+		        // 중복 키 업데이트 예외 처리
+		        return new ResponseEntity<String>("Duplicate key update", HttpStatus.CONFLICT);
+		    } catch (Exception e) {
+		        // 그 외의 예외 처리
+		        return new ResponseEntity<String>("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
+		    }
 	}
+	
 }

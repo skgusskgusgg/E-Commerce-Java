@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.team.domain.AddProducts;
 import org.team.domain.Criteria;
 import org.team.domain.ProductVO;
 import org.team.join.MemberDTO;
@@ -52,9 +53,10 @@ public class ProductMapperTests {
 	}
 	@Test
 	public void postWish() {
-		ProductVO pVo = new ProductVO();
-		
-		pVo.setProduct_name("Aviator Bomber");
+		AddProducts pVo = new AddProducts();
+		pVo.getProduct().setColor_id("red");
+		pVo.getProduct().setSize_id("L");
+		pVo.getProduct().setProduct_name("Aviator Bomber");
 	
 		mapper.postWish(pVo, 2);
 	}
@@ -71,12 +73,28 @@ public class ProductMapperTests {
 	
 	@Test
 	public void postCart() {
-		ProductVO pVo =new ProductVO();
-		pVo.setColor_id("red");
-		pVo.setSize_id("M");
+		AddProducts pVo =new AddProducts();
+		pVo.getProduct().setColor_id("red");
+		pVo.getProduct().setSize_id("L");
+		pVo.getProduct().setProduct_name("Elegance Trench");
+		
+		mapper.postCart(pVo, 2);
+	}
+	
+	@Test
+	public void sizeTotal() {
+		ProductVO pVo = new ProductVO();
+		pVo.setProduct_name("Green T");
+		
+		log.info(mapper.sizeTotal(pVo));
+	}
+	
+	@Test
+	public void colorTotal() {
+		ProductVO pVo = new ProductVO();
 		pVo.setProduct_name("Elegance Trench");
 		
-		mapper.postCart(pVo, 2, 3);
+		log.info(mapper.colorTotal(pVo));
 	}
 	
 }

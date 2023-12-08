@@ -102,7 +102,12 @@ public class AdminProductController {
 		log.info("상품 디테일 페이지 : " + vo);
 	}
 	@GetMapping(value = "/productModifyForm")
-	public void productModifyForm() {
+	public void productModifyForm(@RequestParam(name = "id") int product_id, Model model) {
+		ProductVO vo = service.detail(product_id);
+		model.addAttribute("product", vo);
+	}
+	@GetMapping(value = "/productRegisterForm")
+	public void productRegisterForm() {
 		
 	}
 	
@@ -131,14 +136,38 @@ public class AdminProductController {
 
 	
 	@PostMapping(value = "/productUpdate")
-	public String update(ProductVO pVo) {
+	public String update(@RequestParam MultipartFile file,@ModelAttribute ProductVO pVo) {
+		  if (!file.isEmpty()) {
+		        String uploadFolder = "C:/Users/Admin/Desktop/1st_project/src/main/webapp/resources/images/products/" + pVo.getCategory_id();
+		        File saveFile = new File(uploadFolder, file.getOriginalFilename());
+
+		        try {
+		            file.transferTo(saveFile);
+		        } catch (Exception e) {
+		            e.printStackTrace();
+		        }
+		    }
+		
 		service.update(pVo);
-		return "redirect:/admin/product/productList?category=0";
+		return "redirect:/admin/product/productManagement";
 	}
 	@PostMapping(value = "/productDelete")
-	public String delete(int pVo) {
+	public String delete(@RequestParam(name = "product_id")int pVo) {
 		service.delete(pVo);
-		return "redirect:/admin/product/productList?category=0";
+		return "redirect:/admin/product/productManagement";
 	}
 	
+	@GetMapping(value= "/productManagement")
+	public void productManagement(
+			@RequestParam(name = "pageStart", defaultValue = "1") Integer pageStart ,
+			@RequestParam(name="keyword", defaultValue = "") String keyword,
+			Model model) {
+		
+		Criteria cri = new Criteria(pageStart,10,keyword);
+		List<ProductVO> list = service.getList(cri);
+		int total = service.getTotal();
+		PageDTO pDto = new PageDTO(cri, total);
+		model.addAttribute("product", list);
+		model.addAttribute("pageMaker", pDto);
+	}
 }
