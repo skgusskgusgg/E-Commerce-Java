@@ -128,8 +128,8 @@
 										<i class="fs-16 zmdi zmdi-plus"></i>
 									</div>
 								</div>
-								<div style="width:100%; display: flex; justify-content: space-between;">
-								<button
+								<div style=" display: flex; justify-content: space-between;">
+								<button style="margin-right: 10px"
 									class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail detailCart">
 									Add to cart</button>
 								<button
@@ -383,7 +383,7 @@
 			  					  showConfirmButton: false,
 			  					  timer: 1500
 			  					});
-	                    	
+	                    
 	                
 	                },
 	                error: function (xhr, status, error) {
@@ -407,9 +407,9 @@
 		
 		$.ajax({
             type: 'POST',
-            url: "/productDetail/postCart?count=" + count,
+            url: "/productDetail/postCart",
             contentType: 'application/json',
-            data: JSON.stringify({product_name: product_name,color_id: color_id, size_id: size_id}),
+            data: JSON.stringify({product:{product_name: product_name,color_id: color_id, size_id: size_id},count:count}),
             success: function (response) {
             	 
                 	Swal.fire({
@@ -437,7 +437,7 @@
             },
             error: function (xhr, status, error) {
             	
-                Swal.fire("This product has already been registered on WishList.", "", "error");
+            	  Swal.fire("This product has already been registered on Cart.", "", "info");
             }
         });
 	})
