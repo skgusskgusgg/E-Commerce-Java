@@ -91,6 +91,7 @@ public class AdminProductController {
 			log.info("high price : " + high);
 			log.info("keyword : " + keyword);
 			log.info("total : " + total);
+			log.info("pDto : " + pDto);
 		}
 	}
 
