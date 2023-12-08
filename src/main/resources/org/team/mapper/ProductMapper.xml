@@ -86,21 +86,16 @@
         ORDER BY p1.price DESC
     </if>
     LIMIT #{cri.pageStart}, #{cri.amount}
-</select>
-
-
-
-
-
+	</select>
 	<select id="getTotal" resultType="int">
-		select count(*) from product
-		where size_id = (select code_name
-		from code
-		where code_id = "size_id"
-		and code_name = "S"
+		 select count(*) from product p1 WHERE
+		p1.product_id = (
+		SELECT MIN(p2.product_id)
+		FROM
+		product p2
+		WHERE
+		p2.product_name = p1.product_name
 		)
-		and color_id = "black"
-		order by price asc
 	</select>
 	<select id="selectTotal" resultType="int">
 		<![CDATA[	select count(*) from product
@@ -133,17 +128,22 @@
 	</select>
 
 	<insert id="postWish">
-		insert into wish(product_id, member_id) values(
-		(select product_id from product
-		where product_name =
-		#{pVo.product_name}
-		and color_id = "black"
-		and size_id = "S" ),
-		(select
-		id from member
-		where id = #{mVo})
-		)
-	</insert>
+	insert into wish(member_id, product_id, `count`)
+		select
+		#{mVo},
+		(select product_id
+		from product
+		where color_id =
+		#{aVo.product.color_id}
+		and size_id = #{aVo.product.size_id}
+		and
+		product_name = #{aVo.product.product_name}) as product_id,
+		#{aVo.count}
+		from dual
+		on duplicate key update
+		`count` = `count` +
+		#{aVo.count}
+			</insert>
 	<delete id="deleteWish">
 		delete from wish where product_id = #{pVo.product_id}
 		and member_id = #{mVo}
@@ -173,7 +173,13 @@
 		`count` = `count` +
 		#{aVo.count}
 	</insert>
-
-
+	
+	<select id="sizeTotal" resultType="java.lang.String">
+		select DISTINCT size_id from product where product_name = #{pVo.product_name} 
+	</select>
+	
+	<select id="colorTotal" resultType="java.lang.String">
+		select DISTINCT color_id from product where product_name = #{pVo.product_name}
+	</select>
 
 </mapper>

@@ -17,12 +17,16 @@ public interface ProductService {
 
 	public ProductVO detail(int id);
 	
-	public int postWish(ProductVO pVo, int mDto);
+	public int postWish(AddProducts aVo, int mVo);
 	
 	public int deleteWish(ProductVO pVo, int mDto);
 	
 	public boolean countWish(int product_id, int member_id);
 	
 	public int postCart(AddProducts aVo, int mVo);
+	
+	public List<String> sizeTotal(ProductVO pVo);
+	
+	public List<String> colorTotal(ProductVO pVo);
 
 }

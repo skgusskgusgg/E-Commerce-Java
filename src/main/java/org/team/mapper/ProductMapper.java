@@ -21,7 +21,7 @@ public interface ProductMapper {
 
 	public ProductVO detail(int id);
 	
-	public int postWish(@Param("pVo") ProductVO Pvo,@Param("mVo") int mVo );
+	public int postWish(@Param("aVo") AddProducts aVo, @Param("mVo") int mVo );
 
 	public int deleteWish(@Param("pVo") ProductVO Pvo,@Param("mVo") int mVo );
 	
@@ -29,5 +29,7 @@ public interface ProductMapper {
 	
 	public int postCart(@Param("aVo") AddProducts aVo, @Param("mVo") int mVo);
 
+	public List<String> sizeTotal(@Param("pVo") ProductVO pVo);
 	
+	public List<String> colorTotal(@Param("pVo") ProductVO pVo);
 }

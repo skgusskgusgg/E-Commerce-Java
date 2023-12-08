@@ -3,7 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@include file="../../includes/header.jsp"%>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+
 
 <div class="bg0 m-t-23 p-b-140">
 	<div class="container">
@@ -39,9 +40,14 @@
 				<div
 					class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search">
 					<i class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search"></i>
-					<i
-						class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
+					<i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
 					Search
+				</div>
+				<div style="margin-left: 8px;" onclick="location.href='/admin/product/productRegisterForm'"
+					class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4">
+					<i class="bi bi-plus-square-dotted" style="margin-right: 5px;"></i>
+					
+						Register
 				</div>
 			</div>
 
@@ -202,7 +208,7 @@
 					<c:forEach var="num" begin="${pageMaker.startPage }"
 						end="${pageMaker.endPage }">
 						<li>
-							<button class="pageBtn " onclick="pageNum(${num})"
+							<button class="pageBtn ${pageMaker.cri.pageNum == num ? 'pageActive' : '' } " onclick="pageNum(${num})"
 								data-filter="${num }">${num }</button>
 						</li>
 					</c:forEach>
@@ -249,27 +255,11 @@
 		}
 	}
 	 $(document).ready(function () {
-		 var pageBtn = $('.pageBtn');
-		 var pagenation = localStorage.getItem('pagenation');
-		 pageBtn.on('click', function() {
-			 	var filter = $(this).attr("data-filter");
-				// 현재 선택된 버튼에 클래스 추가
-				$(this).addClass("pageActive");
-			
-				// 다른 버튼에서 클래스 제거	
-				pageBtn.not(this).removeClass("pageActive");
-				
-				// pageBtn에 선택된 필터 저장
-				localStorage.setItem('pagenation', filter);
-			});
-		 if (pagenation) {
-			 pageBtn.filter('[data-filter="' + pagenation + '"]')
-						.addClass("pageActive");
-			}
+		
 		 window.addEventListener('beforeunload', function() {
 				localStorage.removeItem('selectedFilter');		
 			});
-		 console.log(pagenation);
+		 
 		 
 		 $('.btn-addwish-b2').each(function () {
 		        var pId = $(this).data('product_id');

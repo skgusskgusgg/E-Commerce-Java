@@ -94,14 +94,13 @@ input[type=file]:hover::file-selector-button {
 </style>
 
 <div id="modifycontainer">
-	<h3 style="margin: 50px 0">Modify Product</h3>
-	<form modelAttribute="pVo" method="post" enctype="multipart/form-data"class="modifyForm" action="/admin/product/productUpdate">
-		<input type="hidden" name="product_id" value="${product.product_id }">
+	<h3 style="margin: 50px 0">Add Product</h3>
+	<form modelAttribute="pVo" method="post" enctype="multipart/form-data"class="modifyForm" action="/admin/product/productRegister">
 		<div class="tableContainer">
 			<table border="1" class="borderLeftNone">
 				<tbody>
 					<tr>
-						<td><img id="preview" src="/resources/images/products/${product.img }"></td>
+						<td><img id="preview"></td>
 					</tr>
 				</tbody>
 			</table>
@@ -109,17 +108,17 @@ input[type=file]:hover::file-selector-button {
 				<tbody>
 					<tr>
 						<th scope="row">Product Name</th>
-						<td><input type="text" id="product_name" name="product_name" placeholder="${product.product_name }">
+						<td><input type="text" id="product_name" name="product_name">
 						</td>
 					</tr>
 					<tr>
 						<th scope="row">Product Price</th>
-						<td><input type="text" id="price" name="price" placeholder="${product.price }"></td>
+						<td><input type="text" id="price" name="price"></td>
 					</tr>
 					<tr>
 						<th scope="row">Category</th>
 						<td><select name="category_id" class="pl">
-								<option value="" selected disabled>Select Category : ${product.category_id }</option>
+								<option value="" selected disabled>Select Category</option>
 								<option value="outer">Outer</option>
 								<option value="top">Top</option>
 								<option value="pants">Pants</option>
@@ -128,7 +127,7 @@ input[type=file]:hover::file-selector-button {
 					<tr>
 						<th scope="row">Color</th>
 						<td><select class="color_id pl" name="color_id">
-								<option value="" selected disabled>Select Color : ${product.color_id }</option>
+								<option value="" selected disabled>Select Color</option>
 								<option value="black">Black</option>
 								<option value="green">Green</option>
 								<option value="red">Red</option>
@@ -138,7 +137,7 @@ input[type=file]:hover::file-selector-button {
 					<tr>
 						<th scope="row">Size</th>
 						<td><select class="size_id pl" name="size_id">
-								<option value="" selected disabled>Select Size : ${product.size_id }</option>
+								<option value="" selected disabled>Select Size</option>
 								<option value="S">S</option>
 								<option value="M">M</option>
 								<option value="L">L</option>
@@ -146,7 +145,7 @@ input[type=file]:hover::file-selector-button {
 					</tr>
 					<tr>
 						<th scope="row">Product Quantity</th>
-						<td><input type="text" id="Quantity" name="quantity" placeholder="${product.quantity }">
+						<td><input type="text" id="Quantity" name="quantity">
 						</td>
 					</tr>
 					<tr>
@@ -162,7 +161,7 @@ input[type=file]:hover::file-selector-button {
 		</div>
 		<div class="btnBox">
 			<input class="btnBgc"type="submit" value="Submit" > 
-			<input class="btnBgc" type="button" value="List" onclick="location.href='/admin/product/productManagement'">
+			<input class="btnBgc" type="button" value="List" onclick="location.href='/admin/product/productList?category_id=0'">
 			<input class="btnBgc" type="reset" value="Reset">
 		</div>
 

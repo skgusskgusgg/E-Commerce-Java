@@ -35,12 +35,13 @@ public class ProductController {
 			@RequestParam(name = "size_id", required = false) String size_id,
 			@RequestParam(name = "sort", defaultValue = "asc") String sort,
 			@RequestParam(name = "pageStart", defaultValue = "1") Integer pageStart,
-			@RequestParam(name = "row", defaultValue = "0") Integer row,
-			@RequestParam(name = "high", defaultValue = "500000") Integer high,
+			@RequestParam(name = "row", defaultValue = "0",required = false) Integer row,
+			@RequestParam(name = "high", defaultValue = "500000",required = false) Integer high,
 			@RequestParam(name = "keyword", defaultValue = "") String keyword, Model model) {
 
 		PageDTO pDto = null;
 		int total = 0;
+		
 		if (category_id == null || category_id.equals("0")) {
 			Criteria cri = new Criteria(pageStart, 8, keyword);
 			List<ProductVO> list = service.getList(cri);
@@ -82,14 +83,17 @@ public class ProductController {
 			log.info("row price : " + row);
 			log.info("high price : " + high);
 			log.info("keyword : " + keyword);
+			log.info("total : " + total);
 		}
 	}
 
 	@GetMapping(value = "/productDetail")
 	public void detail(@RequestParam(name = "id") int product_id, Model model) {
 		ProductVO vo = service.detail(product_id);
+		
+		
 		model.addAttribute("product", vo);
-
+		
 		log.info("상품 디테일 페이지 : " + vo);
 	}
 

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@include file="../includes/header.jsp"%>
+<%@include file="../../includes/header.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
@@ -74,9 +74,13 @@
 						<td><input type="text" value="${product.color_id}" ></td>
 						<td><input type="text"
 							value="${product.size_id}" ></td>
-						<td><button class="custom-btn btn-14" value="">상세</button></td>
-						<td><button class="modify custom-btn btn-3" value=""><span>수정</span></button></td>
-						<td><button class="deleteMember custom-btn btn-5" value=""><span>삭제</span></button></td>
+						<td><button class="custom-btn btn-14" value="" onclick="location.href='/admin/product/productDetail?id=${product.product_id}'">상세</button></td>
+						<td><button class="modify custom-btn btn-3" value="" onclick="location.href='/admin/product/productModifyForm?id=${product.product_id}'"><span>수정</span></button></td>
+						<td>
+						<form action="/admin/product/productDelete?product_id=${product.product_id}" method="post">
+						<button class="deleteMember custom-btn btn-5" type="submit" ><span>삭제</span></button>
+						</form>
+						</td>
 					</tr>
 				</c:forEach>
 				<tr><td colspan="1" style="height: 20px;"></td></tr>
@@ -127,38 +131,17 @@
 		</div>
 	</div>
 </div>
-<form id='actionForm' action="/admin/productManagement/" method='get'>
-	<input type='hidden' name="pageNum"
+<form id='actionForm' action="/admin/product/productManagement/" method='get'>
+	<input type='hidden' name="pageStart"
 		value='${pageMaker.cri.pageNum}'> <input type='hidden'
 		name="amount" value='${pageMaker.cri.amount}'>
 		<input type='hidden' name="keyword">
 </form>
 
 <form id='keywordSearchForm' action="/admin/memberManagement/memberKeywordSearch/" method='get'>
-	<input type='hidden' name="pageNum"	value='${pageMaker.cri.pageNum}'>
+	<input type='hidden' name="pageStart"	value='${pageMaker.cri.pageNum}'>
 	<input type='hidden' name="amount" value='${pageMaker.cri.amount}'>
 	<input type='hidden' name="keyword2">
-</form>
-
-<form id='modifyForm' action="/admin/memberManagement/modifyMember/" method='post'>
-	<input type='hidden' name="pageNum" value='${pageMaker.cri.pageNum}'>
-	<input type='hidden' name="amount" name="amount" value='${pageMaker.cri.amount}'>
-	<input type='hidden' name="id"	value=''> 
-	<input type='hidden'name="user_name" value=''>
-	<input type='hidden'name="password" value=''>
-	<input type='hidden'name="email" value=''>
-	<input type='hidden'name="address" value=''>
-	<input type='hidden'name="gender" value=''>
-	<input type='hidden'name="birth_date" value=''>
-	<input type='hidden'name="phone" value=''>
-	<input type='hidden'name="point" value=''>
-	<input type='hidden'name="join_date" value=''>
-</form>
-
-<form id='deleteForm' action="/admin/memberManagement/deleteMember/" method='post'>
-	<input type='hidden' name="pageNum" value='${pageMaker.cri.pageNum}'>
-	<input type='hidden' name="amount" name="amount" value='${pageMaker.cri.amount}'>
-	<input type='hidden' name="id"	value=''> 
 </form>
 
 <script>
@@ -171,7 +154,7 @@
 		$(".paginate_button a").on("click", function(e) {
 			e.preventDefault();
 			var keyword = $("#keyword").val();
-			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+			actionForm.find("input[name='pageStart']").val($(this).attr("href"));
 			actionForm.find("input[name='amount']").val(page);
 			actionForm.find("input[name='keyword']").val(keyword);
 			actionForm.submit();
@@ -180,7 +163,7 @@
 
 		$(".keywordSearch").on("click", function() {
 			var keyword = $("#keyword").val();
-			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+			actionForm.find("input[name='pageStart']").val($(this).attr("href"));
 			actionForm.find("input[name='amount']").val(page);
 			actionForm.find("input[name='keyword']").val(keyword);
 			actionForm.submit();
@@ -194,51 +177,9 @@
 			keywordSearchForm.submit();
 			
 		});
-
-		
-		var deleteForm = $("#deleteForm");
-		$(".deleteMember").on("click",function(){
-			
-			var deleteId = $(this).val();
-			deleteForm.find("input[name='id']").val(deleteId);
-			deleteForm.submit();
-		});
-		
-		var modifyForm = $("#modifyForm");
-		$(".modify").on("click",function(){
-	
-	
-			var selecetedId = $(this).val();
-			var selectedPw =  $("#pw"+selecetedId).val();
-			var selectedName =  $("#name"+selecetedId).val();
-			var selectedEmail =  $("#email"+selecetedId).val();
-			var selectedAddress =  $("#address"+selecetedId).val();
-			if($("#gender"+selecetedId).val() === '1'){
-			var selectedGender = 1;}
-			if($("#gender"+selecetedId).val() === '2'){
-			var selectedGender = 2;}
-			var selectedBir =  $("#bir"+selecetedId).val();
-			var selectedPhone =  $("#phone"+selecetedId).val();
-			var selectedPoint =  $("#point"+selecetedId).val();
-			var selectedJoin =  $("#join"+selecetedId).val();
-			
-			modifyForm.find("input[name='id']").val(selecetedId);
-			modifyForm.find("input[name='user_name']").val(selectedName);
-			modifyForm.find("input[name='password']").val(selectedPw);
-			modifyForm.find("input[name='email']").val(selectedEmail);
-			modifyForm.find("input[name='address']").val(selectedAddress);
-			modifyForm.find("input[name='gender']").val(selectedGender);
-			modifyForm.find("input[name='birth_date']").val(selectedBir);
-			modifyForm.find("input[name='phone']").val(selectedPhone);
-			modifyForm.find("input[name='point']").val(selectedPoint);
-			modifyForm.find("input[name='join_date']").val(selectedJoin);
-	
-			modifyForm.submit();
-		
-		});
 	});
 </script>
-<%@include file="../includes/footer.jsp"%>
+<%@include file="../../includes/footer.jsp"%>
 <script type="text/javascript" src="/resources/js/addWish.js"></script>
 
 <style>
