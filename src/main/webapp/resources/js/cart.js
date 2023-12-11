@@ -83,6 +83,7 @@ $(document).ready(function () {
 					        window.location.href = redirectUrl;
 					    }else{
 					    	updateSubtotal(data);
+					    	updateTotalPrice(data);
 					    }
 					},
 					error: function(jqXHR, textStatus, errorThrown) {
@@ -103,5 +104,15 @@ $(document).ready(function () {
 		
 	    $(".cart-sub-total-div").html(subItemColumns);
     }
+    function updateTotalPrice(data) {
+	    var addItemPrice = 0;
+		$(data).find('item').each((index, item) => {
+			addItemPrice += (parseInt($(item).find("count").text(), 10) * parseInt($(item).find("price").text(), 10));
+		});
+	    var subItemColumns = "<span class='mtext-110 cl2'>" + addItemPrice + "</span>";
+
+	
+	    $(".cart-total-price-div").html(subItemColumns);
+	}
 })(jQuery);
 });

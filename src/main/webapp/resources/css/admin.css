@@ -3,16 +3,19 @@
 
 /*//////////////////////////////////////////////////////////////////
 [ FONT ]*/
-@font-face {
-	font-family: 'NanumBarunGothic';
-	src: url('/fonts/NanumBarungothic/NanumBarunGothic.eot');
-	src: url('/fonts/NanumBarunGothic.eot') format('embedded-opentype'),url('/fonts/NanumBarunGothic.woff') format('woff');
+/* NanumBarunGothic 기본 폰트 */
+@font-face{
+font-family: "NanumBarunGothic";
+src: url('../fonts/NanumBarunGothic/NanumBarunGothic.eot')format('eot');
+src: url('../fonts/NanumBarunGothic/NanumBarunGothic.woff') format('woff');
 }
-@font-face {
-	font-family: 'NanumBarunGothicBold';
-	src: url('/fonts/NanumBarungothic/NanumBarunGothicBold.eot');
-	src: url('/fonts/NanumBarunGothicBold.eot') format('embedded-opentype'),url('/fonts/NanumBarunGothicBold.woff') format('woff');
+/* NanumBarunGothic 굵은 폰트 */
+@font-face{
+font-family: "NanumBarunGothicBold";
+src: url('../fonts/NanumBarunGothic/NanumBarunGothicBold.eot')format('eot');
+src: url('../fonts/NanumBarunGothic/NanumBarunGothicBold.woff') format('woff');
 }
+
 /*//////////////////////////////////////////////////////////////////
 [ UTIL ]*/
 .w-0per{

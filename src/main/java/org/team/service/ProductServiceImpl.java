@@ -7,12 +7,9 @@ import org.springframework.stereotype.Service;
 import org.team.domain.AddProducts;
 import org.team.domain.Criteria;
 import org.team.domain.ProductVO;
-import org.team.join.MemberDTO;
 import org.team.mapper.ProductMapper;
-import org.team.member.MemberVO;
 
 import lombok.Setter;
-import lombok.extern.log4j.Log4j;
 
 @Service
 public class ProductServiceImpl implements ProductService{

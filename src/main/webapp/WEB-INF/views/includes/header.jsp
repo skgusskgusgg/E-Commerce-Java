@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="kr">
 <head>
@@ -45,6 +46,7 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/search.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/productList.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/cart.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/payment.css">
 <script src="/resources/vendor/jquery/jquery-3.2.1.min.js"></script>
 
 </head>
@@ -123,7 +125,7 @@
 					<!-- Icon header -->
 					<div class="wrap-icon-header flex-w flex-r-m">
 						<div
-							class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
+							class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 show-search-modal">
 							<i class="zmdi zmdi-search"></i>
 						</div>
 						<div class="icon-header-item p-l-22 p-r-11 cart-header-icon-desktop">
@@ -151,7 +153,7 @@
 			<!-- Icon header -->
 			<div class="wrap-icon-header flex-w flex-r-m m-r-15">
 				<div
-					class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
+					class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 show-search-modal">
 					<i class="zmdi zmdi-search"></i>
 				</div>
 
@@ -240,39 +242,10 @@
 			</ul>
 		</div>
 
-		<!-- Modal Search -->
-		<div
-			class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
-			<div class="container-search-header">
-				<button
-					class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-					<img src="/resources/images/icons/icon-close2.png" alt="CLOSE">
-				</button>
-
-				<!-- Modal Search -->
-				<div
-					class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
-					<div class="container-search-header">
-						<button
-							class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-							<img src="/resources/images/icons/icon-close2.png" alt="CLOSE">
-						</button>
-
-						<form class="wrap-search-header flex-w p-l-15">
-							<button class="flex-c-m trans-04">
-								<i class="zmdi zmdi-search"></i>
-							</button>
-							<input class="plh3" type="text" name="search"
-								placeholder="Search...">
-						</form>
-					</div>
-				</div>
-
-			</div>
-		</div>
+		</header>
 	</c:when>
 	<c:otherwise>
-	
+
 		<!-- Header -->
 	<header class="header-v4">
 		<!-- Header desktop -->
@@ -438,44 +411,14 @@
 
 			</ul>
 		</div>
-
-		<!-- Modal Search -->
-		<div
-			class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
-			<div class="container-search-header">
-				<button
-					class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-					<img src="/resources/images/icons/icon-close2.png" alt="CLOSE">
-				</button>
-
-				<!-- Modal Search -->
-				<div
-					class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
-					<div class="container-search-header">
-						<button
-							class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-							<img src="/resources/images/icons/icon-close2.png" alt="CLOSE">
-						</button>
-
-						<form class="wrap-search-header flex-w p-l-15">
-							<button class="flex-c-m trans-04">
-								<i class="zmdi zmdi-search"></i>
-							</button>
-							<input class="plh3" type="text" name="search"
-								placeholder="Search...">
-						</form>
-					</div>
-				</div>
-
-			</div>
-		</div>
+		</header>
 	</c:otherwise>
 </c:choose>
 	
-
+		<%@include file="../search/search.jsp"%>
 		<%@include file="../wishList/wish.jsp"%>
 
-	</header>
+	
 	<script type="text/javascript">
 		$(document).ready(
 				function() {

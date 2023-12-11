@@ -33,4 +33,9 @@
      WHERE member_id=#{member_id} and cart_id=#{cart_id}
 	</update>
 	
+	<delete id="deleteCurrentCart" parameterType="Integer">
+		DELETE FROM cart
+		WHERE member_id = #{member_id}
+	</delete>
+	
 </mapper>
