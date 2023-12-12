@@ -11,6 +11,6 @@ public interface CartMapper {
 	public Integer getCartCount(int member_id);
 	public boolean deleteCartList(List<String> cartSelectList);
 	public boolean updateCartAmount(Map<String,String> amountMap);
-	
+	public void deleteCurrentCart(int member_id);
 }
  

@@ -44,6 +44,8 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/admin.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/search.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/productList.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/cart.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/payment.css">
 
 <script src="/resources/vendor/jquery/jquery-3.2.1.min.js"></script>
 

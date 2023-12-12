@@ -46,4 +46,10 @@ public class CartServiceImpl implements CartService {
 		return mapper.updateCartAmount(amountMap);
 	}
 	
+	@Override
+	public void deleteCurrentCart(int member_id) {
+		log.info("Delete current cart..." + member_id);
+		mapper.deleteCurrentCart(member_id);
+	}
+	
 }

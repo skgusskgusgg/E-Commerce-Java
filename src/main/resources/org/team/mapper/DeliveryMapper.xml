@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.team.mapper.DeliveryMapper">
+
+	<select id="getDeliveryList" resultType="org.team.domain.DeliveryVO">
+	<![CDATA[ 
+		SELECT *
+		FROM delivery
+		WHERE member_id = #{member_id}
+	]]>
+	</select>
+	
+	<select id="getDeliveryAutoIncrement" resultType="Integer">
+        	SELECT MAX(delivery_id) FROM delivery;
+    </select>
+	
+	<select id="getDelivery" resultType="org.team.domain.DeliveryVO">
+	<![CDATA[ 
+		SELECT *
+		FROM delivery
+		WHERE delivery_id = #{delivery_id}
+	]]>
+	</select>
+	
+	<insert id="insertDelivery" parameterType="org.team.domain.DeliveryVO" useGeneratedKeys="true" keyProperty="delivery_id">
+		INSERT INTO delivery(member_id,payment_id,regdate,total_status,address,extraAddress,zipcode)
+		values(#{member_id},#{payment_id},NOW(),'1',#{address},#{extraAddress},#{zipcode})
+		<selectKey keyProperty="delivery_id" resultType="java.lang.Integer" order="AFTER">
+        	SELECT LAST_INSERT_ID()
+    	</selectKey>
+	</insert>
+	
+</mapper>
