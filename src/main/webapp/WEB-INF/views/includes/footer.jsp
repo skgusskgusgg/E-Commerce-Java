@@ -406,7 +406,7 @@ function login() {
 </script>
 <script>
 	function loginCheck_help() {
-		var mVO = <%= session.getAttribute("mVO") %>;
+		var mVO = '<%= session.getAttribute("mVO") %>';
 		if (mVO === null) {
 			alert("로그인을 해주세요");
 			return false;
