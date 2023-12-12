@@ -12,4 +12,6 @@ public interface WishService {
 	public int addCart(List<AddProducts> addVo, int member_id);
 	public int wishTotal(int mVo);
 	public int cartTotal(int mVo);
+	public int updateCart(List<AddProducts> aVo, int mVo);
+	public int checkCartProduct(List<AddProducts> aVo, int mVo);
 }

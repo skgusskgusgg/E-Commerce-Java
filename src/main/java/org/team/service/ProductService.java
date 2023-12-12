@@ -28,5 +28,13 @@ public interface ProductService {
 	public List<String> sizeTotal(ProductVO pVo);
 	
 	public List<String> colorTotal(ProductVO pVo);
+	
+	public int updateWish(ProductVO pVo, int count, int mVo);
+	
+	public int updateCart(ProductVO pVo, int count, int mVo);
+	
+	public int checkWishProduct(ProductVO pVo, int mVo);
+	
+	public int checkCartProduct(ProductVO pVo, int mVo);
 
 }

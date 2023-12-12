@@ -103,6 +103,11 @@ public class ProductDetailModalController {
 	public ResponseEntity<String> postCart(@RequestBody AddProducts aVo, HttpSession session){
 
 		MemberVO memberVo = (MemberVO)session.getAttribute("mVO");
+		
+		ProductVO pVo = new ProductVO();
+		pVo.setProduct_name(aVo.getProduct().getProduct_name());
+		pVo.setSize_id(aVo.getProduct().getSize_id());
+		pVo.setColor_id(aVo.getProduct().getColor_id());
 	
 		int userId = memberVo.getId();
 		
@@ -116,17 +121,16 @@ public class ProductDetailModalController {
 			 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED); 
 		 }
 		 
-		 try {
-		        // 서비스 메서드에서 중복 키 업데이트 여부에 따라 예외를 던짐
-		        service.postCart(aVo, userId);
-		        return new ResponseEntity<String>("success", HttpStatus.OK);
-		    } catch (DuplicateKeyException e) {
-		        // 중복 키 업데이트 예외 처리
-		        return new ResponseEntity<String>("Duplicate key update", HttpStatus.CONFLICT);
-		    } catch (Exception e) {
-		        // 그 외의 예외 처리
-		        return new ResponseEntity<String>("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
-		    }
+		 int checkProduct = service.checkCartProduct(pVo, userId);
+		 int count = aVo.getCount();
+		 
+		 if(checkProduct > 0) {
+			 service.updateCart(pVo, count, userId);
+			 return new ResponseEntity<String>("update", HttpStatus.OK);
+		 }else {
+			service.postCart(aVo, userId);
+			return new ResponseEntity<String>("success", HttpStatus.OK);
+		}
 	}
 	
 	@PostMapping(value = "/postWish",
@@ -135,6 +139,11 @@ public class ProductDetailModalController {
 	public ResponseEntity<String> postWish(@RequestBody AddProducts aVo, HttpSession session){
 
 		MemberVO memberVo = (MemberVO)session.getAttribute("mVO");
+		
+		ProductVO pVo = new ProductVO();
+		pVo.setProduct_name(aVo.getProduct().getProduct_name());
+		pVo.setSize_id(aVo.getProduct().getSize_id());
+		pVo.setColor_id(aVo.getProduct().getColor_id());
 	
 		int userId = memberVo.getId();
 		
@@ -147,17 +156,17 @@ public class ProductDetailModalController {
 			 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED); 
 		 }
 		 
-		 try {
-		        // 서비스 메서드에서 중복 키 업데이트 여부에 따라 예외를 던짐
-		        service.postWish(aVo, userId);
-		        return new ResponseEntity<String>("success", HttpStatus.OK);
-		    } catch (DuplicateKeyException e) {
-		        // 중복 키 업데이트 예외 처리
-		        return new ResponseEntity<String>("Duplicate key update", HttpStatus.CONFLICT);
-		    } catch (Exception e) {
-		        // 그 외의 예외 처리
-		        return new ResponseEntity<String>("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
-		    }
+		 int checkProduct = service.checkWishProduct(pVo, userId);
+		 int count = aVo.getCount();
+		 
+		 if(checkProduct > 0) {
+			 service.updateWish(pVo, count, userId);
+			 return new ResponseEntity<String>("update", HttpStatus.OK);
+		 }else {
+			service.postWish(aVo, userId);
+			return new ResponseEntity<String>("success", HttpStatus.OK);
+		}
+		 
 	}
 	
 }

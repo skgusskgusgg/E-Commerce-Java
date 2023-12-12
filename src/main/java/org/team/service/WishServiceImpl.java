@@ -45,5 +45,17 @@ public class WishServiceImpl implements WishService{
 		int result = mapper.cartTotal(mVo);
 		return result;
 	}
+
+	@Override
+	public int updateCart(List<AddProducts> aVo, int mVo) {
+		int result = mapper.updateCart(aVo, mVo);
+		return result;
+	}
+
+	@Override
+	public int checkCartProduct(List<AddProducts> aVo, int mVo) {
+		int result = mapper.checkCartProduct(aVo, mVo);
+		return result;
+	}
 	
 }

@@ -23,13 +23,21 @@ public interface ProductMapper {
 	
 	public int postWish(@Param("aVo") AddProducts aVo, @Param("mVo") int mVo );
 
+	public int updateWish(@Param("aVo") ProductVO pVo, @Param("num") int count, @Param("mVo") int mVo);
+	
 	public int deleteWish(@Param("pVo") ProductVO Pvo,@Param("mVo") int mVo );
 	
 	public int countWish(@Param("product_id") int productId, @Param("member_id") int member_id);
 	
 	public int postCart(@Param("aVo") AddProducts aVo, @Param("mVo") int mVo);
 
+	public int updateCart(@Param("pVo") ProductVO pVo, @Param("num") int count, @Param("mVo") int mVo);
+	
 	public List<String> sizeTotal(@Param("pVo") ProductVO pVo);
 	
 	public List<String> colorTotal(@Param("pVo") ProductVO pVo);
+	
+	public int checkWishProduct(@Param("product") ProductVO pVo, @Param("mVo") int mVo);
+	
+	public int checkCartProduct(@Param("product") ProductVO pVo, @Param("mVo") int mVo);
 }

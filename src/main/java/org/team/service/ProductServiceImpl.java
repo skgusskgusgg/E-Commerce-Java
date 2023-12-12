@@ -109,5 +109,34 @@ public class ProductServiceImpl implements ProductService{
 
 
 
+	@Override
+	public int updateWish(ProductVO pVo, int count, int mVo) {
+		int result = mapper.updateWish(pVo, count, mVo);
+		return result;
+	}
+
+
+
+	@Override
+	public int updateCart(ProductVO pVo, int count, int mVo) {
+		int result = mapper.updateCart(pVo, count, mVo);
+		return result;
+	}
+
+
+
+	@Override
+	public int checkWishProduct(ProductVO pVo, int mVo) {
+		int result = mapper.checkWishProduct(pVo, mVo);
+		return result;
+	}
+
+
+
+	@Override
+	public int checkCartProduct(ProductVO pVo, int mVo) {
+		int result = mapper.checkCartProduct(pVo, mVo);
+		return result;
+	}
 	
 }
