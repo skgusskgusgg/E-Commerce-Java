@@ -1,0 +1,53 @@
+@charset "UTF-8";
+
+/*//////////////////////////////////////////////////////////////////
+[ payment ]*/
+.payment-wrap{
+	width: 800px;
+	text-align: left;
+	margin: 20px auto;
+	font-family: NanumBarunGothic;
+	border-collapse: separate;
+    
+}
+
+.payment-wrap input[type="text"] {
+  font-family: NanumBarunGothic;
+  font-size: 13px;
+  border: 1px solid #cccccc;
+  width: 80%;
+  line-height: 1.2;
+  padding: 2px 5px;
+  margin-left:5px;
+  	
+}
+
+.payment-wrap > div {
+	display: flex;
+    align-items: center;
+}
+.payment-table{
+	border-collapse: separate;
+	border-spacing: 0px 5px;
+	width:100%;
+}
+
+
+.payment-subtitle td{
+	border-top: 1px solid #2f2f2f;
+	border-bottom: 1px solid #cccccc;
+	text-align:left;
+}
+
+.paymentMethod div {
+	margin: 8px;
+}
+
+.payment-product-table{
+	border-collapse: separate;
+	border-spacing: 0px 10px;
+}
+.payment-product-table th, td{
+	text-align:center;
+	width:10%;
+}

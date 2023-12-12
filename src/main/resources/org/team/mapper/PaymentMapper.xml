@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.team.mapper.PaymentMapper">
+
+	<select id="getPaymentList" resultType="org.team.domain.PaymentVO">
+	<![CDATA[ 
+		SELECT *
+		FROM Payment
+		WHERE member_id = #{member_id}
+	]]>
+	</select>
+	
+	<select id="getPayment" resultType="org.team.domain.PaymentVO">
+	<![CDATA[ 
+		SELECT *
+		FROM payment
+		WHERE payment_id = #{payment_id}
+	]]>
+	</select>
+	
+	<select id="getPaymentAutoIncrement" resultType="Integer">
+        	SELECT MAX(payment_id) FROM payment;
+    </select>
+    
+	<update id="updatePoint" parameterType="org.team.domain.PaymentInfoVO">
+		UPDATE member
+		SET `point` = `point` - #{usePoint}
+		where id = #{memberId}
+	</update>
+	
+	<insert id="insertPayment" parameterType="org.team.domain.PaymentVO" useGeneratedKeys="true" keyProperty="payment_id">
+		INSERT INTO payment(member_id,total_price,payment_method,point,paymentdate,canceled)
+		values(#{member_id},#{total_price},#{payment_method},#{point},NOW(),'1')
+	</insert>
+	
+</mapper>
