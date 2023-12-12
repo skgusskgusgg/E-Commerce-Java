@@ -273,9 +273,10 @@ $(document).ready(function(){
 <script>
 $(document).ready(function() {
     $('#address-checkbox').change(function() {
+    	var roadAddrStr = '${memberInfo.member_address}';
         if ($(this).prop('checked')) {
         	$('#payment-postCode').val(null);
-        	$('#payment-roadAddr').val(${memberInfo.member_address});
+        	$('#payment-roadAddr').val(roadAddrStr);
         	$('#payment-extraAddress').val(null);
         }else{
         	$('#payment-postCode').val(null);
