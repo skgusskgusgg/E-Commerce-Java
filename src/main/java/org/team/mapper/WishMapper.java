@@ -17,4 +17,8 @@ public interface WishMapper {
 	public int wishTotal(@Param("mVo") int mVo);
 	
 	public int cartTotal(@Param("mVo") int mVo);
+	
+	public int updateCart(@Param("addVo")  List<AddProducts> aVo, @Param("mVo") int mVo);
+	
+	public int checkCartProduct(@Param("addVo") List<AddProducts> aVo, @Param("mVo") int mVo);
 }

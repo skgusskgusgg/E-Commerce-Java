@@ -55,8 +55,16 @@ public class WishMapperTests {
 		list.add(pVo1);
 		list.add(pVo2);
 		
+		int check = mapper.checkCartProduct(list, 2);
+		log.info(check);
+		 
+		if(check > 0) {
+			mapper.updateCart(list, 2);
+		}else {
+			mapper.addCart(list, 2);
+		}
 	
-		mapper.addCart(list, 2);
+		
 	}
 	@Test 
 	public void wishTotal() {

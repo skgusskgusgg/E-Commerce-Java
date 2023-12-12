@@ -164,31 +164,34 @@
 		product_id = #{id}
 	</select>
 
-	<insert id="postWish">
-		insert into wish(member_id, product_id, `count`)
-		select
-		#{mVo},
-		(select
-		product_id
-		from product
-		where color_id =
-		#{aVo.product.color_id}
-		and
-		size_id = #{aVo.product.size_id}
-		and
-		product_name =
-		#{aVo.product.product_name}) as product_id,
-		#{aVo.count}
-		from dual
-		on
-		duplicate key update
-		`count` = `count` +
-		#{aVo.count}
+	<insert id="postWish" >
+	    INSERT INTO wish (member_id, product_id, `count`)
+	    VALUES (
+	        #{mVo},
+	        (SELECT product_id
+	         FROM product
+	         WHERE color_id = #{aVo.product.color_id}
+	         AND size_id = #{aVo.product.size_id}
+	         AND product_name = #{aVo.product.product_name}),
+	        #{aVo.count}
+	    )
 	</insert>
+	
+	<update id="updateWish" parameterType="org.team.domain.ProductVO">
+		update wish set `count` = `count` + #{num} 
+					where product_id = (SELECT product_id
+			         FROM product
+			         WHERE product_name = #{pVo.product_name}
+			         and color_id = #{pVo.color_id}
+			         and size_id = #{pVo.size_id})
+			         and member_id = #{mVo}
+	</update>
+	
 	<delete id="deleteWish">
 		delete from wish where product_id = #{pVo.product_id}
 		and member_id = #{mVo}
 	</delete>
+	
 	<select id="countWish" resultType="int">
 		SELECT COUNT(*) > 0 AS
 		exists_in_wishlist
@@ -198,22 +201,26 @@
 	</select>
 
 	<insert id="postCart">
-		insert into cart(member_id, product_id, `count`)
-		select
-		#{mVo},
-		(select product_id
-		from product
-		where color_id =
-		#{aVo.product.color_id}
-		and size_id = #{aVo.product.size_id}
-		and
-		product_name = #{aVo.product.product_name}) as product_id,
-		#{aVo.count}
-		from dual
-		on duplicate key update
-		`count` = `count` +
-		#{aVo.count}
+		  INSERT INTO cart (member_id, product_id, `count`)
+	    VALUES (
+	        #{mVo},
+	        (SELECT product_id
+	         FROM product
+	         WHERE color_id = #{aVo.product.color_id}
+	         AND size_id = #{aVo.product.size_id}
+	         AND product_name = #{aVo.product.product_name}),
+	        #{aVo.count}
+	    )
 	</insert>
+	<update id="updateCart" parameterType="org.team.domain.ProductVO">
+		update cart set `count` = `count` + #{num} 
+					where product_id = (SELECT product_id
+			         FROM product
+			         WHERE product_name = #{pVo.product_name}
+			         and color_id = #{pVo.color_id}
+			         and size_id = #{pVo.size_id})
+			        and member_id = #{mVo}
+	</update>
 
 	<select id="sizeTotal" resultType="java.lang.String">
 		select DISTINCT size_id from
@@ -224,5 +231,28 @@
 		select DISTINCT color_id from
 		product where product_name = #{pVo.product_name}
 	</select>
+	
+	<select id="checkWishProduct" parameterType="org.team.domain.ProductVO" resultType="java.lang.Integer">
+	    SELECT COUNT(product_id) FROM wish
+	    WHERE product_id = (
+	        SELECT product_id
+	        FROM product
+	        WHERE color_id = #{product.color_id}
+	        AND size_id = #{product.size_id}
+	        AND product_name = #{product.product_name}
+	    )
+	    and member_id = #{mVo}
+	</select>
 
+		<select id="checkCartProduct" parameterType="org.team.domain.ProductVO" resultType="java.lang.Integer">
+	    SELECT COUNT(product_id) FROM cart
+	    WHERE product_id = (
+	        SELECT product_id
+	        FROM product
+	        WHERE color_id = #{product.color_id}
+	        AND size_id = #{product.size_id}
+	        AND product_name = #{product.product_name}
+	    )and member_id = #{mVo}
+	    
+	</select>
 </mapper>

@@ -57,8 +57,25 @@ public class ProductMapperTests {
 		pVo.getProduct().setColor_id("red");
 		pVo.getProduct().setSize_id("L");
 		pVo.getProduct().setProduct_name("Aviator Bomber");
-	
-		mapper.postWish(pVo, 2);
+		pVo.setCount(2);
+		
+		ProductVO product = new ProductVO();
+		product.setProduct_name(pVo.getProduct().getProduct_name());
+		product.setSize_id(pVo.getProduct().getSize_id());
+		product.setColor_id(pVo.getProduct().getColor_id());
+		
+		int mvo = 3;
+		int count = pVo.getCount();
+		
+		int check = mapper.checkWishProduct(product,mvo);
+		log.info("??????????????????????????????????"+product);
+		if(check > 0) {
+			mapper.updateWish(product,count,mvo);
+			
+		}else {			
+			mapper.postWish(pVo, mvo);
+		}
+		
 	}
 	
 	@Test

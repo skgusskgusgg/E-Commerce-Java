@@ -42,6 +42,7 @@ public class WishController {
 	public ResponseEntity<List<ProductVO>> getWishList(HttpSession session) {
 		log.info("위시리스트 페이지");
 		MemberVO memberVO = (MemberVO)session.getAttribute("mVO");
+		log.info("member id : " + memberVO);
 		return new ResponseEntity<List<ProductVO>>(service.getWishList(memberVO.getId()),HttpStatus.OK);
 	}
 	
@@ -67,16 +68,25 @@ public class WishController {
 	public ResponseEntity<String> addCart(@RequestBody List<AddProducts> aVo, HttpSession session){
 		MemberVO mVo = (MemberVO)session.getAttribute("mVO");
 		log.info(aVo);
+		log.info("member id : " + mVo);
 		if(mVo.getId() == 0) {
 			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 		}
-		try {
+		/*
+		 * try { service.addCart(aVo, mVo.getId()); return new
+		 * ResponseEntity<String>("success",HttpStatus.OK); } catch
+		 * (DuplicateKeyException e) { return new
+		 * ResponseEntity<String>("Duplicate key update",HttpStatus.CONFLICT); }catch
+		 * (Exception e) { return new ResponseEntity<String>("Internal server error",
+		 * HttpStatus.INTERNAL_SERVER_ERROR); }
+		 */
+		int checkProduct = service.checkCartProduct(aVo,mVo.getId());
+		if(checkProduct > 0) {
+			service.updateCart(aVo, mVo.getId());
+			return new ResponseEntity<String>("update",HttpStatus.OK);
+		}else {
 			service.addCart(aVo, mVo.getId());
 			return new ResponseEntity<String>("success",HttpStatus.OK);
-		} catch (DuplicateKeyException e) {
-			return new ResponseEntity<String>("Duplicate key update",HttpStatus.CONFLICT);
-		}catch (Exception e) {
-			return new ResponseEntity<String>("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
 	}
