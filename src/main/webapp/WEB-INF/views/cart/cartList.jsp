@@ -115,7 +115,7 @@
 							</div>
 
 							<div class="size-209 cart-sub-total-div">
-								<span class="mtext-110 cl2">
+								<span class="mtext-110 cl2" style="display: flex; flex-flow: column;">
 									<c:forEach var="item" items="${cartList}">
 											<span class="stext-110 cl2 cart-list-subtotal-content">
 											    <c:set var="subTotalPrice" value="${item.price * item.count}" />
