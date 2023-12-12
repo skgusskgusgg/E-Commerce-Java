@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.team.mapper.ReplyMapper">
+
+	<select id="getMemberReplyList" resultType="org.team.domain.ReplyVO">
+	<![CDATA[ 
+		SELECT *
+		FROM reply
+		WHERE user_id = #{user_id}
+	]]>
+	</select>
+	
+	<select id="getObjectReplyList" resultType="org.team.domain.ReplyVO">
+	<![CDATA[ 
+		SELECT *
+		FROM reply
+		WHERE rcategory_id = #{rcategory_id} and object_id = #{object_id}  
+	]]>
+	</select>
+	
+	<insert id="regist" parameterType="org.team.domain.ReplyVO">
+		INSERT INTO reply(rcategory_id,object_id,user_id,writer_name,title,content,regdate,updatedate,star)
+		values(#{rcategory_id},#{object_id},#{user_id},#{writer_name},#{title},#{content},NOW(),NOW(),#{star})
+	</insert>
+	
+	<delete id="delete" parameterType="org.team.domain.ReplyVO">
+		DELETE
+		FROM reply
+		WHERE reply_id = #{reply_id} AND user_id = #{user_id}
+	</delete>
+	
+	<update id="update" parameterType="org.team.domain.ReplyVO">
+		UPDATE reply
+		SET content = #{content}, updatedate = NOW(), writer_name=#{writer_name},star=#{star}
+		WHERE reply_id = #{reply_id}
+	</update>
+	
+</mapper>
