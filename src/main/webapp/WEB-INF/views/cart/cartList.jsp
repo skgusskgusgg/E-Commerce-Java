@@ -22,67 +22,56 @@
 			<div class="row">
 				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
 					<div class="m-l-25 m-r--38 m-lr-0-xl">
-						<div class="wrap-table-shopping-cart">
-							<table class="table-shopping-cart">
-								<tr class="table_head">
-									<th class="column-1">Product</th>
-									<th class="column-2"></th>
-									<th class="column-3">Price</th>
-									<th class="column-4">Quantity</th>
-									<th class="column-5">Total</th>
-								</tr>
-
-								<tr class="table_row">
-									<td class="column-1">
-										<div class="how-itemcart1">
-											<img src="/resources/images/item-cart-04.jpg" alt="IMG">
-										</div>
-									</td>
-									<td class="column-2">Fresh Strawberries</td>
-									<td class="column-3">$ 36.00</td>
-									<td class="column-4">
-										<div class="wrap-num-product flex-w m-l-auto m-r-0">
-											<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-												<i class="fs-16 zmdi zmdi-minus"></i>
-											</div>
-
-											<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product1" value="1">
-
-											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-												<i class="fs-16 zmdi zmdi-plus"></i>
-											</div>
-										</div>
-									</td>
-									<td class="column-5">$ 36.00</td>
-								</tr>
-
-								<tr class="table_row">
-									<td class="column-1">
-										<div class="how-itemcart1">
-											<img src="/resources/images/item-cart-05.jpg" alt="IMG">
-										</div>
-									</td>
-									<td class="column-2">Lightweight Jacket</td>
-									<td class="column-3">$ 16.00</td>
-									<td class="column-4">
-										<div class="wrap-num-product flex-w m-l-auto m-r-0">
-											<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-												<i class="fs-16 zmdi zmdi-minus"></i>
-											</div>
-
-											<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product2" value="1">
-
-											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-												<i class="fs-16 zmdi zmdi-plus"></i>
-											</div>
-										</div>
-									</td>
-									<td class="column-5">$ 16.00</td>
-								</tr>
+						<div class="wrap-shopping-cart-table">
+						<h2 class="m-all-15">Added item to Cart</h2>
+						<input type="hidden" id="memberId" value="${member_id}">
+							<table class="shopping-cart-table">
+									<tr class="table_head">
+										<th class="cart-checked"></th>
+				                        <th class="column-1">Product</th>
+				                        <th class="column-2"></th>
+				                        <th class="column-3">Price</th>
+				                        <th class="column-4">Quantity</th>
+				                        <th class="column-5">Total</th>
+			                    	</tr>
+								<c:forEach var="item" items="${cartList}">
+									<tr class="table_row">
+										<td class="cart-check">
+											<input class="cart-checkbox" type="checkbox">
+										</td>
+			                            <td class="column-1">
+			                                <div class="how-itemcart1">
+			                                    <img src="/resources/images/products/${item.img}" alt="IMG">
+			                                </div>
+			                            </td>
+			                            <td class="column-2">${item.product_name}<input type="hidden" class="shopping-cart-cart_id" value="${item.cart_id}"></td>
+			                            <td class="column-3 item-price">${item.price}</td>
+			                            <td class="column-4">
+			                                <div class="wrap-num-product flex-w m-l-auto m-r-0">
+			                                    <div class="num-product-down-btn cl8 hov-btn3 trans-04 flex-c-m">
+			                                        <i class="fs-16 zmdi zmdi-minus"></i>
+			                                    </div>
+			    
+			                                    <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product1" value="${item.count}">
+			    
+			                                    <div class="num-product-up-btn cl8 hov-btn3 trans-04 flex-c-m">
+			                                        <i class="fs-16 zmdi zmdi-plus"></i>
+			                                    </div>
+			                                </div>
+			                            </td>
+			                            <td class="column-5 item-total-price">${item.count*item.price}</td>
+			                        </tr>
+			                        <tr class="table-product-option">
+			                        	<td></td>
+			                        	<td></td>
+			                        	<td class="table-product-option-title" >product option</td>
+			                        	<td colspan="3"> [color : ${item.color_id}, size : ${item.size_id}]</td>
+			                        <tr>
+								</c:forEach>
 							</table>
 						</div>
 
-						<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+						<div class="flex-w flex-sb-m bor15 m-t-15 m-b-40 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
 							<div class="flex-w flex-m m-r-20 m-tb-5">
 								<input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" type="text" name="coupon" placeholder="Coupon Code">
 									
@@ -91,10 +80,24 @@
 								</div>
 							</div>
 
-							<div class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
-								Update Cart
+							<div class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10 shopping-cart-delete-btn">
+								Delete
 							</div>
 						</div>
+						<!--
+						<div class="wrap-shopping-cart-table">
+							<h2 class="m-all-15">Recently added items in the Cart</h2>
+							<table class="table-shopping-cart">
+									<tr class="table_head">
+										<th class="cart-checked"></th>
+				                        <th class="column-1">Product</th>
+				                        <th class="column-2"></th>
+				                        <th class="column-3">Price</th>
+				                        <th class="column-4">Quantity</th>
+				                        <th class="column-5">Total</th>
+			                    	</tr>
+							</table>
+						</div>  -->
 					</div>
 				</div>
 
@@ -104,16 +107,22 @@
 							Cart Totals
 						</h4>
 
-						<div class="flex-w flex-t bor12 p-b-13">
+						<div class="flex-w flex-t bor12 p-b-13 cart-subtotal">
 							<div class="size-208">
 								<span class="stext-110 cl2">
 									Subtotal:
 								</span>
 							</div>
 
-							<div class="size-209">
-								<span class="mtext-110 cl2">
-									$79.65
+							<div class="size-209 cart-sub-total-div">
+								<span class="mtext-110 cl2" style="display: flex; flex-flow: column;">
+									<c:forEach var="item" items="${cartList}">
+											<span class="stext-110 cl2 cart-list-subtotal-content">
+											    <c:set var="subTotalPrice" value="${item.price * item.count}" />
+											    
+											    <c:out value="${subTotalPrice}" />
+											</span>
+									</c:forEach>
 								</span>
 							</div>
 						</div>
@@ -129,7 +138,11 @@
 
 							<div class="size-209 p-t-1">
 								<span class="mtext-110 cl2">
-									$79.65
+									<c:set var="totalPrice" value="0" />
+								    <c:forEach var="item" items="${cartList}">
+								        <c:set var="totalPrice" value="${totalPrice + (item.price * item.count)}" />
+								    </c:forEach>
+								    <c:out value="${totalPrice}" />
 								</span>
 							</div>
 						</div>

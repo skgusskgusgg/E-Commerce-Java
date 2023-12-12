@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.team.domain.AddProducts;
 import org.team.domain.Criteria;
 import org.team.domain.ProductVO;
 import org.team.join.MemberDTO;
@@ -43,9 +44,9 @@ public class ProductServiceTests {
 	
 	@Test 
 	public void postWish() {
-		ProductVO vo = new ProductVO();
+		AddProducts vo = new AddProducts();
 		
-		vo.setProduct_name("Classic Wool Overcoat");
+		vo.getProduct().setProduct_name("Classic Wool Overcoat");
 
 		service.postWish(vo, 2);
 	}

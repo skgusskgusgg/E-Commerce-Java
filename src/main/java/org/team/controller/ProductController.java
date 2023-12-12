@@ -30,21 +30,20 @@ public class ProductController {
 	private ProductService service;
 
 	@GetMapping(value = "/productList")
-	public void selectList(
-			@RequestParam(name = "category_id",required = false) String category_id,
-			@RequestParam(name = "color_id", defaultValue = "1") String color_id, 
-			@RequestParam(name = "size_id", defaultValue = "1") String size_id,
-			@RequestParam(name = "sort",defaultValue = "asc") String sort,
-			@RequestParam(name = "pageStart", defaultValue = "1") Integer pageStart ,
-			@RequestParam(name = "row" ,defaultValue = "0")Integer row,
-			@RequestParam(name = "high", defaultValue = "500000") Integer high,
-			@RequestParam(name="keyword", defaultValue = "") String keyword,
-			Model model) {
-		
+	public void selectList(@RequestParam(name = "category_id", required = false) String category_id,
+			@RequestParam(name = "color_id", required = false) String color_id,
+			@RequestParam(name = "size_id", required = false) String size_id,
+			@RequestParam(name = "sort", defaultValue = "asc") String sort,
+			@RequestParam(name = "pageStart", defaultValue = "1") Integer pageStart,
+			@RequestParam(name = "row", defaultValue = "0",required = false) Integer row,
+			@RequestParam(name = "high", defaultValue = "500000",required = false) Integer high,
+			@RequestParam(name = "keyword", defaultValue = "") String keyword, Model model) {
+
 		PageDTO pDto = null;
 		int total = 0;
-		if(category_id.equals("0")) {
-			Criteria cri = new Criteria(pageStart,8,keyword);
+		
+		if (category_id == null || category_id.equals("0")) {
+			Criteria cri = new Criteria(pageStart, 8, keyword);
 			List<ProductVO> list = service.getList(cri);
 			total = service.getTotal();
 			pDto = new PageDTO(cri, total);
@@ -52,21 +51,31 @@ public class ProductController {
 			model.addAttribute("pageMaker", pDto);
 			log.info("상품 리스트 페이지");
 			log.info("keyword : " + keyword);
-		}else {
+		} else {
 			ProductVO vo = new ProductVO();
 			vo.setCategory_id(category_id);
-			vo.setColor_id(color_id);
-			vo.setSize_id(size_id);
-	
-			Criteria cri = new Criteria(pageStart,8,keyword); 
+
+			if (color_id != null && !color_id.isEmpty()) {
+				vo.setColor_id(color_id);
+			}else {
+				vo.setColor_id("99");
+			}
+			
+			if (size_id != null && !size_id.isEmpty()) {
+				vo.setSize_id(size_id);
+			}else {
+				vo.setSize_id("99");
+			}
+
+			Criteria cri = new Criteria(pageStart, 8, keyword);
 			total = service.selectTotal(vo, cri, sort, row, high);
-			
+
 			pDto = new PageDTO(cri, total);
-			
-			List<ProductVO> list = service.selectList(vo,cri,sort,row, high);
+
+			List<ProductVO> list = service.selectList(vo, cri, sort, row, high);
 			model.addAttribute("product", list);
 			model.addAttribute("pageMaker", pDto);
-			
+
 			log.info(category_id + "번 상품 리스트 페이지");
 			log.info(color_id + " : 색상");
 			log.info(size_id + " : 사이즈");
@@ -74,15 +83,18 @@ public class ProductController {
 			log.info("row price : " + row);
 			log.info("high price : " + high);
 			log.info("keyword : " + keyword);
+			log.info("total : " + total);
 		}
 	}
 
 	@GetMapping(value = "/productDetail")
-	public void detail(@RequestParam(name = "id")int product_id, Model model) {
+	public void detail(@RequestParam(name = "id") int product_id, Model model) {
 		ProductVO vo = service.detail(product_id);
+		
+		
 		model.addAttribute("product", vo);
 		
 		log.info("상품 디테일 페이지 : " + vo);
 	}
-	
+
 }

@@ -20,7 +20,6 @@
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/faq/**" location="/resources/images/faq/" />
-	
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
 	<beans:bean
@@ -29,6 +28,7 @@
 		<beans:property name="suffix" value=".jsp" />
 		<beans:property name="contentType"
 			value="text/html; charset=UTF-8" />
+
 	</beans:bean>
 
 	<!-- 파일 업로드 설정 : 40MB까지 -->
@@ -45,6 +45,12 @@
 	<context:component-scan
 		base-package="org.team.*" />
 
-
+	<interceptors>
+		<interceptor>
+			<mapping path="/admin/**" />
+			<beans:bean id="AuthInterceptor"
+				class="org.team.interceptor.AuthInterceptor"></beans:bean>
+		</interceptor>
+	</interceptors>
 
 </beans:beans>

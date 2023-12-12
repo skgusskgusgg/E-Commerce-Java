@@ -199,7 +199,7 @@
 				</c:if>
 					<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
 						<li>
-							<button class="pageBtn "  onclick="pageNum(${num})" data-filter="${num }" >
+							<button class="pageBtn ${pageMaker.cri.pageNum == num ? 'pageActive' : '' } "  onclick="pageNum(${num})" data-filter="${num }" >
 								${num }
 							</button>
 						</li>
@@ -238,27 +238,11 @@
 		}
 	}
 	 $(document).ready(function () {
-		 var pageBtn = $('.pageBtn');
-		 var pagenation = localStorage.getItem('pagenation');
-		 pageBtn.on('click', function() {
-			 	var filter = $(this).attr("data-filter");
-				// 현재 선택된 버튼에 클래스 추가
-				$(this).addClass("pageActive");
-			
-				// 다른 버튼에서 클래스 제거	
-				pageBtn.not(this).removeClass("pageActive");
-				
-				// pageBtn에 선택된 필터 저장
-				localStorage.setItem('pagenation', filter);
-			});
-		 if (pagenation) {
-			 pageBtn.filter('[data-filter="' + pagenation + '"]')
-						.addClass("pageActive");
-			}
+		
 		 window.addEventListener('beforeunload', function() {
 				localStorage.removeItem('selectedFilter');		
 			});
-		 console.log(pagenation);
+		
 		 
 		 $('.btn-addwish-b2').each(function () {
 		        var pId = $(this).data('product_id');

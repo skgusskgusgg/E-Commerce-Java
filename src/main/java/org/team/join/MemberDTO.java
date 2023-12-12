@@ -76,6 +76,12 @@ public class MemberDTO {
 	public void setJoin_date(String join_date) {
 		this.join_date = join_date;
 	}
+	@Override
+	public String toString() {
+		return "MemberDTO [id=" + id + ", user_name=" + user_name + ", password=" + password + ", email=" + email
+				+ ", address=" + address + ", gender=" + gender + ", birth_date=" + birth_date + ", phone=" + phone
+				+ ", point=" + point + ", join_date=" + join_date + "]";
+	}
 	
 	
 	

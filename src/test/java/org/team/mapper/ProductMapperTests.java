@@ -23,7 +23,7 @@ public class ProductMapperTests {
 	
 	@Test
 	public void getListTests() {
-		Criteria cri = new Criteria(1,10,"");
+		Criteria cri = new Criteria(1,2,"");
 		mapper.getList(cri).forEach(e-> log.info(e));
 	}
 	@Test
@@ -31,10 +31,10 @@ public class ProductMapperTests {
 		ProductVO vo = new ProductVO();
 		vo.setCategory_id("1");
 		vo.setColor_id("1");
-		vo.setSize_id("3");
+		vo.setSize_id("1");
 		
-		Criteria cri = new Criteria(1,2,"");
-		mapper.selectList(vo,cri,"desc",50000,150000).forEach(e->log.info(e));
+		Criteria cri = new Criteria(1,10,"");
+		mapper.selectList(vo,cri,"asc",200000,350000).forEach(e->log.info(e));
 	}
 	
 	@Test 
@@ -44,18 +44,19 @@ public class ProductMapperTests {
 	@Test 
 	public void selectTotal() {
 		ProductVO vo = new ProductVO();
-		vo.setCategory_id("1");
+		vo.setCategory_id("2");
 		vo.setColor_id("1");
-		vo.setSize_id("3");
+		vo.setSize_id("1");
 		
-		Criteria cri = new Criteria(1,2,"");
+		Criteria cri = new Criteria(1,10,"");
 		 log.info(mapper.selectTotal(vo,cri,"desc",50000,150000)); 
 	}
 	@Test
 	public void postWish() {
-		ProductVO pVo = new ProductVO();
-		
-		pVo.setProduct_name("Aviator Bomber");
+		AddProducts pVo = new AddProducts();
+		pVo.getProduct().setColor_id("red");
+		pVo.getProduct().setSize_id("L");
+		pVo.getProduct().setProduct_name("Aviator Bomber");
 	
 		mapper.postWish(pVo, 2);
 	}
@@ -73,13 +74,27 @@ public class ProductMapperTests {
 	@Test
 	public void postCart() {
 		AddProducts pVo =new AddProducts();
-		pVo.getProduct().setColor_id("black");
-		pVo.getProduct().setSize_id("M");
-		pVo.getProduct().setProduct_name("Sleek Leather Leggings");
-		pVo.setCount(1);
+		pVo.getProduct().setColor_id("red");
+		pVo.getProduct().setSize_id("L");
+		pVo.getProduct().setProduct_name("Elegance Trench");
+		
 		mapper.postCart(pVo, 2);
 	}
 	
+	@Test
+	public void sizeTotal() {
+		ProductVO pVo = new ProductVO();
+		pVo.setProduct_name("Green T");
+		
+		log.info(mapper.sizeTotal(pVo));
+	}
 	
+	@Test
+	public void colorTotal() {
+		ProductVO pVo = new ProductVO();
+		pVo.setProduct_name("Elegance Trench");
+		
+		log.info(mapper.colorTotal(pVo));
+	}
 	
 }
