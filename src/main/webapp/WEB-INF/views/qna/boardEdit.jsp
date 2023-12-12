@@ -4,7 +4,7 @@
 <!-- Title page -->
 <section class="bg-img1 txt-center p-lr-15 p-tb-92"
 	style="background-image: url('/resources/images/bg-02.jpg');">
-	<h2 class="ltext-105 cl0 txt-center">Help&FAQs</h2>
+	<h2 class="ltext-105 cl0 txt-center">Notice</h2>
 </section>
 
 
@@ -17,22 +17,22 @@
 					<div class="p-t-32">
 					<span class="flex-w flex-m stext-111 cl2 p-b-19">
 								<span>
-									<span class="cl4">No.&nbsp</span> ${FAQ.faqId}  
+									<span class="cl4">No.&nbsp</span> ${boardDetail.board_id}  
 									<span class="cl12 m-l-4 m-r-6">|</span>
 								</span>
 								
 								<span>
-									<span class="cl4">Writer&nbsp</span> ${FAQ.user_id}  
+									<span class="cl4">Writer&nbsp</span> ${boardDetail.user_id}  
 									<span class="cl12 m-l-4 m-r-6">|</span>
 								</span>
 								
 								<span>
-									<span class="cl4">Date&nbsp</span> ${FAQ.updateDate}
+									<span class="cl4">Date&nbsp</span> ${boardDetail.updatedate}
 									<span class="cl12 m-l-4 m-r-6">|</span>
 								</span>
 								
 								<span>
-									<span class="cl4">Views&nbsp</span> ${FAQ.viewCount} 
+									<span class="cl4">Views&nbsp</span> ${boardDetail.view} 
 									<span class="cl12 m-l-4 m-r-6">|</span>
 								</span>
 								</span>
@@ -40,24 +40,24 @@
 						<table>
 							<thead>
 								<tr>
-									<td class="ltext-109 cl13 p-b-20 p-lr-10 m-b-10">Help</td>
+									<td class="ltext-109 cl13 p-b-20 p-lr-10 m-b-10">Notice</td>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
 									<td><input type="text"
 										class="mtext-111 cl2 p-all-10 m-b-5"
-										style="width: 850px; border: 1px solid #cccccc;" name="faqTitle"
-										placeholder="Enter Title Here" value="${FAQ.faqTitle}"></td>
+										style="width: 850px; border: 1px solid #cccccc;" name="title"
+										placeholder="Enter Title Here" value="${boardDetail.title}"></td>
 									<td></td>
 								</tr>
 								<tr>
 								</tr>
 								<tr>
 									<td class="stext-117 cl6 p-tb-10 m-tb-5"><textarea
-											name="faqContents"
+											name="content"
 											style="width: 850px; height: 400px; border: 1px solid #cccccc; padding: 10px;"
-											placeholder="Enter Contents Here">${FAQ.faqContents}</textarea></td>
+											placeholder="Enter Contents Here">${boardDetail.content}</textarea></td>
 									<td></td>
 								</tr>
 								<tr>
@@ -65,9 +65,7 @@
 								</tr>
 							</tbody>
 						</table>
-					
-					<input type="hidden" name="category" value="공지사항"> <input
-						type="hidden" name="category" value="공지사항">
+
 					<table class="table-qna-img m-b-20">
 						<tbody>
 							<tr class="table_head">

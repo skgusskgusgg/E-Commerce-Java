@@ -15,4 +15,5 @@ public class MemberVO {
 	private double point;
 	private String join_date;
 	private int auth;
+
 }
