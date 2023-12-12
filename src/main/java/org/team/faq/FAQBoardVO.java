@@ -1,11 +1,9 @@
 package org.team.faq;
 
-import java.util.List;
-
 import lombok.Data;
 
 @Data
-public class FaqBoardVO {
+public class FAQBoardVO {
 	private int faqId;
 	private String faqTitle;
 	private String faqContents;
@@ -14,13 +12,4 @@ public class FaqBoardVO {
 	private String updateDate;
 	private String img;
 	private String viewCount;
-	private List<String> imgFiles;
-	
-	public List<String> getImgFiles() {
-        return imgFiles;
-    }
-
-    public void setImgFiles(List<String> imgFiles) {
-        this.imgFiles = imgFiles;
-    }
 }

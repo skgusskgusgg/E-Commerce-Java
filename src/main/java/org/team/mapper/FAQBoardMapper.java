@@ -3,27 +3,20 @@ package org.team.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
-import org.team.faq.FaqBoardVO;
-import org.team.faq.FaqReplyVO;
+import org.team.faq.FAQBoardVO;
 
-public interface FaqBoardMapper {
-	public List<FaqBoardVO> getList();
+public interface FAQBoardMapper {
+	public List<FAQBoardVO> getList();
 	
-	public void faqInsert(FaqBoardVO fVO);
+	public void faqInsert(FAQBoardVO fVO);
 	
-	public FaqBoardVO faqDetail(int faqId);
+	public FAQBoardVO faqDetail(int faqId);
 	
-	public void faqEdit(FaqBoardVO fVO);
+	public void faqEdit(FAQBoardVO fVO);
 	
 	public void faqDelete(int faqId);
 	
 	public int faqCount();
 	
-	public List<FaqBoardVO> faqListPage(@Param("displayPost")int displayPost, @Param("postNum")int postNum);
-	
-	public int updateViewCount(int faqId);
-	
-	public void faqReplyInsert(FaqReplyVO rVO);
-	
-	public List<FaqReplyVO> faqReplyList(int faqId);
+	public List<FAQBoardVO> faqListPage(@Param("displayPost")int displayPost, @Param("postNum")int postNum);
 }

@@ -17,22 +17,22 @@
 					<div class="p-t-32">
 					<span class="flex-w flex-m stext-111 cl2 p-b-19">
 								<span>
-									<span class="cl4">No.&nbsp</span> ${FAQ.faqId}  
+									<span class="cl4">No.&nbsp</span> ${faqDetail.faqId}  
 									<span class="cl12 m-l-4 m-r-6">|</span>
 								</span>
 								
 								<span>
-									<span class="cl4">Writer&nbsp</span> ${FAQ.user_id}  
+									<span class="cl4">Writer&nbsp</span> ${faqDetail.user_id}  
 									<span class="cl12 m-l-4 m-r-6">|</span>
 								</span>
 								
 								<span>
-									<span class="cl4">Date&nbsp</span> ${FAQ.updateDate}
+									<span class="cl4">Date&nbsp</span> ${faqDetail.updateDate}
 									<span class="cl12 m-l-4 m-r-6">|</span>
 								</span>
 								
 								<span>
-									<span class="cl4">Views&nbsp</span> ${FAQ.viewCount} 
+									<span class="cl4">Views&nbsp</span> ${faqDetail.viewCount} 
 									<span class="cl12 m-l-4 m-r-6">|</span>
 								</span>
 								</span>
@@ -48,7 +48,7 @@
 									<td><input type="text"
 										class="mtext-111 cl2 p-all-10 m-b-5"
 										style="width: 850px; border: 1px solid #cccccc;" name="faqTitle"
-										placeholder="Enter Title Here" value="${FAQ.faqTitle}"></td>
+										placeholder="Enter Title Here" value="${faqDetail.faqTitle}"></td>
 									<td></td>
 								</tr>
 								<tr>
@@ -57,7 +57,7 @@
 									<td class="stext-117 cl6 p-tb-10 m-tb-5"><textarea
 											name="faqContents"
 											style="width: 850px; height: 400px; border: 1px solid #cccccc; padding: 10px;"
-											placeholder="Enter Contents Here">${FAQ.faqContents}</textarea></td>
+											placeholder="Enter Contents Here">${faqDetail.faqContents}</textarea></td>
 									<td></td>
 								</tr>
 								<tr>

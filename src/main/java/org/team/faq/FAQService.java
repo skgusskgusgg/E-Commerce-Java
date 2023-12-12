@@ -2,24 +2,18 @@ package org.team.faq;
 
 import java.util.List;
 
-public interface FaqService {
-	public List<FaqBoardVO> getList();
+public interface FAQService {
+	public List<FAQBoardVO> getList();
 	
-	public void faqInsert(FaqBoardVO fVO);
+	public void faqInsert(FAQBoardVO fVO);
 	
-	public FaqBoardVO faqDetail(int faqId);
+	public FAQBoardVO faqDetail(int faqId);
 	
-	public void faqEdit(FaqBoardVO fVO);
+	public void faqEdit(FAQBoardVO fVO);
 	
 	public void faqDelete(int faqId);
 	
 	public int faqCount();
 	
-	public List<FaqBoardVO> faqListPage(int displayPost, int postNum);
-	
-	public int updateViewCount(int faqId);
-	
-	public void faqReplyInsert(FaqReplyVO rVO);
-	
-	public List<FaqReplyVO> faqReplyList(int faqId);
+	public List<FAQBoardVO> faqListPage(int displayPost, int postNum);
 }
