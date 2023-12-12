@@ -217,35 +217,14 @@
 							<div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
 								<div class="p-b-30 m-lr-15-sm">
 									<!-- Review -->
-									<div class="flex-w flex-t p-b-68">
-										<div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
-											<img src="/resources/images/avatar-01.jpg" alt="AVATAR">
-										</div>
-
-										<div class="size-207">
-											<div class="flex-w flex-sb-m p-b-17">
-												<span class="mtext-107 cl2 p-r-20"> Ariana Grande </span> <span
-													class="fs-18 cl11"> <i class="zmdi zmdi-star"></i> <i
-													class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
-													<i class="zmdi zmdi-star"></i> <i
-													class="zmdi zmdi-star-half"></i>
-												</span>
-											</div>
-
-											<p class="stext-102 cl6">Quod autem in homine
-												praestantissimum atque optimum est, id deseruit. Apud
-												ceteros autem philosophos</p>
-										</div>
-									</div>
-									<div id="review-product">
+				
+									<div id="review-product" >
 									
 									</div>
 
 									<!-- Add review -->
-									<div class="w-full">
+									<div class="w-full" style="margin-top: 20px">
 										<h5 class="mtext-108 cl2 p-b-7">Add a review</h5>
-
-										<p class="stext-102 cl6">Required fields are marked *</p>
 
 										<div class="flex-w flex-m p-t-50 p-b-23">
 											<span class="stext-102 cl3 m-r-16"> Your Rating </span>
@@ -325,7 +304,7 @@
 									$18.96 </span>
 							</div>
 
-							<div class="block2-txt-child2 flex-r p-t-3">
+							<div class="block2-txt-child2 flex-r p-t-3" >
 								<a href="#"
 									class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
 									<img class="icon-heart1 dis-block trans-04"
@@ -613,14 +592,14 @@ $(document).ready(function(){
 		$(data).find('item').each((index, item) => {
 			
 			var reviewString = "";
-			reviewString += "<div class='product-review-container'>";
-			reviewString += "<div class='flex-w flex-t p-b-68'>";
-			reviewString += "<div class='wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6'>";
-			reviewString += "<img src='/resources/images/avatar-01.jpg' alt='AVATAR'></div>";
+			reviewString += "<div class='product-review-container' style='border-bottom: 1px solid #ccc; padding:20px 0;''>";
+			reviewString += "<div class='flex-w flex-t'>";
+			// reviewString += "<div class='wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6'>";
+			// reviewString += "<img src='/resources/images/avatar-01.jpg' alt='AVATAR'></div>";
 	
 			reviewString += "<div class='size-207'>";
 			reviewString += "<div class='flex-w flex-sb-m p-b-17'>";
-			reviewString += "<span class='product-reply-writer-name mtext-107 cl2 p-r-20'>"+$(item).find("writer_name").text()+"</span>";
+			reviewString += "<span class='product-reply-writer-name mtext-107 cl2 p-r-20' style='font-weight: bold;''>"+$(item).find("writer_name").text()+"</span>";
 			reviewString += "<span class='fs-18 cl11'>";
 			
 			for(i=0;i<parseInt($(item).find("star").text());i++){
