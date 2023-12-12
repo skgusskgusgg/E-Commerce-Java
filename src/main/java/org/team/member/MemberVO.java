@@ -11,6 +11,7 @@ public class MemberVO {
 	private String phone;
 	private double point;
 	private String join_date;
+	
 	public Integer getId() {
 		return id;
 	}
