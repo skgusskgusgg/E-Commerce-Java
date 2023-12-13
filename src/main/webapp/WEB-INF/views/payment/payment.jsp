@@ -366,6 +366,7 @@ $(document).ready(function() {
 		    	subAddress[i] = subCommaStr;
 	    	}else{
 	    		subAddress[i] = fullAddr;
+	    		return subAddress;
 	    	}
 		}
 		return subAddress;
