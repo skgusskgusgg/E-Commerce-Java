@@ -1,5 +1,7 @@
 package org.team.mapper;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,6 +114,11 @@ public class ProductMapperTests {
 		pVo.setProduct_name("Elegance Trench");
 		
 		log.info(mapper.colorTotal(pVo));
+	}
+	@Test
+	public void bestProducts() {
+		mapper.bestProducts().forEach(i->log.info(i));
+		
 	}
 	
 }

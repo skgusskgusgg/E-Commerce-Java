@@ -138,5 +138,13 @@ public class ProductServiceImpl implements ProductService{
 		int result = mapper.checkCartProduct(pVo, mVo);
 		return result;
 	}
+
+
+
+	@Override
+	public List<ProductVO> bestProducts() {
+		List<ProductVO> list = mapper.bestProducts();
+		return list;
+	}
 	
 }

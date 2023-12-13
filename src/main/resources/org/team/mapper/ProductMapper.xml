@@ -255,4 +255,11 @@
 	    )and member_id = #{mVo}
 	    
 	</select>
+	<select id="bestProducts" resultType="org.team.domain.ProductVO">
+		SELECT product_id,product_name,price,img,MAX(sell_count) as sell_count
+		FROM product
+		GROUP BY product_id
+		ORDER BY sell_count DESC
+		LIMIT 4
+	</select>
 </mapper>

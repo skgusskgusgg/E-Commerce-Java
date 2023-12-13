@@ -40,4 +40,6 @@ public interface ProductMapper {
 	public int checkWishProduct(@Param("product") ProductVO pVo, @Param("mVo") int mVo);
 	
 	public int checkCartProduct(@Param("product") ProductVO pVo, @Param("mVo") int mVo);
+
+	public List<ProductVO> bestProducts();
 }

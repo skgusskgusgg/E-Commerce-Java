@@ -1,4 +1,4 @@
-$(document).ready(function(){
+ $(document).ready(function(){
     var modalImgList = $(".modalImgList");
     var productPrice = $(".productPrice");
     var productName = $(".productName");
