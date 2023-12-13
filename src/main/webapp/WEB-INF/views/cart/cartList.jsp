@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@include file="../includes/header.jsp"%>
 <!-- breadcrumb -->
 	<div class="container">
@@ -36,7 +37,7 @@
 			                    	</tr>
 								<c:forEach var="item" items="${cartList}">
 									<tr class="table_row">
-										<td class="cart-check">
+										<td class="cart-checked">
 											<input class="cart-checkbox" type="checkbox">
 										</td>
 			                            <td class="column-1">
@@ -45,7 +46,7 @@
 			                                </div>
 			                            </td>
 			                            <td class="column-2">${item.product_name}<input type="hidden" class="shopping-cart-cart_id" value="${item.cart_id}"></td>
-			                            <td class="column-3 item-price">${item.price}</td>
+			                            <td class="column-3 item-price"><fmt:formatNumber value="${item.price}" pattern="###,###" /></td>
 			                            <td class="column-4">
 			                                <div class="wrap-num-product flex-w m-l-auto m-r-0">
 			                                    <div class="num-product-down-btn cl8 hov-btn3 trans-04 flex-c-m">
@@ -59,7 +60,7 @@
 			                                    </div>
 			                                </div>
 			                            </td>
-			                            <td class="column-5 item-total-price">${item.count*item.price}</td>
+			                            <td class="column-5 item-total-price"><fmt:formatNumber value="${item.count*item.price}" pattern="###,###" /></td>
 			                        </tr>
 			                        <tr class="table-product-option">
 			                        	<td></td>
@@ -84,20 +85,6 @@
 								Delete
 							</div>
 						</div>
-						<!--
-						<div class="wrap-shopping-cart-table">
-							<h2 class="m-all-15">Recently added items in the Cart</h2>
-							<table class="table-shopping-cart">
-									<tr class="table_head">
-										<th class="cart-checked"></th>
-				                        <th class="column-1">Product</th>
-				                        <th class="column-2"></th>
-				                        <th class="column-3">Price</th>
-				                        <th class="column-4">Quantity</th>
-				                        <th class="column-5">Total</th>
-			                    	</tr>
-							</table>
-						</div>  -->
 					</div>
 				</div>
 
@@ -120,7 +107,7 @@
 											<span class="stext-110 cl2 cart-list-subtotal-content">
 											    <c:set var="subTotalPrice" value="${item.price * item.count}" />
 											    
-											    <c:out value="${subTotalPrice}" />
+											    <fmt:formatNumber value="${subTotalPrice}" pattern="###,###" />
 											</span>
 									</c:forEach>
 								</span>
@@ -142,7 +129,7 @@
 								    <c:forEach var="item" items="${cartList}">
 								        <c:set var="totalPrice" value="${totalPrice + (item.price * item.count)}" />
 								    </c:forEach>
-								    <c:out value="${totalPrice}" />
+								    <fmt:formatNumber value="${totalPrice}" pattern="###,###" />
 								</span>
 							</div>
 						</div>

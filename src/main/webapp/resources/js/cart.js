@@ -17,27 +17,31 @@ $(document).ready(function () {
 			cartSelectList.push(cart_id);
 			}
 		});
-		$.ajax({
-	            url: '/cart/delete',
-	            method: 'POST',
-	            traditional: true,
-		        data: {
-		            "cartSelectList": cartSelectList,
-		            "memberId": parseInt($('#memberId').val())
-		        },
-	            success: function(data, textStatus, xhr) {
-			        var redirectUrl = xhr.getResponseHeader("Location");
-			        console.log(redirectUrl);
-			        if (redirectUrl) {
-			            window.location.href = redirectUrl;
-			        } else {
-			            console.error("리다이렉션 Location 획득 실패");
-			        }
-	            },
-	            error: function(jqXHR, textStatus, errorThrown) {
-		        console.error("에러 발생:", errorThrown);
-		    	}
-	   		});
+		if(cartSelectList.length !== 0){
+			$.ajax({
+		            url: '/cart/delete',
+		            method: 'POST',
+		            traditional: true,
+			        data: {
+			            "cartSelectList": cartSelectList,
+			            "memberId": parseInt($('#memberId').val())
+			        },
+		            success: function(data, textStatus, xhr) {
+				        var redirectUrl = xhr.getResponseHeader("Location");
+				        console.log(redirectUrl);
+				        if (redirectUrl) {
+				            window.location.href = redirectUrl;
+				        } else {
+				            console.error("리다이렉션 Location 획득 실패");
+				        }
+		            },
+		            error: function(jqXHR, textStatus, errorThrown) {
+			        console.error("에러 발생:", errorThrown);
+			    	}
+		   		});
+	   	}else{
+	   		Swal.fire("Please check the item to be deleted.", "", "error");
+	   	}
 	});
 	/*==================================================================
     [ +/- num product ]*/
@@ -47,9 +51,9 @@ $(document).ready(function () {
         if(numProduct > 1){
         	var cartId = findTableRow.find('.shopping-cart-cart_id').val();
         	numProduct -= 1;
-        	var itemPrice = parseInt(findTableRow.find('.item-price').text());
+        	var itemPrice = parseInt(findTableRow.find('.item-price').text().replace(/,/g, ''));
         	var calcItemTotalPrice = numProduct * itemPrice;
-        	findTableRow.find('.item-total-price').html(calcItemTotalPrice);
+        	findTableRow.find('.item-total-price').html(calcItemTotalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         	$(this).next().val(numProduct);
 	        updateCount(numProduct,cartId);
         }
@@ -62,9 +66,9 @@ $(document).ready(function () {
         if(numProduct > 0){
         	var cartId = findTableRow.find('.shopping-cart-cart_id').val();
         	numProduct += 1;
-        	var itemPrice = parseInt(findTableRow.find('.item-price').text());
+        	var itemPrice = parseInt(findTableRow.find('.item-price').text().replace(/,/g, ''));
         	var calcItemTotalPrice = numProduct * itemPrice;
-        	findTableRow.find('.item-total-price').html(calcItemTotalPrice);
+        	findTableRow.find('.item-total-price').html(calcItemTotalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
         	$(this).prev().val(numProduct);
 	        updateCount(numProduct,cartId);
 	   		}
@@ -83,6 +87,7 @@ $(document).ready(function () {
 					        window.location.href = redirectUrl;
 					    }else{
 					    	updateSubtotal(data);
+					    	updateTotalPrice(data);
 					    }
 					},
 					error: function(jqXHR, textStatus, errorThrown) {
@@ -96,12 +101,28 @@ $(document).ready(function () {
 		subItemColumns += "<span class='mtext-110 cl2'>";
 		$(data).find('item').each((index, item) => {
 					subItemColumns += "<span class='stext-110 cl2 cart-list-subtotal-content'>"
-					subItemColumns += (parseInt($(item).find("count").text(), 10) * parseInt($(item).find("price").text(), 10));
+					subItemColumns += (parseInt(($(item).find("count").text()) * parseInt($(item).find("price").text(), ","))).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 					subItemColumns += "</span>";
 		        });
 		subItemColumns += "</span>";
 		
 	    $(".cart-sub-total-div").html(subItemColumns);
+    }
+
+    function updateTotalPrice(data) {
+	    var addItemPrice = 0;
+		$(data).find('item').each((index, item) => {
+			addItemPrice += (parseInt($(item).find("count").text()) * parseInt($(item).find("price").text()));
+		});
+	    var subItemColumns = "<span class='mtext-110 cl2'>" + numRoundNComma(addItemPrice) + "</span>";
+
+	
+	    $(".cart-total-price-div").html(subItemColumns);
+	}
+	
+	function numRoundNComma(number) {
+    	number = Math.floor(number);
+    	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 })(jQuery);
 });

@@ -456,6 +456,10 @@ $(document).ready(function(){
 		var content = $('#review-product-content').val();
 		var star = parseInt($('#review-product-star').val());
 		
+		$('#review-product-writer-name').val("");
+		$('#review-product-content').val("");
+		$('#review-product-star').val(0);
+		
 		var replyContent = {
 			
 			"rcategory_id" : 2,

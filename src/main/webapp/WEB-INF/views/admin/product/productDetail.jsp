@@ -96,8 +96,8 @@
 						data-toggle="tab" href="#information" role="tab">Additional
 							information</a></li>
 
-					<li class="nav-item p-b-10"><a class="nav-link"
-						data-toggle="tab" href="#reviews" role="tab">Reviews (1)</a></li>
+					<li class="nav-item p-b-10"><a id="product-review-count" class="nav-link"
+						data-toggle="tab" href="#reviews" role="tab"></a></li><!-- Reviews (1) -->
 				</ul>
 
 				<!-- Tab panes -->
@@ -156,73 +156,46 @@
 							<div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
 								<div class="p-b-30 m-lr-15-sm">
 									<!-- Review -->
-									<div class="flex-w flex-t p-b-68">
-										<div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
-											<img src="/resources/images/avatar-01.jpg" alt="AVATAR">
-										</div>
-
-										<div class="size-207">
-											<div class="flex-w flex-sb-m p-b-17">
-												<span class="mtext-107 cl2 p-r-20"> Ariana Grande </span> <span
-													class="fs-18 cl11"> <i class="zmdi zmdi-star"></i> <i
-													class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
-													<i class="zmdi zmdi-star"></i> <i
-													class="zmdi zmdi-star-half"></i>
-												</span>
-											</div>
-
-											<p class="stext-102 cl6">Quod autem in homine
-												praestantissimum atque optimum est, id deseruit. Apud
-												ceteros autem philosophos</p>
-										</div>
+									<div id="review-product" >
+									
 									</div>
 
 									<!-- Add review -->
-									<form class="w-full">
+									<div class="w-full" style="margin-top: 20px">
 										<h5 class="mtext-108 cl2 p-b-7">Add a review</h5>
 
-										<p class="stext-102 cl6">Your email address will not be
-											published. Required fields are marked *</p>
-
 										<div class="flex-w flex-m p-t-50 p-b-23">
-											<span class="stext-102 cl3 m-r-16"> Your Rating </span> <span
-												class="wrap-rating fs-18 cl11 pointer"> <i
-												class="item-rating pointer zmdi zmdi-star-outline"></i> <i
-												class="item-rating pointer zmdi zmdi-star-outline"></i> <i
-												class="item-rating pointer zmdi zmdi-star-outline"></i> <i
-												class="item-rating pointer zmdi zmdi-star-outline"></i> <i
-												class="item-rating pointer zmdi zmdi-star-outline"></i> <input
-												class="dis-none" type="number" name="rating">
+											<span class="stext-102 cl3 m-r-16"> Your Rating </span>
+											<span class="wrap-rating fs-18 cl11 pointer">
+											<i class="item-rating pointer zmdi zmdi-star-outline"></i>
+											<i class="item-rating pointer zmdi zmdi-star-outline"></i>
+											<i class="item-rating pointer zmdi zmdi-star-outline"></i>
+											<i class="item-rating pointer zmdi zmdi-star-outline"></i>
+											<i class="item-rating pointer zmdi zmdi-star-outline"></i>
+											<input id="review-product-star" class="dis-none" type="number" name="rating">
 											</span>
 										</div>
 
 										<div class="row p-b-25">
+											<div class="col-sm-6 p-b-5">
+												<label class="stext-102 cl3" for="name">Name</label> <input
+													class="size-111 bor8 stext-102 cl2 p-lr-20" id="review-product-writer-name"
+													type="text" name="name">
+											</div>
+											
 											<div class="col-12 p-b-5">
 												<label class="stext-102 cl3" for="review">Your
 													review</label>
 												<textarea
 													class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10"
-													id="review" name="review"></textarea>
-											</div>
-
-											<div class="col-sm-6 p-b-5">
-												<label class="stext-102 cl3" for="name">Name</label> <input
-													class="size-111 bor8 stext-102 cl2 p-lr-20" id="name"
-													type="text" name="name">
-											</div>
-
-											<div class="col-sm-6 p-b-5">
-												<label class="stext-102 cl3" for="email">Email</label> <input
-													class="size-111 bor8 stext-102 cl2 p-lr-20" id="email"
-													type="text" name="email">
+													id="review-product-content" name="review"></textarea>
 											</div>
 										</div>
 
-										<button
-											class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
-											Submit</button>
-									</form>
-								</div>
+										<span id="replyRegistBtn"
+											class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10 pointer">
+											Submit</span>
+									</div>
 							</div>
 						</div>
 					</div>
@@ -382,4 +355,189 @@
 	})
 	
 })
+</script>
+<script>
+$(document).ready(function(){
+	pagePrepare();
+});
+	function pagePrepare(){
+		
+		var prepareContent = {
+			"rcategory_id" : 2,
+			"object_id" : ${product.product_id}
+		};
+		$.ajax({
+			type : 'POST',
+			url : '/reply/getReply',
+			contentType: 'application/json',
+			data : JSON.stringify(prepareContent),
+			success : function(data) {
+				loadReview(data);
+			},
+			error: function () {
+				console.log("get reply failed")
+			}
+		});
+	}
+	$('#replyRegistBtn').on("click",function(){
+		if(!$('#review-product-writer-name').val()){
+			Swal.fire("Name field cannot be empty.", "", "failed");
+			return;
+		}
+		if(!$('#review-product-content').val()){
+			Swal.fire("Your review field cannot be empty.", "", "failed");
+			return;
+		}
+		var writer = $('#review-product-writer-name').val();
+		var content = $('#review-product-content').val();
+		var star = parseInt($('#review-product-star').val());
+		
+		$('#review-product-writer-name').val("");
+		$('#review-product-content').val("");
+		$('#review-product-star').val(0);
+		
+		var replyContent = {
+			
+			"rcategory_id" : 2,
+			"object_id" : ${product.product_id},
+			"writer" : writer,
+			"title" : "product",
+			"content" : content,
+			"star" : star
+		}
+		
+		$.ajax({
+			type : 'POST',
+			url : '/reply/regist',
+			contentType: 'application/json',
+			data : JSON.stringify(replyContent),
+			success : function(data) {
+				loadReview(data);
+			},
+			error: function () {
+				console.log("reply regist failed")
+			}
+		})
+	});
+	function deleteReviewProduct(event){
+		Swal.fire({
+			  title: "Do you want to delete the review?",
+			  showConfirmButton: false,
+			  showDenyButton: true,
+			  showCancelButton: true,
+			  denyButtonText: "delete"
+			}).then((result) => {
+
+			  if (result.isDenied) {
+				  var reply_id = $(event.target).parent().parent().parent().find('.product-reply-id').val();
+					var user_id = $(event.target).parent().parent().parent().find('.product-reply-user-id').val();
+					var replyContent = {
+							"rcategory_id" : 2,
+							"object_id" : ${product.product_id},
+							"reply_id" : reply_id,
+							"user_id" : user_id
+						}
+
+					$.ajax({
+						type : 'POST',
+						url : '/reply/delete',
+						contentType: 'application/json',
+						data : JSON.stringify(replyContent),
+						success : function(data) {
+							loadReview(data);
+						},
+						error: function () {
+							console.log("reply delete failed")
+						}
+					})
+			    Swal.fire("deleted", "", "success");
+			  }
+			});
+		
+
+	}
+	
+	function loadReview(data){
+
+		var reviewMergeString = "";
+		var reviewCount = 0;
+		$(data).find('item').each((index, item) => {
+			
+			var reviewString = "";
+			reviewString += "<div class='product-review-container' style='border-bottom: 1px solid #ccc; padding:20px 0;''>";
+			reviewString += "<div class='flex-w flex-t'>";
+			// reviewString += "<div class='wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6'>";
+			// reviewString += "<img src='/resources/images/avatar-01.jpg' alt='AVATAR'></div>";
+	
+			reviewString += "<div class='size-207'>";
+			reviewString += "<div class='flex-w flex-sb-m p-b-17'>";
+			reviewString += "<span class='product-reply-writer-name mtext-107 cl2 p-r-20' style='font-weight: bold;''>"+$(item).find("writer_name").text()+"</span>";
+			reviewString += "<span class='fs-18 cl11'>";
+			
+			for(i=0;i<parseInt($(item).find("star").text());i++){
+				reviewString += "<i class='zmdi zmdi-star'></i> ";
+			}
+			
+			for(i=0;i<5-parseInt($(item).find("star").text());i++){
+				reviewString += "<i class='zmdi zmdi-star-outline'></i> ";
+			}
+			
+			reviewString += "<input class='product-reply-star' type='hidden' value='"+$(item).find('star').text()+"'></span></div>";
+			reviewString += "<p class='product-reply-content stext-102 cl6'>"+$(item).find("content").text()+"</p></div></div>";
+
+			reviewString += "<div style='display:flex; justify-content: flex-end;'>";
+			reviewString += "<input class='product-reply-id' type='hidden' value='"+$(item).find('reply_id').text()+"'>";
+			reviewString += "<input class='product-reply-user-id' type='hidden' value='"+$(item).find('user_id').text()+"'>";
+			reviewString += "<span class='m-l-8'> <span class='cl4'>";
+			reviewString += "<span class='flex-c-m stext-101 cl5 size-127 bg2 bor18 hov-btn3 p-lr-15 pointer trans-04' onclick='deleteReviewProduct(event)'> 삭제 </span></span></span></div>";
+
+			reviewString += "</div>";
+			reviewMergeString += reviewString;
+			reviewCount = index+1;
+		})
+		$("#product-review-count").text("Reviews ("+ reviewCount +")");
+		$("#review-product").html(reviewMergeString);
+	};
+</script>
+<script>
+$(document).on('mouseenter','.wrap-rating-update',function(){
+	$('.wrap-rating-update').each(function(){
+        var item = $(this).find('.item-rating');
+        var rated = $(this).find('input').val();
+        var input = $(this).find('input');
+
+        $(item).on('mouseenter', function(){
+            var index = item.index(this);
+            var i = 0;
+            for(i=0; i<=index; i++) {
+                $(item[i]).removeClass('zmdi-star-outline');
+                $(item[i]).addClass('zmdi-star');
+            }
+
+            for(var j=i; j<item.length; j++) {
+                $(item[j]).addClass('zmdi-star-outline');
+                $(item[j]).removeClass('zmdi-star');
+            }
+        });
+
+        $(item).on('click', function(){
+            var index = item.index(this);
+            rated = index;
+            $(input).val(index+1);
+        });
+
+        $(this).on('mouseleave', function(){
+            var i = 0;
+            for(i=0; i<=rated; i++) {
+                $(item[i]).removeClass('zmdi-star-outline');
+                $(item[i]).addClass('zmdi-star');
+            }
+
+            for(var j=i; j<item.length; j++) {
+                $(item[j]).addClass('zmdi-star-outline');
+                $(item[j]).removeClass('zmdi-star');
+            }
+        });
+    });
+});
 </script>
