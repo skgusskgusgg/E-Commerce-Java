@@ -37,4 +37,5 @@ public interface ProductService {
 	
 	public int checkCartProduct(ProductVO pVo, int mVo);
 
+	public List<ProductVO> bestProducts();
 }

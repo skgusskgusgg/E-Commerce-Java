@@ -1,6 +1,7 @@
 package org.team.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -40,6 +41,15 @@ public class ProductDetailModalController {
 	
 	@Setter(onMethod_ = @Autowired)
 	private ProductService service;
+	
+	@GetMapping(value = "/bestProducts",
+			produces = {MediaType.APPLICATION_XML_VALUE,
+						MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<List<ProductVO>> bestProducts(){
+		 List<ProductVO> bestProduct = service.bestProducts(); // 가장 높은 sell_count를 가진 아이템들의 아이디 리스트
+
+		  return new ResponseEntity<>(bestProduct, HttpStatus.OK);
+	}
 	
 	@GetMapping(value = "/productDetailModal/{product_id}",
 			produces = {MediaType.APPLICATION_XML_VALUE,
