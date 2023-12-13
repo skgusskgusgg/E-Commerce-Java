@@ -96,7 +96,7 @@
 				<tr><td colspan="12" style="height: 20px;"></td></tr>
 					<tr>
 					<td colspan="9"></td>
-					<td colspan="1" class="size-100"><input class="stext-111 cl2 plh3 size-126 p-lr-18" type="text"  placeholder="키워드입력" id="keyword"></td>
+					<td colspan="1" class="size-100"><input class="stext-111 cl2 plh3 size-126 p-lr-18" type="text"  placeholder="키워드입력" id="keyword" value="${keyword }"></td>
 					<td colspan="2"><button class="keywordSearch custom-btn btn-12" ><span>Click!</span><span>키워드검색</span></button></td>
 					</tr>
 			</table>
@@ -173,16 +173,25 @@
 	$(document).ready(function() {
 		var page = 10;
 		var actionForm = $("#actionForm");
+		var keywordSearchForm = $("#keywordSearchForm");
 		$(".paginate_button a").on("click", function(e) {
 			e.preventDefault();
 			
-			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-			actionForm.find("input[name='amount']").val(page);
+			var keyword = $("#keyword").val();
+			if(keyword!=null){	
+				keywordSearchForm.find("input[name='amount']").val(page);
+				keywordSearchForm.find("input[name='keyword']").val(keyword);
+				keywordSearchForm.find("input[name='pageNum']").val($(this).attr("href"));
+				keywordSearchForm.submit();
+			}else{
+				actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+				actionForm.find("input[name='amount']").val(page);
+				actionForm.submit();
+			}
 
-			actionForm.submit();
 		});
 		
-		var keywordSearchForm = $("#keywordSearchForm");
+		
 		$(".keywordSearch").on("click", function() {
 			var keyword = $("#keyword").val();
 			keywordSearchForm.find("input[name='keyword']").val(keyword);
