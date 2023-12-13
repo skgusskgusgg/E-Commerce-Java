@@ -374,17 +374,17 @@ $(document).ready(function() {
 <!--===============================================================================================-->
 <script>
 	$('#payment-submit-btn').on("click",function(){
-		if($('#payment-roadAddr').val() == "") {
-			$('#payment-postCode').focus();
+		if($('#payment-roadAddr').val().trim() == "") {
+			$('#payment-roadAddr').focus();
 	        alert("주소를 입력해 주세요.");
 	        return;
 	    }
-		if($('#payment-postCode').val() == "") {
+		if($('#payment-postCode').val().trim() == "") {
 			$('#payment-postCode').focus();
 	        alert("우편 번호를 입력해 주세요.");
 	        return;
 	    }
-		if($('#payment-postCode').val() == "") {
+		if($('#payment-extraAddress').val().trim() == "") {
 			$('#payment-extraAddress').focus();
 	        alert("상세 주소를 입력해 주세요.");
 	        return;

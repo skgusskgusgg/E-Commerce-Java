@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.team.domain.PaymentInfoVO;
 import org.team.domain.PaymentVO;
+import org.team.member.MemberVO;
 
 public interface PaymentService {
 
@@ -12,4 +13,6 @@ public interface PaymentService {
 	public PaymentVO insertPayment(PaymentVO dVO);
 	
 	public void updatePoint(PaymentInfoVO paymentInfo);
+	
+	public MemberVO getMember(MemberVO mVO);
 }
