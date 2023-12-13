@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.team.domain.PaymentInfoVO;
 import org.team.domain.PaymentVO;
 import org.team.mapper.PaymentMapper;
+import org.team.member.MemberVO;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -32,6 +33,11 @@ public class PaymentServiceImpl implements PaymentService {
 	@Override
 	public void updatePoint(PaymentInfoVO paymentInfo) {
 		mapper.updatePoint(paymentInfo);
+	}
+	
+	@Override
+	public MemberVO getMember(MemberVO mVO) {
+		return mapper.getMember(mVO);
 	}
 
 }

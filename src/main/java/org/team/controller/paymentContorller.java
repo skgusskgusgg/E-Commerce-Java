@@ -176,9 +176,14 @@ public class paymentContorller {
 	
 	@GetMapping("/paymentResult")
     public String getCartList(HttpSession session) {
+		
 		MemberVO mVO = (MemberVO)session.getAttribute("mVO");
+		
 		if (mVO != null) {
-            
+			
+			MemberVO member = pService.getMember(mVO);
+	        session.setAttribute("mVO", member);
+	        
             return "/payment/paymentResult";
         }
 		return "redirect:/";

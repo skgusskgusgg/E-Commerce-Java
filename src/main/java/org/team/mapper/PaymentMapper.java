@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.team.domain.PaymentInfoVO;
 import org.team.domain.PaymentVO;
+import org.team.member.MemberVO;
 
 public interface PaymentMapper {
 
@@ -16,5 +17,7 @@ public interface PaymentMapper {
 	public void updatePoint(PaymentInfoVO paymentInfo);
 	
 	public Integer getPaymentAutoIncrement();
+	
+	public MemberVO getMember(MemberVO mVO);
 }
  
