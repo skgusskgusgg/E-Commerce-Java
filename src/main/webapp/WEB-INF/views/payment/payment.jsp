@@ -293,7 +293,6 @@ $(document).ready(function() {
 	        var currentPoint = parseInt('${memberInfo.member_point}');
 	        var totalPrice = parseInt('${totalPrice}');
 	        var amountDiff = 0;
-	        
 	        if ((!$('#payment-method-creditCard').prop('checked'))
 	        		&&(!$('#payment-method-bankTransfer').prop('checked'))
        				&&(!$('#payment-method-naverPay').prop('checked'))
@@ -337,7 +336,7 @@ $(document).ready(function() {
     	}else{
         	$('#total-use-point').text("0");
         	$('#pending-point').text("적립 예정 포인트 : " + numRoundNComma(${totalPrice}*0.01));
-        	$('#total-payment-amount').text("0");
+        	$('#total-payment-amount').text(""+${totalPrice});
     	}
         return;
     });
