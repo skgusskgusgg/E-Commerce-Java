@@ -66,6 +66,55 @@ public class AdminServiceImpl implements AdminService{
 		return adminmapper.orderList(cri);
 	}
 
+
+	@Override
+	public int deleteOrder(Integer id) {
+		// TODO Auto-generated method stub
+		return adminmapper.deleteOrder(id);
+	}
+
+	@Override
+	public List<orderDTO> orderKeywordSearch(String orderSort, String keyword, AdminCriteria cri) {
+		// TODO Auto-generated method stub
+		return adminmapper.orderKeywordSearch(orderSort, keyword, cri);
+	}
+
+	@Override
+	public int orderKeywordSearchTotal(String orderSort, String keyword) {
+		// TODO Auto-generated method stub
+		return adminmapper.orderKeywordSearchTotal(orderSort, keyword);
+	}
+
+	@Override
+	public int modifyOrder(orderDTO order) {
+		// TODO Auto-generated method stub
+		return adminmapper.modifyOrder(order);
+	}
+
+	@Override
+	public int updateDeliveryTotalPrice(Integer delivery_id) {
+		// TODO Auto-generated method stub
+		return adminmapper.updateDeliveryTotalPrice(delivery_id);
+	}
+
+	@Override
+	public int deliveryPreparing(Integer delivery_id) {
+		// TODO Auto-generated method stub
+		return adminmapper.deliveryPreparing(delivery_id);
+	}
+
+	@Override
+	public int deliveryIng(Integer delivery_id) {
+		// TODO Auto-generated method stub
+		return adminmapper.deliveryIng(delivery_id);
+	}
+
+	@Override
+	public int deliveryEnd(Integer delivery_id) {
+		// TODO Auto-generated method stub
+		return adminmapper.deliveryEnd(delivery_id);
+	}
+	
 	@Override
 	public int deliveryTotal() {
 		// TODO Auto-generated method stub
@@ -79,21 +128,69 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public int deleteOrder(Integer id) {
+	public deliveryDTO getDeliveryById(String id) {
 		// TODO Auto-generated method stub
-		return adminmapper.deleteOrder(id);
+		return adminmapper.getDeliveryById(id);
 	}
 
 	@Override
-	public List<orderDTO> orderKeywordSearch(String orderSort, Integer keyword, AdminCriteria cri) {
+	public int deliveryKeywordSearchTotal(String deliverySort, String keyword) {
 		// TODO Auto-generated method stub
-		return adminmapper.orderKeywordSearch(orderSort, keyword, cri);
+		return adminmapper.deliveryKeywordSearchTotal(deliverySort, keyword);
 	}
 
 	@Override
-	public int orderKeywordSearchTotal(String orderSort, Integer keyword) {
+	public List<deliveryDTO> deliveryKeywordSearch(String deliverySort, String keyword, AdminCriteria cri) {
 		// TODO Auto-generated method stub
-		return adminmapper.orderKeywordSearchTotal(orderSort, keyword);
+		return adminmapper.deliveryKeywordSearch(deliverySort, keyword, cri);
+	}
+
+	@Override
+	public int modifyDelivery(deliveryDTO mDTO) {
+		// TODO Auto-generated method stub
+		return adminmapper.modifyDelivery(mDTO);
+	}
+
+	@Override
+	public int totalDeliveryPre(Integer delivery_id) {
+		// TODO Auto-generated method stub
+		return adminmapper.totalDeliveryPre(delivery_id);
+	}
+
+	@Override
+	public int totalDeliveryComplete(Integer delivery_id) {
+		// TODO Auto-generated method stub
+		return adminmapper.totalDeliveryComplete(delivery_id);
+	}
+
+	@Override
+	public int totalDeliveryIng(Integer delivery_id) {
+		// TODO Auto-generated method stub
+		return adminmapper.totalDeliveryIng(delivery_id);
+	}
+
+	@Override
+	public int modifyOrders(Integer delivery_id, Integer status) {
+		// TODO Auto-generated method stub
+		return adminmapper.modifyOrders(delivery_id, status);
+	}
+
+	@Override
+	public int deleteOrders(String delivery_id) {
+		// TODO Auto-generated method stub
+		return adminmapper.deleteOrders(delivery_id);
+	}
+
+	@Override
+	public int deleteDelivery(String delivery_id) {
+		// TODO Auto-generated method stub
+		return adminmapper.deleteDelivery(delivery_id);
+	}
+
+	@Override
+	public List<deliveryDTO> getordersById(String id) {
+		// TODO Auto-generated method stub
+		return adminmapper.getordersById(id);
 	}
 
 }

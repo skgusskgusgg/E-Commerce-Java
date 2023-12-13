@@ -72,6 +72,7 @@ public class AdminManagementController {
 		 AdminCriteria cri = new AdminCriteria(pageNum, amount);
 		 List<MemberDTO> mDTO = adminservice.memberList(cri);
 	      AdminPageDTO pDTO = new AdminPageDTO(cri, total);
+	
 		 model.addAttribute("memberList",mDTO);
 	      model.addAttribute("pageManagement",pDTO);
 		 return "admin/memberManagement";
@@ -110,7 +111,7 @@ public class AdminManagementController {
 	 @RequestMapping(value="/memberManagement/memberKeywordSearch/", method=RequestMethod.GET)
 	 public String keywordsearch(
 			 @RequestParam(name = "pageNum", defaultValue = "1") Integer pageNum, 
-				@RequestParam(name = "amount", defaultValue = "10") Integer amount,
+			@RequestParam(name = "amount", defaultValue = "10") Integer amount,
 			 @RequestParam(name="keyword", defaultValue = "") String keyword,
 			 Model model) {
 		log.info("키워드 : "+keyword);
@@ -121,6 +122,7 @@ public class AdminManagementController {
 		 log.info("cri : "+cri);
 		List<MemberDTO>mDTO = adminservice.keywordMemberList(cri, keyword);
 		AdminPageDTO pDTO = new AdminPageDTO(cri, total);
+	      model.addAttribute("keyword",keyword);
 		model.addAttribute("memberList",mDTO);
 	      model.addAttribute("pageManagement",pDTO);
 		
@@ -131,4 +133,3 @@ public class AdminManagementController {
 	   
 
 }
-   

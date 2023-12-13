@@ -15,7 +15,7 @@
 					data-filter="0" onclick="location.href='/admin/memberManagement'">맴버관리</button>
 				<button
 					class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 category"
-					data-filter="1" onclick="location.href='/admin/productManagement'">상품관리</button>
+					data-filter="1" onclick="location.href='/admin/product/productManagement'">상품관리</button>
 
 				<button
 					class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 category"
@@ -35,8 +35,9 @@
 		</div>
 		<h3 class="mtext-112 cl2 p-b-10">Delivery Management</h3>
 		<hr class="bor21">
-		<p>배송관리페이지..</p>
-		<p>...</p>
+		<p>배송ID, 회원ID, Total Price 는 수정 불가 </p>
+		<p>구매일자 & 전체배송상태 수정 가능, but 수정버튼 누를 시, 하위 order 전부 status 동일하게 수정 동기화 됨에 유의</p>
+		<p>삭제버튼 누를 시, 하위 order 전부 삭제 동기화 됨에 유의</p>
 		<hr class="bor21">
 
 		<!-- 회원 리스트 -->
@@ -45,11 +46,11 @@
 
 			<table class="hyeongyumodify">
 				<tr class="table_hea">
-					<th>Delivery_ID</th>
-					<th>Member_ID</th>
-					<th>Total_Price</th>
-					<th>RegDate</th>
-					<th>Total_Status</th>
+					<th>배송ID</th>
+					<th>회원ID</th>
+					<th>Total Price</th>
+					<th>구매일자</th>
+					<th>전체배송상태</th>
 					<th>상세</th>
 					<th>수정</th>
 					<th>삭제</th>
@@ -58,22 +59,40 @@
 					<tr class="table_ro">
 						<td><input type="text" value="${delivery.delivery_id}" id="id${delivery.delivery_id}"
 							readonly></td>
-						<td><input type="text" value="${delivery.member_id}" id="member${delivery.delivery_id}"></td>
-						<td><input type="text" value="${delivery.total_price}" id="totalprice${delivery.delivery_id}"></td>
+						<td><input type="text" value="${delivery.member_id}" id="member${delivery.delivery_id}" readonly></td>
+						<td><input type="text" value="${delivery.total_price}" id="totalprice${delivery.delivery_id}" readonly></td>
 						<td><input type="text"
 							value="${delivery.regdate}" id="regdate${delivery.delivery_id}"></td>
-						<td><input type="text"
-							value="${delivery.total_status}" id="totalstatus${delivery.delivery_id}"></td>
-							<td><button class="custom-btn btn-12" value=""><span>Click!</span><span>상세</span></button></td>
+						
+							<td><select id="totalstatus${delivery.delivery_id}">
+
+
+								<option value="0"
+									<c:if test="${delivery.total_status==0}">selected</c:if>>배송준비</option>
+								<option value="1"
+									<c:if test="${delivery.total_status==1}">selected</c:if>>배송중</option>
+								<option value="2"
+									<c:if test="${delivery.total_status==2}">selected</c:if>>배송완료</option>
+						</select></td>
+							
+							
+							<td><button class="deliveryDetail custom-btn btn-12" value="${delivery.delivery_id}"><span>Click!</span><span>상세</span></button></td>
 							
 						<td><button class="modify custom-btn btn-4" value="${delivery.delivery_id}"><span>수정</span></button></td>
-						<td><button class="deleteMember custom-btn btn-5" value="${delivery.delivery_id}"><span>삭제</span></button></td>
+						<td><button class="deleteDelivery custom-btn btn-5" value="${delivery.delivery_id}"><span>삭제</span></button></td>
 					</tr>
 				</c:forEach>
 				<tr><td colspan="7" style="height: 20px;"></td></tr>
 					<tr>
-					<td colspan="4"></td>
-					<td colspan="1" class="size-100"><input class="stext-111 cl2 plh3 size-126 p-lr-18" type="text"  placeholder="키워드입력" id="keyword"></td>
+					<td colspan="3"></td>
+					<td colspan="1"><select id="deliverySort">
+							<option value="delivery_id">배송ID</option>
+							<option value="member_id">회원ID</option>
+							<option value="total_price">Total Price</option>
+							<option value="regdate">구매일자</option>
+							<option value="total_status">전체배송상태</option>
+					</select></td>
+					<td colspan="1" class="size-100"><input class="stext-111 cl2 plh3 size-126 p-lr-18" type="text" value="${keyword }"  placeholder="키워드입력" id="keyword"></td>
 					<td colspan="2"><button class="keywordSearch custom-btn btn-8" style="width: 200px;" >키워드검색</button></td>
 					</tr>
 			</table>
@@ -110,6 +129,40 @@
 		</div>
 	</div>
 </div>
+
+
+
+<div id="myModal" class="modal">
+
+
+	<div class="Modalhead">
+		<h4 class="text-center mb-4">배송정보</h4>
+		<p class="text-center mb-4"> 관련 delivery 정보 불러오기</p>
+	</div>
+	
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <table style=" text-align: center; ">
+    <thead>
+    <tr>
+    <th>오더ID</tH>
+    <th>배송id</th>
+    <th>상품ID</th>
+    <th>구매수량</th>
+    <th>상품가격</th>
+    <th>배송현황</th>
+    </tr>
+    </thead>
+    
+    
+    <tbody id="orderList">
+    
+    </tbody>
+    </table> 
+  </div>
+</div>
+
+
 <form id='actionForm' action="/admin/deliveryManagement" method='get'>
 	<input type='hidden' name="pageNum"
 		value='${pageManagement.cri.pageNum}'> <input type='hidden'
@@ -119,99 +172,254 @@
 <form id='keywordSearchForm' action="/admin/deliveryManagement/deliveryKeywordSearch/" method='get'>
 	<input type='hidden' name="pageNum"	value='${pageManagement.cri.pageNum}'>
 	<input type='hidden' name="amount" value='${pageManagement.cri.amount}'>
+  <input type='hidden' name="deliverySort">
 	<input type='hidden' name="keyword">
 </form>
 
-<form id='modifyForm' action="/admin/deliveryManagement/modifyDelivery/" method='post'>
-	<input type='hidden' name="pageNum" value='${pageManagement.cri.pageNum}'>
-	<input type='hidden' name="amount" name="amount" value='${pageManagement.cri.amount}'>
-	<input type='hidden' name="id"	value=''> 
-	<input type='hidden'name="user_name" value=''>
-	<input type='hidden'name="password" value=''>
-	<input type='hidden'name="email" value=''>
-	<input type='hidden'name="address" value=''>
-	<input type='hidden'name="gender" value=''>
-	<input type='hidden'name="birth_date" value=''>
-	<input type='hidden'name="phone" value=''>
-	<input type='hidden'name="point" value=''>
-	<input type='hidden'name="join_date" value=''>
+
+<form id='modifyForm' action="/admin/deliveryManagement/modifyDelivery/"
+	method='post'>
+	<input type='hidden' name="pageNum"
+		value='${pageManagement.cri.pageNum}'> <input type='hidden'
+		name="amount" value='${pageManagement.cri.amount}'> <input
+		type='hidden' name="delivery_id"> <input type='hidden'
+		name="regdate"> <input type='hidden' name=total_status>
+	<input type='hidden' name="deliverySort"> <input type='hidden'
+		name="keyword">
 </form>
 
-<form id='deleteForm' action="/admin/memberManagement/deleteMember/" method='post'>
-	<input type='hidden' name="pageNum" value='${pageManagement.cri.pageNum}'>
-	<input type='hidden' name="amount" name="amount" value='${pageManagement.cri.amount}'>
-	<input type='hidden' name="id"	value=''> 
+<form id='deleteForm' action="/admin/deliveryManagement/deleteDelivery/"
+	method='post'>
+	<input type='hidden' name="pageNum"
+		value='${pageManagement.cri.pageNum}'> <input type='hidden'
+		name="amount" value='${pageManagement.cri.amount}'> <input
+		type='hidden' name="id"><input type='hidden' name="deliverySort"> <input type='hidden'
+		name="keyword">
 </form>
+
+
+
 
 <script>
 
 
 	$(document).ready(function() {
+		$("#deliverySort").val("${deliverySort}");
 		var page = 10;
 		var actionForm = $("#actionForm");
+		var keywordSearchForm = $("#keywordSearchForm");
+		
+		
 		$(".paginate_button a").on("click", function(e) {
 			e.preventDefault();
+			keyword = $("#keyword").val();
+			deliverySort = $("#deliverySort").val();
+
+      	if (keyword.length > 0) {
+										
+										keywordSearchForm.find(
+												"input[name='pageNum']").val(
+												$(this).attr("href"));
+										keywordSearchForm.find(
+												"input[name='amount']").val(
+												page);
+										keywordSearchForm.find(
+						                  "input[name='keyword']").val(
+						                  keyword);
+						              keywordSearchForm.find(
+						                  "input[name='deliverySort']").val(
+						                    deliverySort);
+						              keywordSearchForm.submit();
+									} else {
 			
 			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
 			actionForm.find("input[name='amount']").val(page);
 
 			actionForm.submit();
-		});
-		
-		var keywordSearchForm = $("#keywordSearchForm");
-		$(".keywordSearch").on("click", function() {
-			var keyword = $("#keyword").val();
-			keywordSearchForm.find("input[name='keyword']").val(keyword);
-			keywordSearchForm.submit();
+                  }
 		});
 
+
+
+
 		
-		var deleteForm = $("#deleteForm");
-		$(".deleteMember").on("click",function(){
+        $(".keywordSearch").on(
+            "click",
+            function() {
+              keyword = $("#keyword").val();
+              var deliverySort = $("#deliverySort").val();
+              if (keyword == null || deliverySort == null) {
+                return false;
+
+              }
+              keywordSearchForm.find(
+                  "input[name='keyword']").val(
+                  keyword);
+              keywordSearchForm.find(
+                  "input[name='deliverySort']").val(
+                    deliverySort);
+              keywordSearchForm.submit();
+            });
+
+        var modifyForm = $("#modifyForm");
+		$(".modify")
+				.on(
+						"click",
+						function() {
+							var selecetedId = $(this).val();
+
+							var regdate = $(
+									"#regdate" + selecetedId)
+									.val();
+							var total_status = $(
+									"#totalstatus" + selecetedId)
+									.val();
+							var keyword = $("#keyword").val();
+				            var deliverySort = $("#deliverySort").val();
+							
+							modifyForm.find(
+									"input[name='delivery_id']")
+									.val(selecetedId);
+							modifyForm
+									.find(
+											"input[name='regdate']")
+									.val(regdate);
+							modifyForm
+									.find(
+											"input[name='total_status']")
+									.val(total_status);
+							modifyForm.find(
+									"input[name='deliverySort']").val(
+											deliverySort);
+							modifyForm.find(
+									"input[name='keyword']")
+									.val(keyword);
+
+							modifyForm.submit();
+
+						});
+
+
+
+
+
+            
+        var deleteForm = $("#deleteForm");
+        $(".deleteDelivery").on("click", function() {
+
+          var deleteId = $(this).val();
+          var keyword = $("#keyword").val();
+          var deliverySort = $("#deliverySort").val();
+          deleteForm.find("input[name='id']").val(deleteId);
+          deleteForm.find("input[name='keyword']").val(keyword);
+          deleteForm.find("input[name='deliverySort']").val(deliverySort);
+          deleteForm.submit();
+        });
+
+
+		$(".deliveryDetail").on("click", function() {
+			var deliveryI = $(this).val();
+			$("#myModal").css("display", "block");
 			
-			var deleteId = $(this).val();
-			deleteForm.find("input[name='id']").val(deleteId);
-			deleteForm.submit();
-		});
-		
-		var modifyForm = $("#modifyForm");
-		$(".modify").on("click",function(){
-	
-	
-			var selecetedId = $(this).val();
-			var selectedPw =  $("#pw"+selecetedId).val();
-			var selectedName =  $("#name"+selecetedId).val();
-			var selectedEmail =  $("#email"+selecetedId).val();
-			var selectedAddress =  $("#address"+selecetedId).val();
-			if($("#gender"+selecetedId).val() === '1'){
-			var selectedGender = 1;}
-			if($("#gender"+selecetedId).val() === '2'){
-			var selectedGender = 2;}
-			var selectedBir =  $("#bir"+selecetedId).val();
-			var selectedPhone =  $("#phone"+selecetedId).val();
-			var selectedPoint =  $("#point"+selecetedId).val();
-			var selectedJoin =  $("#join"+selecetedId).val();
+			$.ajax({
+				  type: "GET",
+				  url: "/admin/deliveryManagement/deliveryDetail/",
+				  data: { id: deliveryI },
+				  dataType :'json',
+				  success: function(result) {
+					  console.log(result);
+				    var orderList = $("#orderList");
+				    orderList.empty(); 
+				    
+				    var del = "";
+				    for (var i = 0; i < result.length; i++) {
+				      var order = result[i]; 
+				      
+				      if(order.status==0){del="배송전"}
+				      if(order.status==1){del="배송중"}
+				      if(order.status==2){del="배송완료"}
+				      
+				      orderList.append("<tr>" +
+				        "<td>" + order.order_id + "</td>" +
+				        "<td>" + order.delivery_id + "</td>" +
+				        "<td>" + order.product_id + "</td>" +
+				        "<td>" + order.product_count + "</td>" +
+				        "<td>" + order.price + "</td>" +
+				        "<td>" + del + "</td>" +
+				        "</tr>");
+				    }
+				  },
+				  error: function(xhr, status, error) {
+				    console.error("Error: " + error);
+				  }
+				});
+
 			
-			modifyForm.find("input[name='id']").val(selecetedId);
-			modifyForm.find("input[name='user_name']").val(selectedName);
-			modifyForm.find("input[name='password']").val(selectedPw);
-			modifyForm.find("input[name='email']").val(selectedEmail);
-			modifyForm.find("input[name='address']").val(selectedAddress);
-			modifyForm.find("input[name='gender']").val(selectedGender);
-			modifyForm.find("input[name='birth_date']").val(selectedBir);
-			modifyForm.find("input[name='phone']").val(selectedPhone);
-			modifyForm.find("input[name='point']").val(selectedPoint);
-			modifyForm.find("input[name='join_date']").val(selectedJoin);
-	
-			modifyForm.submit();
-		
+			
 		});
+			$(".close, .modal").click(function() {
+			    $("#myModal").css("display", "none"); 
+			  });
+
+		$(".js-hide-modal-order").on(
+				"click",
+				function() {
+					$('.js-modal-order').removeClass(
+							'js-modal-order-show');
+				});
+
 	});
+		
+	
 </script>
 <%@include file="../includes/footer.jsp"%>
 <script type="text/javascript" src="/resources/js/addWish.js"></script>
 
 <style>
+
+.modal {
+  display: none; /* 모달 창은 초기에 숨김 */
+  position: fixed;
+  z-index: 9000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4); /* 배경에 어둡게 */
+}
+
+/* 모달 창 내용 */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* 닫기 버튼 스타일 */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+
+
+
+
+
+
 .custom-btn {
   width: 60px;
   height: 40px;
@@ -567,9 +775,9 @@ font-size: 12px;
 	width: 10%;
 }
 .hyeongyumodify tr td:nth-child(7) {
-	width: 5%;
+	width: 10%;
 }
 .hyeongyumodify tr td:last-child {
-	width: 5%;
+	width: 10%;
 }
 </style>
