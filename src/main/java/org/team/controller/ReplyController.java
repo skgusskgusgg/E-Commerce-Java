@@ -57,7 +57,7 @@ public class ReplyController {
     	log.info("mVO:"+mVO);
     	int mVOId = mVO.getId();
     	int replyUserId = replyContent.getUser_id();
-        if (mVOId == replyUserId) {
+        if ((mVOId == replyUserId)||(mVO.getAuth()==1)) {
         	ReplyVO rVO = setRVO(replyContent,mVOId);
         	log.info("rVO:"+rVO);
             rService.delete(rVO);

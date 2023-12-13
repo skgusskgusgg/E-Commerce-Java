@@ -272,12 +272,14 @@ $(document).ready(function(){
 <!--===============================================================================================-->
 <script>
 $(document).ready(function() {
+	initialAddress();
+});
     $('#address-checkbox').change(function() {
-    	var roadAddrStr = '${memberInfo.member_address}';
+    	var subAddress = classificationAddress();
         if ($(this).prop('checked')) {
-        	$('#payment-postCode').val(null);
-        	$('#payment-roadAddr').val(roadAddrStr);
-        	$('#payment-extraAddress').val(null);
+        	$('#payment-postCode').val(subAddress[0]);
+        	$('#payment-roadAddr').val(subAddress[1]);
+        	$('#payment-extraAddress').val(subAddress[2]);
         }else{
         	$('#payment-postCode').val(null);
         	$('#payment-roadAddr').val(null);
@@ -343,7 +345,31 @@ $(document).ready(function() {
     	number = Math.floor(number);
     	return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
-});
+
+	function initialAddress(){
+		var subAddress = classificationAddress();
+		$('#payment-postCode').val(subAddress[0]);
+		$('#payment-roadAddr').val(subAddress[1]);
+		$('#payment-extraAddress').val(subAddress[2]);
+	}
+	
+	function classificationAddress(){
+		var fullAddr = "${memberInfo.member_address}";
+		var findCommaIndex = fullAddr.indexOf(',');
+		var subCommaStr = "";
+		var subAddress = [];
+		for(i=0;i<3;i++){
+	    	if(findCommaIndex !== -1){
+	    		subCommaStr = fullAddr.substring(0,findCommaIndex).trim();
+	    		fullAddr = fullAddr.substring(findCommaIndex+1);
+		    	findCommaIndex = fullAddr.indexOf(',');
+		    	subAddress[i] = subCommaStr;
+	    	}else{
+	    		subAddress[i] = fullAddr;
+	    	}
+		}
+		return subAddress;
+	}
 </script>
 <!--===============================================================================================-->
 <script>

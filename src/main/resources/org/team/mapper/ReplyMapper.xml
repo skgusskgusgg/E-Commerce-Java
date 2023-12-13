@@ -28,7 +28,7 @@
 	<delete id="delete" parameterType="org.team.domain.ReplyVO">
 		DELETE
 		FROM reply
-		WHERE reply_id = #{reply_id} AND user_id = #{user_id}
+		WHERE reply_id = #{reply_id}
 	</delete>
 	
 	<update id="update" parameterType="org.team.domain.ReplyVO">
