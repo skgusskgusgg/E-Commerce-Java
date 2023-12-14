@@ -16,8 +16,8 @@ public class AdminProductServiceImpl  implements AdminProductService{
 	private AdminProductMapper mapper;
 
 	@Override
-	public List<ProductVO> getList(Criteria cri) {
-		List<ProductVO> list = mapper.getList(cri);
+	public List<ProductVO> getList(ProductVO vo, Criteria cri, String sort, int row, int high) {
+		List<ProductVO> list = mapper.getList(vo, cri, sort, row, high);
 		return list;
 	}
 
@@ -28,8 +28,8 @@ public class AdminProductServiceImpl  implements AdminProductService{
 	}
 
 	@Override
-	public int getTotal() {
-		int total = mapper.getTotal();
+	public int getTotal(ProductVO vo, Criteria cri, String sort, int row, int high) {
+		int total =mapper.getTotal(vo, cri, sort, row, high);
 		return total;
 	}
 

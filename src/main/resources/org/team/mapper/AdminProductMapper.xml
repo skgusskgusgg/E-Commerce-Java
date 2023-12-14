@@ -2,25 +2,78 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.team.mapper.AdminProductMapper">
 	<select id="getList" resultType="org.team.domain.ProductVO">
-		select *
-		FROM product p1
-		WHERE
-		p1.product_id = (
-		SELECT MIN(p2.product_id)
-		FROM
-		product p2
-		WHERE
-		p2.product_name = p1.product_name
-		)
-		and product_name
-		like
-		concat('%',
-		#{cri.keyword}, '%')
-		order by product_id desc
-		limit
-		#{cri.pageStart},
-		#{cri.amount}
+		<choose>
+			<when
+				test="vo.color_id == null or vo.color_id == '99' or vo.size_id == null or vo.size_id == '99'">
+				select *
+				FROM product p1
+				WHERE
+				p1.product_id = (
+				SELECT MIN(p2.product_id)
+				FROM
+				product p2
+				WHERE
+				p2.product_name = p1.product_name
+				)
+				and product_name
+				like
+				concat('%',
+				#{cri.keyword}, '%')			
+
+			</when>
+			<otherwise>
+				SELECT
+				p1.product_id, p1.category_id, p1.product_name,
+				p1.price, p1.img,
+				p1.quantity, p1.sell_count, p1.color_id, p1.size_id
+				FROM
+				product p1
+				WHERE
+				p1.color_id =
+				(
+				SELECT code_name
+				FROM code
+				WHERE
+				code_id = 'color_id'
+				AND
+				code_category = #{vo.color_id}
+				)
+				AND p1.size_id
+				= (
+				SELECT
+				code_name
+				FROM code
+				WHERE code_id = 'size_id'
+				AND
+				code_category =
+				#{vo.size_id}
+				)
+				AND p1.product_id = (
+				SELECT
+				MIN(product_id)
+				FROM
+				product p2
+				WHERE
+				p2.product_name = p1.product_name
+				)
+				AND p1.price
+				BETWEEN #{row} AND
+				#{high}
+				AND p1.product_name LIKE
+				CONCAT('%',
+				#{cri.keyword}, '%')
+			</otherwise>
+		</choose>
+
+		<if test="sort == 'ASC'">
+			ORDER BY p1.price ASC
+		</if>
+		<if test="sort == 'DESC'">
+			ORDER BY p1.price DESC
+		</if>
+		LIMIT #{cri.pageStart}, #{cri.amount}
 	</select>
+	
 	<select id="selectList" resultType="org.team.domain.ProductVO">
 		<choose>
 			<when
@@ -48,8 +101,6 @@
 				AND p1.price BETWEEN #{row} AND
 				#{high}
 				AND p1.product_name LIKE CONCAT('%', #{cri.keyword}, '%')
-
-
 			</when>
 			<otherwise>
 				SELECT
@@ -91,9 +142,9 @@
 				BETWEEN #{row} AND #{high}
 				AND p1.product_name LIKE CONCAT('%',
 				#{cri.keyword}, '%')
-
 			</otherwise>
 		</choose>
+
 		<if test="sort == 'ASC'">
 			ORDER BY p1.price ASC
 		</if>
@@ -101,31 +152,46 @@
 			ORDER BY p1.price DESC
 		</if>
 		LIMIT #{cri.pageStart}, #{cri.amount}
-
-
 	</select>
-
 
 	<select id="getTotal" resultType="int">
-		select count(*) from product p1
-		WHERE
-		p1.product_id = (
-		SELECT MIN(p2.product_id)
-		FROM
-		product p2
-		WHERE
-		p2.product_name = p1.product_name
-		)
+		 <![CDATA[
+        SELECT COUNT(*) FROM product p1
+        WHERE
+        p1.product_id = (
+            SELECT MIN(p2.product_id)
+            FROM product p2
+            WHERE p2.product_name = p1.product_name
+        )
+        AND (
+            (
+                #{vo.color_id} IS NULL OR #{vo.color_id} = '99'
+            )
+            OR (
+                p1.color_id = (
+                    SELECT code_name
+                    FROM code
+                    WHERE code_id = 'color_id'
+                    AND code_category = #{vo.category_id}
+                )
+            )
+        )
+        AND (
+            (
+                #{vo.size_id} IS NULL OR #{vo.size_id} = '99'
+            )
+            OR (
+                p1.size_id = (
+                    SELECT code_name
+                    FROM code
+                    WHERE code_id = 'size_id'
+                    AND code_category = #{vo.category_id}
+                )
+            )
+        )
+    ]]>
 	</select>
-	<!-- <select id="selectTotal" resultType="int"> <![CDATA[ select count(*) 
-		from product where category_id = ( select code_name from code where code_id 
-		= "category_id" and code_category = #{vo.category_id}) and color_id = (select 
-		code_name from code where code_id="color_id" and code_category = #{vo.color_id}) 
-		and size_id = (select code_name from code where code_id="size_id" and code_category 
-		= #{vo.size_id}) and price between #{row} and #{high} order by ]]> <choose> 
-		<when test="sort == 'ASC'">price ASC</when> <when test="sort == 'DESC'">price 
-		DESC</when> <otherwise>price ASC</otherwise> </choose> limit #{cri.pageStart}, 
-		#{cri.amount} </select> -->
+
 	<select id="selectTotal" resultType="int">
     <![CDATA[
         SELECT COUNT(*) FROM product p1
@@ -183,13 +249,13 @@
 	</insert>
 	<update id="update">
 		update product set
-		category_id =
-		#{pVo.category_id},product_name = #{pVo.product_name},price =
-		#{pVo.price},img = #{pVo.img},quantity
-		= #{pVo.quantity},color_id
-		=#{pVo.color_id},size_id
-		=#{pVo.size_id} where product_id =
-		#{pVo.product_id}
+					category_id = #{pVo.category_id},
+					product_name = #{pVo.product_name},
+					price = #{pVo.price},img = #{pVo.img},
+					quantity = #{pVo.quantity},
+					color_id =#{pVo.color_id},
+					size_id =#{pVo.size_id} 
+		where product_id = #{pVo.product_id}
 	</update>
 	<delete id="delete">
 		delete from product where product_id = #{pVo};

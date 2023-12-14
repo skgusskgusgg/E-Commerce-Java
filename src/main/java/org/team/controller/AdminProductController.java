@@ -48,18 +48,32 @@ public class AdminProductController {
 
 		PageDTO pDto = null;
 		int total = 0;
-		
+		ProductVO vo = new ProductVO();
 		if (category_id == null || category_id.equals("0")) {
+			
+			
+			if (color_id != null && !color_id.isEmpty()) {
+				vo.setColor_id(color_id);
+			}else {
+				vo.setColor_id("99");
+			}
+			
+			if (size_id != null && !size_id.isEmpty()) {
+				vo.setSize_id(size_id);
+			}else {
+				vo.setSize_id("99");
+			}
 			Criteria cri = new Criteria(pageStart, 8, keyword);
-			List<ProductVO> list = service.getList(cri);
-			total = service.getTotal();
+			List<ProductVO> list = service.getList(vo,cri,sort,row,high);
+			total = service.getTotal(vo, cri, sort, row, high);
 			pDto = new PageDTO(cri, total);
+			
 			model.addAttribute("product", list);
 			model.addAttribute("pageMaker", pDto);
 			log.info("상품 리스트 페이지");
 			log.info("keyword : " + keyword);
 		} else {
-			ProductVO vo = new ProductVO();
+			
 			vo.setCategory_id(category_id);
 
 			if (color_id != null && !color_id.isEmpty()) {
@@ -83,15 +97,6 @@ public class AdminProductController {
 			model.addAttribute("product", list);
 			model.addAttribute("pageMaker", pDto);
 
-			log.info(category_id + "번 상품 리스트 페이지");
-			log.info(color_id + " : 색상");
-			log.info(size_id + " : 사이즈");
-			log.info(sort + " : 정렬 순서");
-			log.info("row price : " + row);
-			log.info("high price : " + high);
-			log.info("keyword : " + keyword);
-			log.info("total : " + total);
-			log.info("pDto : " + pDto);
 		}
 	}
 
@@ -160,13 +165,30 @@ public class AdminProductController {
 	
 	@GetMapping(value= "/productManagement")
 	public void productManagement(
-			@RequestParam(name = "pageStart", defaultValue = "1") Integer pageStart ,
-			@RequestParam(name="keyword", defaultValue = "") String keyword,
-			Model model) {
+			@RequestParam(name = "color_id", required = false) String color_id,
+			@RequestParam(name = "size_id", required = false) String size_id,
+			@RequestParam(name = "sort", defaultValue = "asc") String sort,
+			@RequestParam(name = "pageStart", defaultValue = "1") Integer pageStart,
+			@RequestParam(name = "row", defaultValue = "0",required = false) Integer row,
+			@RequestParam(name = "high", defaultValue = "500000",required = false) Integer high,
+			@RequestParam(name = "keyword", defaultValue = "") String keyword, Model model) {
+		ProductVO vo = new ProductVO();
 		
+		if (color_id != null && !color_id.isEmpty()) {
+			vo.setColor_id(color_id);
+		}else {
+			vo.setColor_id("99");
+		}
+		
+		if (size_id != null && !size_id.isEmpty()) {
+			vo.setSize_id(size_id);
+		}else {
+			vo.setSize_id("99");
+		}
+
 		Criteria cri = new Criteria(pageStart,10,keyword);
-		List<ProductVO> list = service.getList(cri);
-		int total = service.getTotal();
+		List<ProductVO> list = service.getList(vo,cri,sort,row,high);
+		int total = service.getTotal(vo,cri,sort,row,high);
 		PageDTO pDto = new PageDTO(cri, total);
 		model.addAttribute("product", list);
 		model.addAttribute("pageMaker", pDto);

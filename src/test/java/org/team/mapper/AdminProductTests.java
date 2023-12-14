@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.team.domain.Criteria;
 import org.team.domain.ProductVO;
 
 import lombok.Setter;
@@ -47,5 +48,14 @@ public class AdminProductTests {
 	@Test 
 	public void delete() {
 		mapper.delete(195);
+	}
+	@Test
+	public void getTotal() {
+		ProductVO vo = new ProductVO();
+		vo.setCategory_id("1");
+		vo.setColor_id("1");
+		vo.setSize_id("1");
+		Criteria cri = new Criteria(1, 10, "");
+		log.info(mapper.getTotal(vo, cri, "desc", 50000, 150000));
 	}
 }

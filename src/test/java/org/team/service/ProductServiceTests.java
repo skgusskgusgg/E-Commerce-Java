@@ -25,8 +25,11 @@ public class ProductServiceTests {
 	
 	@Test
 	public void getListTests() {
-		Criteria cri = new Criteria(1,2,"");
-		List<ProductVO> list = service.getList(cri);
+		Criteria cri = new Criteria(1,10,"");
+		ProductVO vo = new ProductVO();
+		vo.setColor_id("1");
+		vo.setSize_id("1");
+		List<ProductVO> list = service.getList(vo,cri,"desc",10000,300000);
 		list.forEach(e->log.info(e));
 	}
 	

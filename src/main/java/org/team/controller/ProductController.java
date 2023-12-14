@@ -41,18 +41,32 @@ public class ProductController {
 
 		PageDTO pDto = null;
 		int total = 0;
-		
+		ProductVO vo = new ProductVO();
 		if (category_id == null || category_id.equals("0")) {
+			
+			
+			if (color_id != null && !color_id.isEmpty()) {
+				vo.setColor_id(color_id);
+			}else {
+				vo.setColor_id("99");
+			}
+			
+			if (size_id != null && !size_id.isEmpty()) {
+				vo.setSize_id(size_id);
+			}else {
+				vo.setSize_id("99");
+			}
 			Criteria cri = new Criteria(pageStart, 8, keyword);
-			List<ProductVO> list = service.getList(cri);
-			total = service.getTotal();
+			List<ProductVO> list = service.getList(vo,cri,sort,row,high);
+			total = service.getTotal(vo, cri, sort, row, high);
 			pDto = new PageDTO(cri, total);
+			
 			model.addAttribute("product", list);
 			model.addAttribute("pageMaker", pDto);
 			log.info("상품 리스트 페이지");
 			log.info("keyword : " + keyword);
 		} else {
-			ProductVO vo = new ProductVO();
+			
 			vo.setCategory_id(category_id);
 
 			if (color_id != null && !color_id.isEmpty()) {
@@ -76,14 +90,6 @@ public class ProductController {
 			model.addAttribute("product", list);
 			model.addAttribute("pageMaker", pDto);
 
-			log.info(category_id + "번 상품 리스트 페이지");
-			log.info(color_id + " : 색상");
-			log.info(size_id + " : 사이즈");
-			log.info(sort + " : 정렬 순서");
-			log.info("row price : " + row);
-			log.info("high price : " + high);
-			log.info("keyword : " + keyword);
-			log.info("total : " + total);
 		}
 	}
 
