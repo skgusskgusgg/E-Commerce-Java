@@ -6,11 +6,11 @@ import org.team.domain.Criteria;
 import org.team.domain.ProductVO;
 
 public interface AdminProductService {
-	public List<ProductVO> getList(Criteria cri);
+	public List<ProductVO> getList(ProductVO vo, Criteria cri, String sort, int row, int high);
 
 	public List<ProductVO> selectList(ProductVO vo, Criteria cri, String sort, int row, int high);
 	
-	public int getTotal();
+	public int getTotal(ProductVO vo, Criteria cri, String sort, int row, int high);
 	
 	public int selectTotal(ProductVO vo, Criteria cri, String sort, int row, int high);
 

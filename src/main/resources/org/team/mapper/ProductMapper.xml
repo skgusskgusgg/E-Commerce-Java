@@ -2,25 +2,75 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.team.mapper.ProductMapper">
 	<select id="getList" resultType="org.team.domain.ProductVO">
-		select *
-		FROM product p1
-		WHERE
-		p1.product_id = (
-		SELECT MIN(p2.product_id)
-		FROM
-		product p2
-		WHERE
-		p2.product_name = p1.product_name
-		)
-		and product_name
-		like
-		concat('%',
-		#{cri.keyword}, '%')
-		order by product_id desc
-		limit
-		#{cri.pageStart},
-		#{cri.amount}
+		<choose>
+			<when
+				test="vo.color_id == null or vo.color_id == '99' or vo.size_id == null or vo.size_id == '99'">
+				select *
+				FROM product p1
+				WHERE
+				p1.product_id = (
+				SELECT MIN(p2.product_id)
+				FROM
+				product p2
+				WHERE
+				p2.product_name = p1.product_name
+				)
+				and product_name
+				like
+				concat('%',
+				#{cri.keyword}, '%')
+			</when>
+			<otherwise>
+				SELECT
+				p1.product_id, p1.category_id, p1.product_name,
+				p1.price, p1.img,
+				p1.quantity, p1.sell_count, p1.color_id, p1.size_id
+				FROM
+				product p1
+				WHERE
+				p1.color_id =
+				(
+				SELECT code_name
+				FROM code
+				WHERE
+				code_id = 'color_id'
+				AND
+				code_category = #{vo.color_id}
+				)
+				AND p1.size_id
+				= (
+				SELECT
+				code_name
+				FROM code
+				WHERE code_id = 'size_id'
+				AND
+				code_category =
+				#{vo.size_id}
+				)
+				AND p1.product_id = (
+				SELECT
+				MIN(product_id)
+				FROM
+				product p2
+				WHERE
+				p2.product_name = p1.product_name
+				)
+				AND p1.price
+				BETWEEN #{row} AND
+				#{high}
+				AND p1.product_name LIKE
+				CONCAT('%',
+				#{cri.keyword}, '%')
+			</otherwise>
+		</choose>
 
+		<if test="sort == 'ASC'">
+			ORDER BY p1.price ASC
+		</if>
+		<if test="sort == 'DESC'">
+			ORDER BY p1.price DESC
+		</if>
+		LIMIT #{cri.pageStart}, #{cri.amount}
 	</select>
 	<select id="selectList" resultType="org.team.domain.ProductVO">
 		<choose>
@@ -111,7 +161,37 @@
 		product p2
 		WHERE
 		p2.product_name = p1.product_name
-		)
+		)       AND p1.product_id = (
+            SELECT MIN(p2.product_id)
+            FROM product p2
+            WHERE p2.product_name = p1.product_name
+        )
+        AND (
+            (
+                #{vo.color_id} IS NULL OR #{vo.color_id} = '99'
+            )
+            OR (
+                p1.color_id = (
+                    SELECT code_name
+                    FROM code
+                    WHERE code_id = 'color_id'
+                    AND code_category = #{vo.category_id}
+                )
+            )
+        )
+        AND (
+            (
+                #{vo.size_id} IS NULL OR #{vo.size_id} = '99'
+            )
+            OR (
+                p1.size_id = (
+                    SELECT code_name
+                    FROM code
+                    WHERE code_id = 'size_id'
+                    AND code_category = #{vo.category_id}
+                )
+            )
+        )
 	</select>
 	<select id="selectTotal" resultType="int">
     <![CDATA[
@@ -164,34 +244,40 @@
 		product_id = #{id}
 	</select>
 
-	<insert id="postWish" >
-	    INSERT INTO wish (member_id, product_id, `count`)
-	    VALUES (
-	        #{mVo},
-	        (SELECT product_id
-	         FROM product
-	         WHERE color_id = #{aVo.product.color_id}
-	         AND size_id = #{aVo.product.size_id}
-	         AND product_name = #{aVo.product.product_name}),
-	        #{aVo.count}
-	    )
+	<insert id="postWish">
+		INSERT INTO wish (member_id, product_id, `count`)
+		VALUES (
+		#{mVo},
+		(SELECT product_id
+		FROM product
+		WHERE color_id =
+		#{aVo.product.color_id}
+		AND size_id = #{aVo.product.size_id}
+		AND
+		product_name = #{aVo.product.product_name}),
+		#{aVo.count}
+		)
 	</insert>
-	
-	<update id="updateWish" parameterType="org.team.domain.ProductVO">
-		update wish set `count` = `count` + #{num} 
-					where product_id = (SELECT product_id
-			         FROM product
-			         WHERE product_name = #{pVo.product_name}
-			         and color_id = #{pVo.color_id}
-			         and size_id = #{pVo.size_id})
-			         and member_id = #{mVo}
+
+	<update id="updateWish"
+		parameterType="org.team.domain.ProductVO">
+		update wish set `count` = `count` + #{num}
+		where
+		product_id = (SELECT product_id
+		FROM product
+		WHERE product_name =
+		#{pVo.product_name}
+		and color_id = #{pVo.color_id}
+		and size_id =
+		#{pVo.size_id})
+		and member_id = #{mVo}
 	</update>
-	
+
 	<delete id="deleteWish">
 		delete from wish where product_id = #{pVo.product_id}
 		and member_id = #{mVo}
 	</delete>
-	
+
 	<select id="countWish" resultType="int">
 		SELECT COUNT(*) > 0 AS
 		exists_in_wishlist
@@ -201,25 +287,31 @@
 	</select>
 
 	<insert id="postCart">
-		  INSERT INTO cart (member_id, product_id, `count`)
-	    VALUES (
-	        #{mVo},
-	        (SELECT product_id
-	         FROM product
-	         WHERE color_id = #{aVo.product.color_id}
-	         AND size_id = #{aVo.product.size_id}
-	         AND product_name = #{aVo.product.product_name}),
-	        #{aVo.count}
-	    )
+		INSERT INTO cart (member_id, product_id, `count`)
+		VALUES (
+		#{mVo},
+		(SELECT product_id
+		FROM product
+		WHERE color_id =
+		#{aVo.product.color_id}
+		AND size_id = #{aVo.product.size_id}
+		AND
+		product_name = #{aVo.product.product_name}),
+		#{aVo.count}
+		)
 	</insert>
-	<update id="updateCart" parameterType="org.team.domain.ProductVO">
-		update cart set `count` = `count` + #{num} 
-					where product_id = (SELECT product_id
-			         FROM product
-			         WHERE product_name = #{pVo.product_name}
-			         and color_id = #{pVo.color_id}
-			         and size_id = #{pVo.size_id})
-			        and member_id = #{mVo}
+	<update id="updateCart"
+		parameterType="org.team.domain.ProductVO">
+		update cart set `count` = `count` + #{num}
+		where
+		product_id = (SELECT product_id
+		FROM product
+		WHERE product_name =
+		#{pVo.product_name}
+		and color_id = #{pVo.color_id}
+		and size_id =
+		#{pVo.size_id})
+		and member_id = #{mVo}
 	</update>
 
 	<select id="sizeTotal" resultType="java.lang.String">
@@ -231,33 +323,41 @@
 		select DISTINCT color_id from
 		product where product_name = #{pVo.product_name}
 	</select>
-	
-	<select id="checkWishProduct" parameterType="org.team.domain.ProductVO" resultType="java.lang.Integer">
-	    SELECT COUNT(product_id) FROM wish
-	    WHERE product_id = (
-	        SELECT product_id
-	        FROM product
-	        WHERE color_id = #{product.color_id}
-	        AND size_id = #{product.size_id}
-	        AND product_name = #{product.product_name}
-	    )
-	    and member_id = #{mVo}
+
+	<select id="checkWishProduct"
+		parameterType="org.team.domain.ProductVO"
+		resultType="java.lang.Integer">
+		SELECT COUNT(product_id) FROM wish
+		WHERE product_id = (
+		SELECT product_id
+		FROM product
+		WHERE color_id = #{product.color_id}
+		AND
+		size_id = #{product.size_id}
+		AND product_name = #{product.product_name}
+		)
+		and member_id = #{mVo}
 	</select>
 
-		<select id="checkCartProduct" parameterType="org.team.domain.ProductVO" resultType="java.lang.Integer">
-	    SELECT COUNT(product_id) FROM cart
-	    WHERE product_id = (
-	        SELECT product_id
-	        FROM product
-	        WHERE color_id = #{product.color_id}
-	        AND size_id = #{product.size_id}
-	        AND product_name = #{product.product_name}
-	    )and member_id = #{mVo}
-	    
+	<select id="checkCartProduct"
+		parameterType="org.team.domain.ProductVO"
+		resultType="java.lang.Integer">
+		SELECT COUNT(product_id) FROM cart
+		WHERE product_id = (
+		SELECT product_id
+		FROM product
+		WHERE color_id = #{product.color_id}
+		AND
+		size_id = #{product.size_id}
+		AND product_name = #{product.product_name}
+		)and member_id = #{mVo}
+
 	</select>
 	<select id="bestProducts" resultType="org.team.domain.ProductVO">
-		SELECT product_id,product_name,price,img,MAX(sell_count) as sell_count
-		FROM product
+		SELECT
+		product_id,product_name,price,img,MAX(sell_count) as sell_count
+		FROM
+		product
 		GROUP BY product_id
 		ORDER BY sell_count DESC
 		LIMIT 4
