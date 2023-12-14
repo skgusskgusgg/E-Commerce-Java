@@ -37,22 +37,19 @@
 									</span>
 								</a></li>
 								<li>
-								<a
-									href="/myshop/order/list.html?order_status=shipped_standby">
-										<strong>배송준비중</strong> <span> <span>3</span>
-									</span>
-								</a>
+								
+										<strong>배송준비중</strong> <P><span> <span>${dP}</span>
+									</span></P>
+							
 								</li>
-								<li><a
-									href="/myshop/order/list.html?order_status=shipped_begin">
-										<strong>배송중</strong> <span> <span>1</span>
-									</span>
-								</a></li>
-								<li><a
-									href="/myshop/order/list.html?order_status=shipped_complate">
-										<strong>배송완료</strong> <span> <span>2</span>
-									</span>
-								</a></li>
+								<li>
+										<strong>배송중</strong><P> <span> <span>${dI}</span>
+									</span></P>
+								</li>
+								<li>
+										<strong>배송완료</strong> <P><span> <span>${dC}</span>
+									</span></P>
+								</li>
 								<li>
 									<p>
 										<a href="/myshop/order/list.html?order_status=order_cancel">
@@ -79,11 +76,11 @@
 							</ul>
 							<ul class="mypage-benefit-right">
 								<h3>
-									<a href="/myshop/mileage/historyList.html">적립금</a>
+									<P>적립금</P>
 								</h3>
 
 
-								<li><a href="/myshop/mileage/historyList.html">${mVO.point}</a></li>
+								<li><P>${mVO.point}</P></li>
 							</ul>
 						</div>
 						<div class="mypage-sub-menu">
