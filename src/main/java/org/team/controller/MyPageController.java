@@ -22,6 +22,7 @@ import org.team.mypage.PageDTO;
 import org.team.mypage.orderCriteria;
 import org.team.mypage.orderDTO;
 import org.team.mypage.orderService;
+import org.team.mypage.orderWithProductDTO;
 import org.team.mypage.updateService;
 
 import lombok.extern.log4j.Log4j;
@@ -61,17 +62,27 @@ public class MyPageController {
 			@RequestParam(name = "pageNum", defaultValue="1") Integer pageNum,
 			@RequestParam(name = "amount", defaultValue="10") Integer amount,
 			Model model) {
-		amount = 2;
+		amount = 5;
+		
+		log.info("orderTracking 페이지");
 		orderCriteria cri = new orderCriteria(pageNum, amount);
 		log.info("cri : "+cri);
-		List<orderDTO> oDTO = orderservice.orderListWithPaging(cri, id);
-		
+		//List<orderDTO> oDTO = orderservice.orderListWithPaging(cri, id);
+		List<orderWithProductDTO> oDTO = orderservice.orderWithProductWithPaging(cri,id);
 		
 		
 		int total = orderservice.getTotalOrderCount(cri, id);
-		log.info("total : "+total);
+		log.info("=====================================================================================");
+		log.info("=====================================================================================");
+		log.info("=====================================================================================");
+		log.info(oDTO);
+		log.info("=====================================================================================");
+		log.info("=====================================================================================");
+		log.info("=====================================================================================");
+		
+		PageDTO pageMaker = new PageDTO(cri,total);
 		model.addAttribute("orderList", oDTO);
-		model.addAttribute("pageMaker", new PageDTO(cri,total));
+		model.addAttribute("pageMaker", pageMaker);
 		
 	}
 		
