@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.team.domain.ProductVO;
+import org.team.domain.ReplyVO;
 import org.team.mapper.OrderMapper;
 
 
@@ -62,6 +64,20 @@ public class orderServiceImpl implements orderService {
 	public List<orderWithProductDTO> orderWithProductWithPaging(orderCriteria cri, String id) {
 		// TODO Auto-generated method stub
 		return ordermapper.orderWithProductWithPaging(cri, id);
+	}
+
+
+	@Override
+	public List<ReplyVO> replyManagement(int user_id) {
+		List<ReplyVO> list = ordermapper.replyManagement(user_id); 
+		return list;
+	}
+
+
+	@Override
+	public ProductVO productList(int product_id) {
+		ProductVO productList = ordermapper.productList(product_id);
+		return productList;
 	}
 
 
