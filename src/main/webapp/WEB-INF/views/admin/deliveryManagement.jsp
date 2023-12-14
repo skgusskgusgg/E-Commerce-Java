@@ -68,11 +68,11 @@
 
 
 								<option value="0"
-									<c:if test="${delivery.total_status==0}">selected</c:if>>배송준비</option>
+									<c:if test="${delivery.total_status==1}">selected</c:if>>배송준비</option>
 								<option value="1"
-									<c:if test="${delivery.total_status==1}">selected</c:if>>배송중</option>
+									<c:if test="${delivery.total_status==2}">selected</c:if>>배송중</option>
 								<option value="2"
-									<c:if test="${delivery.total_status==2}">selected</c:if>>배송완료</option>
+									<c:if test="${delivery.total_status==3}">selected</c:if>>배송완료</option>
 						</select></td>
 							
 							
