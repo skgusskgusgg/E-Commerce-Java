@@ -61,7 +61,7 @@
 										</a>
 									</p>
 									<p>
-										<a href="/myshop/order/list.html?order_status=order_exchange">
+										<a href="/mypage/replyManagement">
 											<strong>리뷰관리</strong> <span> <span>7</span>
 										</span>
 										</a>

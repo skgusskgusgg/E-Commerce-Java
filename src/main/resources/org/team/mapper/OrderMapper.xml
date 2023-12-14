@@ -19,5 +19,12 @@
 		select count(*) from nahyun.order where delivery_id in (select delivery_id from delivery where member_id = #{cri.id})
 	</select>
 	
+	<select id="replyManagement" resultType="org.team.domain.ReplyVO">
+		select * from reply where user_id = #{mVo} order by reply_id
+	</select>
+	
+	<select id="productList" resultType="org.team.domain.ProductVO">
+		select * from product where product_id = #{pVo}
+	</select>
 	
   </mapper>

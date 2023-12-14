@@ -2,7 +2,10 @@ package org.team.controller;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.team.domain.Criteria;
+import org.team.domain.ProductVO;
+import org.team.domain.ReplyVO;
 import org.team.join.MemberDTO;
+import org.team.member.MemberVO;
 import org.team.mypage.PageDTO;
 import org.team.mypage.orderCriteria;
 import org.team.mypage.orderDTO;
@@ -31,7 +38,7 @@ public class MyPageController {
 	
 	@Autowired
 	private orderService orderservice;
-	
+
 	@GetMapping("/myPage")
 	 public void myPage() {
 	      log.info("myPage get 페이지");
@@ -91,7 +98,25 @@ public class MyPageController {
          return "fail";
       }
    }
+
+   @GetMapping("/replyManagement")
+   public void replyManagement(Model model, HttpSession session) {
+	   MemberVO mVo = (MemberVO)session.getAttribute("mVO");
+	   int user_id = mVo.getId();
+	
+	   List<ReplyVO> list = orderservice.replyManagement(user_id);
 	   
+	   List<ProductVO> productList = new ArrayList<ProductVO>();
+	   
+	   for(ReplyVO replyVO : list) {
+		   int object_id = replyVO.getObject_id();
+		   ProductVO product = orderservice.productList(object_id);
+		   productList.add(product);
+	   }
+	   
+	   model.addAttribute("product_list" , productList);
+	   model.addAttribute("list",list);
+   }
 
 }
    
