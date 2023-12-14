@@ -12,11 +12,21 @@
 	
 	<select id="orderListWithPaging" resultType="org.team.mypage.orderDTO" >
 	<![CDATA[
-		select * from nahyun.order where delivery_id in (select delivery_id from delivery where member_id = #{cri.id}) limit #{cri.pageStart}, #{cri.amount} 
+		select * from nahyun.order where delivery_id in (select delivery_id from delivery where member_id = #{id}) limit #{cri.pageStart}, #{cri.amount} 
 		]]>
 	</select>
 	<select id="getTotalOrderCount" resultType="int">
-		select count(*) from nahyun.order where delivery_id in (select delivery_id from delivery where member_id = #{cri.id})
+		select count(*) from nahyun.order where delivery_id in (select delivery_id from delivery where member_id = #{id})
+	</select>
+	
+	<select id="deliveryPreparation" resultType="int">
+		select count(*) from nahyun.order where status = 1 and delivery_id in (select delivery_id from delivery where member_id = #{id})
+	</select>
+	<select id="deliveryIng" resultType="int">
+		select count(*) from nahyun.order where status = 2 and delivery_id in (select delivery_id from delivery where member_id = #{id})
+	</select>
+	<select id="deliveryComplete" resultType="int">
+		select count(*) from nahyun.order where status = 3 and delivery_id in (select delivery_id from delivery where member_id = #{id})
 	</select>
 	
 	

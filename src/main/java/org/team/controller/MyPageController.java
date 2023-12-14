@@ -4,6 +4,9 @@ package org.team.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.team.join.MemberDTO;
+import org.team.member.MemberVO;
 import org.team.mypage.PageDTO;
 import org.team.mypage.orderCriteria;
 import org.team.mypage.orderDTO;
@@ -33,20 +37,38 @@ public class MyPageController {
 	private orderService orderservice;
 	
 	@GetMapping("/myPage")
-	 public void myPage() {
+	 public void myPage(
+			 HttpServletRequest request,
+			 Model model
+			 
+			 )throws Exception {
 	      log.info("myPage get 페이지");
-
+	      HttpSession session = request.getSession();
+	      MemberVO member = (MemberVO)session.getAttribute("mVO");
+	      int id = member.getId();
+	      int dP = orderservice.deliveryPreparation(id);  
+	      int dI = orderservice.deliveryIng(id);
+	      int dC = orderservice.deliveryComplete(id);
+	      model.addAttribute("dP",dP);
+	      model.addAttribute("dI",dI);
+	      model.addAttribute("dC",dC);
 	}
 	
 
 	@GetMapping("/orderTracking")
-	public void mypage(orderCriteria cri, Model model) {
+	public void mypage(
+			@RequestParam(name ="id")String id, 
+			@RequestParam(name = "pageNum", defaultValue="1") Integer pageNum,
+			@RequestParam(name = "amount", defaultValue="10") Integer amount,
+			Model model) {
+		amount = 2;
+		orderCriteria cri = new orderCriteria(pageNum, amount);
 		log.info("cri : "+cri);
-		List<orderDTO> oDTO = orderservice.orderListWithPaging(cri);
+		List<orderDTO> oDTO = orderservice.orderListWithPaging(cri, id);
 		
 		
 		
-		int total = orderservice.getTotalOrderCount(cri);
+		int total = orderservice.getTotalOrderCount(cri, id);
 		log.info("total : "+total);
 		model.addAttribute("orderList", oDTO);
 		model.addAttribute("pageMaker", new PageDTO(cri,total));
