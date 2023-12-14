@@ -18,10 +18,10 @@ public class orderServiceImpl implements orderService {
 
 
 	@Override
-	public List<orderDTO> orderListWithPaging(orderCriteria cri) {
-		cri.setPageNum(cri.getPageNum()); 
+	public List<orderDTO> orderListWithPaging(orderCriteria cri, String id) {
 		
-		return ordermapper.orderListWithPaging(cri);
+		
+		return ordermapper.orderListWithPaging(cri, id);
 	}
 
 
@@ -33,9 +33,37 @@ public class orderServiceImpl implements orderService {
 
 
 	@Override
-	public int getTotalOrderCount(orderCriteria cri) {
+	public int getTotalOrderCount(orderCriteria cri, String id) {
 		// TODO Auto-generated method stub
-		return ordermapper.getTotalOrderCount(cri);
+		return ordermapper.getTotalOrderCount(cri, id);
+	}
+
+
+	@Override
+	public int deliveryPreparation(int id) {
+		// TODO Auto-generated method stub
+		return ordermapper.deliveryPreparation(id);
+	}
+
+
+	@Override
+	public int deliveryIng(int id) {
+		// TODO Auto-generated method stub
+		return ordermapper.deliveryIng(id);
+	}
+
+
+	@Override
+	public int deliveryComplete(int id) {
+		// TODO Auto-generated method stub
+		return ordermapper.deliveryComplete(id);
+	}
+
+
+	@Override
+	public List<orderWithProductDTO> orderWithProductWithPaging(orderCriteria cri, String id) {
+		// TODO Auto-generated method stub
+		return ordermapper.orderWithProductWithPaging(cri, id);
 	}
 
 

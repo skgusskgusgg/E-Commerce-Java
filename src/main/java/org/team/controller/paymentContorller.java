@@ -1,5 +1,6 @@
 package org.team.controller;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -64,6 +65,9 @@ public class paymentContorller {
 	    String memberPhone = mVO.getPhone();
 	    double memberPoint = mVO.getPoint();
 	    
+	    DecimalFormat decimalFormat = new DecimalFormat("0");
+	    String formattedNumber = decimalFormat.format(memberPoint);
+	    
 		Map<String, Object> resultAsMap = new HashMap<>();
 		resultAsMap.put("member_id", memberId);
 		resultAsMap.put("member_user_name", memberUser_name);
@@ -71,7 +75,7 @@ public class paymentContorller {
         resultAsMap.put("member_address", memberAddress);
         resultAsMap.put("member_gender", memberGender);
         resultAsMap.put("member_phone", memberPhone);
-        resultAsMap.put("member_point", memberPoint);
+        resultAsMap.put("member_point", formattedNumber);
 
 		return resultAsMap;
 	}
@@ -172,9 +176,14 @@ public class paymentContorller {
 	
 	@GetMapping("/paymentResult")
     public String getCartList(HttpSession session) {
+		
 		MemberVO mVO = (MemberVO)session.getAttribute("mVO");
+		
 		if (mVO != null) {
-            
+			
+			MemberVO member = pService.getMember(mVO);
+	        session.setAttribute("mVO", member);
+	        
             return "/payment/paymentResult";
         }
 		return "redirect:/";

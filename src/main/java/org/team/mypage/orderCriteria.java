@@ -12,16 +12,15 @@ import lombok.ToString;
 public class orderCriteria {
 	private int pageNum;
 	private int amount ;
-	private int id;
 	
 	public orderCriteria(){
-		this(1,10,0);
+		this(1,10);
 	}
 	
-	public orderCriteria(int pageNum, int amount, int id) {
+	public orderCriteria(int pageNum, int amount) {
 		this.pageNum = pageNum;
 		this.amount = amount;
-		this.id = id;
+
 	}
 	public int getPageStart() {
     	return (pageNum - 1) * amount;

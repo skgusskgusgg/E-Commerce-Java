@@ -35,8 +35,40 @@ public interface AdminMapper {
 
 	public int deleteOrder(Integer id);
 
-	public List<orderDTO> orderKeywordSearch(@Param("orderSort")String orderSort, @Param("keyword")Integer keyword,@Param("cri") AdminCriteria cri);
+	public List<orderDTO> orderKeywordSearch(@Param("orderSort")String orderSort, @Param("keyword")String keyword,@Param("cri") AdminCriteria cri);
 
-	public int orderKeywordSearchTotal(@Param("orderSort") String orderSort,@Param("keyword") Integer keyword);
+	public int orderKeywordSearchTotal(@Param("orderSort") String orderSort,@Param("keyword") String keyword);
+
+	public int modifyOrder(orderDTO order);
+	
+	public int updateDeliveryTotalPrice(Integer delivery_id);
+
+	public int deliveryPreparing(Integer delivery_id);
+
+	public int deliveryIng(Integer delivery_id);
+
+	public int deliveryEnd(Integer delivery_id);
+
+	public deliveryDTO getDeliveryById(String id);
+
+	public int deliveryKeywordSearchTotal(@Param("deliverySort") String deliverySort, @Param("keyword") String keyword);
+
+	public List<deliveryDTO> deliveryKeywordSearch(@Param("deliverySort") String deliverySort, @Param("keyword") String keyword,@Param("cri") AdminCriteria cri);
+
+	public int modifyDelivery (deliveryDTO mDTO);
+
+	public int totalDeliveryPre(Integer delivery_id);
+
+	public int totalDeliveryComplete(Integer delivery_id);
+
+	public int totalDeliveryIng(Integer delivery_id);
+
+	public int modifyOrders(@Param("delivery_id")Integer delivery_id, @Param("status") Integer status);
+
+	public int deleteOrders(String delivery_id);
+
+	public int deleteDelivery(String delivery_id);
+
+	public List<deliveryDTO> getordersById(String id);
 
 }

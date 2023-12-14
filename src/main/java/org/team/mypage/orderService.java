@@ -7,10 +7,18 @@ import org.team.domain.ReplyVO;
 
 public interface orderService {
 
-		public List<orderDTO> orderListWithPaging(orderCriteria cri);
+		public List<orderDTO> orderListWithPaging(orderCriteria cri, String id);
 
 		public List<orderDTO> orderList(int id);
-		public int getTotalOrderCount(orderCriteria cri);
+		public int getTotalOrderCount(orderCriteria cri, String id);
+
+		public int deliveryPreparation(int id);
+
+		public int deliveryIng(int id);
+
+		public int deliveryComplete(int id);
+
+		public List<orderWithProductDTO> orderWithProductWithPaging(orderCriteria cri, String id);
 		
 		public List<ReplyVO> replyManagement(int user_id);
 		

@@ -2,22 +2,26 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="org.team.mapper.OrderMapper">
- 	<!-- 오더리스트 -->
-	<select id="orderList" resultType="org.team.mypage.orderDTO" >
+<mapper namespace="org.team.mapper.OrderMapper">
+	<!-- 오더리스트 -->
+	<select id="orderList" resultType="org.team.mypage.orderDTO">
 	<![CDATA[
 		select * from nahyun.order where delivery_id in (select delivery_id from delivery where member_id = #{id})
 		]]>
 	</select>
-	
-	<select id="orderListWithPaging" resultType="org.team.mypage.orderDTO" >
+
+	<select id="orderListWithPaging"
+		resultType="org.team.mypage.orderDTO">
 	<![CDATA[
-		select * from nahyun.order where delivery_id in (select delivery_id from delivery where member_id = #{cri.id}) limit #{cri.pageStart}, #{cri.amount} 
+		select * from nahyun.order where delivery_id in (select delivery_id from delivery where member_id = #{id}) limit #{cri.pageStart}, #{cri.amount} 
 		]]>
 	</select>
 	<select id="getTotalOrderCount" resultType="int">
-		select count(*) from nahyun.order where delivery_id in (select delivery_id from delivery where member_id = #{cri.id})
+		select count(*) from
+		nahyun.order where delivery_id in (select delivery_id from delivery
+		where member_id = #{id})
 	</select>
+
 	
 	<select id="replyManagement" resultType="org.team.domain.ReplyVO">
 		select * from reply where user_id = #{mVo} order by reply_id
@@ -26,5 +30,33 @@
 	<select id="productList" resultType="org.team.domain.ProductVO">
 		select * from product where product_id = #{pVo}
 	</select>
-	
-  </mapper>
+
+	<select id="deliveryPreparation" resultType="int">
+		select count(*) from
+		nahyun.order where status = 1 and delivery_id in (select delivery_id
+		from delivery where member_id = #{id})
+	</select>
+	<select id="deliveryIng" resultType="int">
+		select count(*) from
+		nahyun.order where status = 2 and delivery_id in (select delivery_id
+		from delivery where member_id = #{id})
+	</select>
+	<select id="deliveryComplete" resultType="int">
+		select count(*) from
+		nahyun.order where status = 3 and delivery_id in (select delivery_id
+		from delivery where member_id = #{id})
+	</select>
+
+	<select id="orderWithProductWithPaging"
+		resultType="org.team.mypage.orderWithProductDTO">
+
+		select order_id, delivery_id, product_count, nahyun.order.price as price,
+		Product.price as productPrice, nahyun.order.status, product.product_id
+		as product_id, category_id, product_name, img, color_id, size_id
+		from nahyun.order join product on nahyun.order.product_id =
+		product.product_id where delivery_id in (select delivery_id from
+		delivery where member_id = #{id}) limit #{cri.pageStart},
+		#{cri.amount};
+	</select>
+</mapper>
+

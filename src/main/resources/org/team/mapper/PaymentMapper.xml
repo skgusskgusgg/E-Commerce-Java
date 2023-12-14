@@ -24,9 +24,13 @@
         	SELECT MAX(payment_id) FROM payment;
     </select>
     
+	<select id="getMember" parameterType="org.team.member.MemberVO" resultType="org.team.member.MemberVO">
+		select * from member where id = #{id}
+	</select>
+	
 	<update id="updatePoint" parameterType="org.team.domain.PaymentInfoVO">
 		UPDATE member
-		SET `point` = `point` - #{usePoint}
+		SET `point` = CAST(`point` AS DECIMAL(10, 2)) - #{usePoint}
 		where id = #{memberId}
 	</update>
 	

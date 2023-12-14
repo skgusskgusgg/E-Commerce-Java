@@ -27,7 +27,7 @@
 	<!-- 키워드 입력 후 회원목록 -->
 	<select id="keywordMemberList" resultType="org.team.join.MemberDTO" >
 		 SELECT * FROM member 
-		 WHERE id LIKE CONCAT('%', #{keyword}, '%') 
+		 <where> id LIKE CONCAT('%', #{keyword}, '%') 
 		 OR password LIKE CONCAT('%', #{keyword}, '%') 
 		 or user_name LIKE CONCAT('%', #{keyword}, '%')
 		 or email LIKE CONCAT('%', #{keyword}, '%')
@@ -35,7 +35,8 @@
 		 or birth_date LIKE CONCAT('%', #{keyword}, '%')
 		 or phone LIKE CONCAT('%', #{keyword}, '%')
 		 or point LIKE CONCAT('%', #{keyword}, '%')
-		 or join_date LIKE CONCAT('%', #{keyword}, '%') limit #{cri.startPage}, #{cri.amount}
+		 or join_date LIKE CONCAT('%', #{keyword}, '%')
+		 </where> limit #{cri.startPage}, #{cri.amount}
 	</select>
 	<!-- 키워드 입력 후 회원 숫자 total -->
 	<select id="keywordMemberTotal" resultType="int" >
@@ -50,6 +51,8 @@
 		 or point LIKE CONCAT('%', #{keyword}, '%')
 		 or join_date LIKE CONCAT('%', #{keyword}, '%')
 	</select>
+	
+	
 	
 	<!-- Order -->
 	 	<!-- 오더리스트 -->
@@ -79,10 +82,43 @@
         </if>
         </where>
 	</select>
+		
+	<update id="modifyOrder" parameterType="org.team.mypage.orderDTO">
+    UPDATE nahyun.order
+    SET product_count = #{product_count},
+        price = #{price},
+        status = #{status}
+    WHERE order_id = #{order_id}
+</update>
+
+<update id="updateDeliveryTotalPrice" >
+    UPDATE delivery
+    SET total_price = (
+        SELECT SUM(price) 
+        FROM nahyun.order 
+        WHERE delivery_id = #{delivery_id}
+    )
+    WHERE delivery_id = #{delivery_id}
+</update>
+
+	<select id="deliveryPreparing" resultType="int">
+	select count(*) from nahyun.order where delivery_id = #{delivery_id} and status=0
+	</select>
+	
+	<select id="deliveryIng" resultType="int">
+	select count(*) from nahyun.order where delivery_id = #{delivery_id} and status=1
+	</select>
+	
+	<select id="deliveryEnd" resultType="int">
+	select count(*) from nahyun.order where delivery_id = #{delivery_id} and status=2
+	</select>
+	
 	
 	<delete id="deleteOrder">
 	delete from nahyun.order where order_id=#{id}
 	</delete>
+	
+	
 	<!--Delivery -->
 	<select id="deliveryTotal" resultType="int" >
 	<![CDATA[
@@ -94,5 +130,75 @@
 		select * from delivery limit #{cri.startPage}, #{cri.amount}
 		]]>
 	</select>
-
+	<select id="getDeliveryById" resultType="org.team.delivery.deliveryDTO">
+	<![CDATA[
+		select * from delivery where delivery_id = #{id}
+		]]>
+	</select> 
+	<select id="deliveryKeywordSearchTotal" resultType="int">
+		 SELECT count(*) FROM delivery 
+		 <where>
+		  <if test="deliverySort != null and keyword != null">
+            ${deliverySort} = #{keyword}
+        </if>
+        </where>
+	</select>
+	<select id="deliveryKeywordSearch" resultType="org.team.delivery.deliveryDTO">
+		 SELECT * FROM delivery
+		 <where>
+		  <if test="deliverySort != null and keyword != null">
+            ${deliverySort} = #{keyword}
+        </if>
+        </where>
+		 limit #{cri.startPage}, #{cri.amount}
+	</select>
+	<update id="modifyDelivery" >
+	<![CDATA[
+    UPDATE delivery
+    SET regdate = #{regdate}, 
+        total_status = #{total_status}
+    WHERE delivery_id = #{delivery_id}
+    ]]>
+	</update>
+	
+	<update id="totalDeliveryPre">
+	UPDATE delivery
+    SET total_status = 0
+    WHERE delivery_id = #{delivery_id}
+	</update>
+	<update id="totalDeliveryComplete">
+	UPDATE delivery
+    SET total_status = 2
+    WHERE delivery_id = #{delivery_id}
+	</update>
+	<update id="totalDeliveryIng">
+	UPDATE delivery
+    SET total_status = 1
+    WHERE delivery_id = #{delivery_id}
+	</update>
+	<update id="modifyOrders" >
+	<![CDATA[
+    UPDATE nahyun.order
+    SET status = #{status}
+    WHERE delivery_id = #{delivery_id}
+    ]]>
+	</update>
+	<delete id ="deleteOrders">
+	<![CDATA[
+	delete from nahyun.order where delivery_id = #{delivery_id}
+	]]>
+	</delete>
+	<delete id ="deleteDelivery">
+	<![CDATA[
+	delete from delivery where delivery_id = #{delivery_id}
+	]]>
+	</delete>
+	
+	
+	<select id="getordersById" resultType="org.team.mypage.orderDTO" >
+	<![CDATA[
+		select * from nahyun.order where delivery_id = #{id}
+		]]>
+	</select>
+	
   </mapper>

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.team.admin.AdminCriteria;
 import org.team.admin.AdminPageDTO;
 import org.team.admin.AdminService;
+import org.team.delivery.deliveryDTO;
 import org.team.join.MemberDTO;
 import org.team.mypage.orderDTO;
 
@@ -43,12 +44,15 @@ public class AdminOrderController {
 		 model.addAttribute("orderList",oDTO);
 	      model.addAttribute("pageManagement",pDTO);
 	}
+	
+	
 	@RequestMapping(value="/deleteOrder/", method=RequestMethod.POST)
 	public String deleteOrder(
 			@RequestParam(name = "id") Integer id,
 			@RequestParam(name = "pageNum", defaultValue = "1") Integer pageNum, 
 			@RequestParam(name = "amount", defaultValue = "10") Integer amount,
 			Model model) {
+		
 		int result = adminservice.deleteOrder(id);
 		 log.info("result번호 : 오더 "+result+"개 지워짐");
 		
@@ -63,12 +67,77 @@ public class AdminOrderController {
 		return "/admin/orderManagement";
 	}
 	
+	@RequestMapping(value="/modifyOrder/", method=RequestMethod.POST)
+	public String modifyOrder(
+			@RequestParam(name = "pageNum", defaultValue = "1") Integer pageNum, 
+			@RequestParam(name = "amount", defaultValue = "10") Integer amount,
+			orderDTO order,
+			Model model) {
+		// 오더 수정 부분
+		
+		log.info("orderDTO : " + order);
+		int result = adminservice.modifyOrder(order);
+		log.info("오더 수정은" + result + "개 수정됨");
+
+		// 오더 수정 부분 끝
+
+		Integer delivery_id = order.getDelivery_id();
+		// 오더 가격 기준으로 딜리버리 토탈 가격 수정 부분
+		int result2 = adminservice.updateDeliveryTotalPrice(delivery_id);
+		log.info("딜리버리 수정은" + result2 + " 수정됨");
+		int deliveryModifyResult = 0;
+		// 토탈 가격 수정 끝
+		
+		//오더 배달상태 기준으로 딜리버리 토탈 배달상태 수정
+			
+			//배송전 숫자
+			int dB = adminservice.deliveryPreparing(delivery_id);
+			//배송중 숫자
+			int dI = adminservice.deliveryIng(delivery_id);
+			//배송완료 숫자
+			int dA = adminservice.deliveryEnd(delivery_id);
+			//확인
+			log.info("배송전 : "+dB);
+			log.info("배송중 : "+dI);
+			log.info("배송후 : "+dA);
+			
+			//로직 구현
+			if(dB>0&&dI==0&&dA==0) {
+			log.info("전부 배송 전 상태");
+			deliveryModifyResult = adminservice.totalDeliveryPre(delivery_id); //0
+			}else if(dA>0&&dB==0&&dI==0){
+			log.info("전부 배송 완료 상태");
+			log.info("delivery 배송 2 으로 세팅하기");
+			deliveryModifyResult = adminservice.totalDeliveryComplete(delivery_id); //2
+			}else if(dI>0){
+			log.info("배송중 상태 숫자 확인 : "+dI);
+			log.info("delivery 배송 1 으로 세팅하기");	
+			deliveryModifyResult = adminservice.totalDeliveryIng(delivery_id); //1
+			}else {
+				log.info("생각지 못한 변수! 애러 확인하기");
+				log.info("배송중 상태 숫자 확인 : "+dI);
+				deliveryModifyResult = adminservice.totalDeliveryIng(delivery_id); //1
+				log.info("delivery 배송 1 으로 세팅하기");
+			}
+			
+		//토탈 배달상태 수정 끝
+
+		int total = adminservice.orderTotal();
+		AdminCriteria cri = new AdminCriteria(pageNum, amount);
+		List<orderDTO> oDTO = adminservice.orderList(cri);
+		 AdminPageDTO pDTO = new AdminPageDTO(cri, total);
+		 model.addAttribute("orderList",oDTO);
+	      model.addAttribute("pageManagement",pDTO);
+		
+		return "/admin/orderManagement";
+	}
+	
 	@GetMapping(value="/orderKeywordSearch/")
 	public String orderKeywordSearch(
 			 @RequestParam(name = "pageNum", defaultValue = "1") Integer pageNum, 
 				@RequestParam(name = "amount", defaultValue = "10") Integer amount,
 				@RequestParam(name = "orderSort") String orderSort,
-				@RequestParam(name = "keyword") Integer keyword,
+				@RequestParam(name = "keyword") String keyword,
 				Model model) {
 		
 		int total = adminservice.orderKeywordSearchTotal(orderSort, keyword);
@@ -79,6 +148,8 @@ public class AdminOrderController {
 		List<orderDTO> oDTO = adminservice.orderKeywordSearch(orderSort, keyword, cri);
 		 AdminPageDTO pDTO = new AdminPageDTO(cri, total);
 		 log.info("oDTO : "+oDTO);
+		 model.addAttribute("orderSort",orderSort);
+		 model.addAttribute("keyword",keyword);
 		 model.addAttribute("orderList",oDTO);
 	      model.addAttribute("pageManagement",pDTO);
 		
@@ -86,81 +157,19 @@ public class AdminOrderController {
 
 	}
 	
-
-	 @RequestMapping(value="/memberManagement/modifyMember/", method=RequestMethod.POST)
-	 public String modifyMember(
-			 @RequestParam(name = "id",required = false) String id,
-			 @RequestParam(name = "pageNum", defaultValue = "1") Integer pageNum, 
-			@RequestParam(name = "amount", defaultValue = "10") Integer amount,
-			@RequestParam(name = "point", defaultValue = "") Double point,
-			Model model,
-			 MemberDTO member){
-		 log.info("modify 시작");
-		 log.info("memberDTO :"+member);
-		 int result = adminservice.modifyMember(member);
-		 log.info("수정은 "+result+"개");
-		 
-		 int total = adminservice.memberTotal();
-		 AdminCriteria cri = new AdminCriteria(pageNum, amount);
-		 List<MemberDTO> mDTO = adminservice.memberList(cri);
-	      AdminPageDTO pDTO = new AdminPageDTO(cri, total);
-		 model.addAttribute("memberList",mDTO);
-	      model.addAttribute("pageManagement",pDTO);
-		 return "admin/memberManagement";
-	}
-	 @RequestMapping(value="/memberManagement/deleteMember/", method=RequestMethod.POST)
-	 public String deleteMember(
-			 @RequestParam(name = "id",required = false) String id,
-			 @RequestParam(name = "pageNum", defaultValue = "1") Integer pageNum, 
-			@RequestParam(name = "amount", defaultValue = "10") Integer amount,
-			@RequestParam(name = "email", defaultValue = "") String email, 
-			@RequestParam(name = "user_name", defaultValue = "") String user_name, 
-			@RequestParam(name = "address", defaultValue = "") String address,
-			@RequestParam(name = "gender",defaultValue = "") Integer gender,
-			@RequestParam(name = "birth_date", defaultValue = "") String birth_date ,
-			@RequestParam(name = "phone" ,defaultValue = "")String phone,
-			@RequestParam(name = "point", defaultValue = "") String point,
-			@RequestParam(name="join_date", defaultValue = "") String join_date,
-			Model model
-			 )throws Exception {
-		 
-		 log.info("delete 시작");
-		 log.info("deleteID : "+id);
-		 
-		 int result = adminservice.deleteMember(id);
-		 log.info("result번호 : "+result+"개 지워짐");
-		 
-		 int total = adminservice.memberTotal();
-		 AdminCriteria cri = new AdminCriteria(pageNum, amount);
-		 List<MemberDTO> mDTO = adminservice.memberList(cri);
-	      AdminPageDTO pDTO = new AdminPageDTO(cri, total);
-		 model.addAttribute("memberList",mDTO);
-	      model.addAttribute("pageManagement",pDTO);
-	      
-		 return "admin/memberManagement";
-	}
-	 @RequestMapping(value="/memberManagement/memberKeywordSearch/", method=RequestMethod.GET)
-	 public String keywordsearch(
-			 @RequestParam(name = "pageNum", defaultValue = "1") Integer pageNum, 
-				@RequestParam(name = "amount", defaultValue = "10") Integer amount,
-			 @RequestParam(name="keyword", defaultValue = "") String keyword,
-			 Model model) {
-		log.info("키워드 : "+keyword);
-		int total = adminservice.keywordMemberTotal(keyword);
+	@GetMapping(value="/orderDetail/")
+	@ResponseBody
+	public  deliveryDTO orderKeywordSearch(
+			@RequestParam(name="id") String id
+			) {
+		log.info("deliveryID : "+id);
+		deliveryDTO dDTO = adminservice.getDeliveryById(id);
 		
-		log.info("결과 : "+total);
-		 AdminCriteria cri = new AdminCriteria(pageNum, amount);
-		 log.info("cri : "+cri);
-		List<MemberDTO>mDTO = adminservice.keywordMemberList(cri, keyword);
-		AdminPageDTO pDTO = new AdminPageDTO(cri, total);
-		model.addAttribute("memberList",mDTO);
-	      model.addAttribute("pageManagement",pDTO);
+		log.info(dDTO);
 		
-		return "admin/memberManagement";
-	 }
+		return dDTO;
+	}
+	
 
-
-	   
 
 }
-   
