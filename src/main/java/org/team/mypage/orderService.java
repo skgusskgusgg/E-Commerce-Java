@@ -14,6 +14,8 @@ public interface orderService {
 		public int deliveryIng(int id);
 
 		public int deliveryComplete(int id);
+
+		public List<orderWithProductDTO> orderWithProductWithPaging(orderCriteria cri, String id);
 		
 
 }

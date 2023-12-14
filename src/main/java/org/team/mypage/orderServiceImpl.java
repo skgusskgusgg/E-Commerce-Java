@@ -58,6 +58,13 @@ public class orderServiceImpl implements orderService {
 	}
 
 
+	@Override
+	public List<orderWithProductDTO> orderWithProductWithPaging(orderCriteria cri, String id) {
+		// TODO Auto-generated method stub
+		return ordermapper.orderWithProductWithPaging(cri, id);
+	}
+
+
 
 
 }

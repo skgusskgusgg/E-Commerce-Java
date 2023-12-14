@@ -10,27 +10,7 @@
 <!--===============================================================================================-->	
 	<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/linearicons-v1.0.0/icon-font.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
-<!--===============================================================================================-->
+	
 </head>
 <body class="animsition">
 <!-- Content page -->
@@ -48,24 +28,35 @@
 
 
 						<table class="table-content-board">
-							<tr class="table_head">
-								<td class="column-1">Order_id</td>
-								<td class="column-2">Delivery_id</td>
-								<td class="column-3">Product_id</td>
-								<td class="column-4">Product_count</td>
-								<td class="column-5">Price</td>
-								<td class="column-6">Status</td>
-								<td class="column-7">Delivery history</td>
+							<tr class="table_head" style="font-weight: bolder; 	">
+								<td class="">주문번호</td>
+								<td class="">배송번호</td>
+								<td class="">상품</td>
+								<td class="">상품명</td>
+								<td class="">색상</td>
+								<td class="">사이즈</td>
+								<td class="">구매수량</td>
+								<td class="">구매가격</td>
+								<td class="">배송현황</td>
+								
 							</tr>
 							<c:forEach var="order" items="${orderList}">
 								<tr class="table_row">
-									<td class="column-1">${order.order_id}</td>
-									<td class="column-2">${order.delivery_id}</td>
-									<td class="column-3">${order.product_id}</td>
-									<td class="column-4">${order.product_count}</td>
-									<td class="column-5">${order.price}</td>
-									<td class="column-6">${order.status}</td>
-									<td class="column-7"><a href=#>내역 확인</a></td>
+									<td class="">${order.order_id}</td>
+									<td class="">${order.delivery_id}</td>
+									<td class=""><img src="/resources/images/products/${order.img}"
+									alt="IMG-PRODUCT" style="height:250px; width:200px;"></td>
+									<td class="">${order.product_name}</td>
+									<td class="">${order.color_id}</td>
+									<td class="">${order.size_id}</td>
+									<td class="">${order.product_count}</td>
+									<td class="">${order.price}</td>
+									<td class="">
+									<c:if test="${order.status==1 }">배송준비중 </c:if>
+									<c:if test="${order.status==2 }">배송중 </c:if>
+									<c:if test="${order.status==3 }">배송완료 </c:if>
+									</td>
+									
 								<tr>
 							</c:forEach>
 					
@@ -85,7 +76,7 @@
 										end="${pageMaker.endPage }">
 										<td
 											class='paginate_button ${pageMaker.cri.pageNum == num ? "active":"" }'><a
-											class="flex-c-m how-pagination1 trans-04 m-all-7"
+											class='flex-c-m how-pagination1 trans-04 m-all-7 ${pageMaker.cri.pageNum == num ? "active-pagination1":"" } '
 											href="${num}">${num}</a></td>
 									</c:forEach>
 
@@ -96,7 +87,7 @@
 									</c:if>
 								</tr>
 							</table>
-							<button class=" paginate_button stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 category" style=" position: relative; right:0;margin-left:35%; font-weight: bolder;" onclick="location.href='/mypage/myPage'">뒤로</button>
+							
 							
 						</div>
 
@@ -128,44 +119,3 @@
 	});
 </script>
 <%@include file="../includes/footer.jsp"%>
-<!--===============================================================================================-->	
-	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/bootstrap/js/popper.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/select2/select2.min.js"></script>
-	<script>
-		$(".js-select2").each(function(){
-			$(this).select2({
-				minimumResultsForSearch: 20,
-				dropdownParent: $(this).next('.dropDownSelect2')
-			});
-		})
-	</script>
-<!--===============================================================================================-->
-	<script src="vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-	<script>
-		$('.js-pscroll').each(function(){
-			$(this).css('position','relative');
-			$(this).css('overflow','hidden');
-			var ps = new PerfectScrollbar(this, {
-				wheelSpeed: 1,
-				scrollingThreshold: 1000,
-				wheelPropagation: false,
-			});
-
-			$(window).on('resize', function(){
-				ps.update();
-			})
-		});
-	</script>
-<!--===============================================================================================-->
-	<script src="js/main.js"></script>
-
-</body>
-</html>
