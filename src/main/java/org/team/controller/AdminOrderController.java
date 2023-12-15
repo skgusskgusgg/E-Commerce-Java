@@ -83,8 +83,8 @@ public class AdminOrderController {
 
 		Integer delivery_id = order.getDelivery_id();
 		// 오더 가격 기준으로 딜리버리 토탈 가격 수정 부분
-		int result2 = adminservice.updateDeliveryTotalPrice(delivery_id);
-		log.info("딜리버리 수정은" + result2 + " 수정됨");
+//		int result2 = adminservice.updateDeliveryTotalPrice(delivery_id);
+//		log.info("딜리버리 수정은" + result2 + " 수정됨");
 		int deliveryModifyResult = 0;
 		// 토탈 가격 수정 끝
 		
