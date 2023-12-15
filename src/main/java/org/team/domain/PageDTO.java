@@ -27,7 +27,7 @@ public class PageDTO {
         
         startPage = (endPage - 10) + 1;
         
-        int realEnd = (int) Math.ceil((total * 1.0) / cri.getAmount());
+        int realEnd = (int) (Math.ceil((total * 1.0) / cri.getAmount()));
        
         if(realEnd < this.endPage) {
         	this.endPage = realEnd;
