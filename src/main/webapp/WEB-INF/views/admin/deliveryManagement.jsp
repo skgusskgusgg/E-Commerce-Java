@@ -48,7 +48,6 @@
 				<tr class="table_hea">
 					<th>배송ID</th>
 					<th>회원ID</th>
-					<th>Total Price</th>
 					<th>구매일자</th>
 					<th>전체배송상태</th>
 					<th>상세</th>
@@ -57,21 +56,22 @@
 				</tr>
 				<c:forEach var="delivery" items="${deliveryList}">
 					<tr class="table_ro">
+					
 						<td><input type="text" value="${delivery.delivery_id}" id="id${delivery.delivery_id}"
 							readonly></td>
 						<td><input type="text" value="${delivery.member_id}" id="member${delivery.delivery_id}" readonly></td>
-						<td><input type="text" value="${delivery.total_price}" id="totalprice${delivery.delivery_id}" readonly></td>
+						
 						<td><input type="text"
 							value="${delivery.regdate}" id="regdate${delivery.delivery_id}"></td>
 						
 							<td><select id="totalstatus${delivery.delivery_id}">
 
 
-								<option value="0"
-									<c:if test="${delivery.total_status==1}">selected</c:if>>배송준비</option>
 								<option value="1"
-									<c:if test="${delivery.total_status==2}">selected</c:if>>배송중</option>
+									<c:if test="${delivery.total_status==1}">selected</c:if>>배송준비</option>
 								<option value="2"
+									<c:if test="${delivery.total_status==2}">selected</c:if>>배송중</option>
+								<option value="3"
 									<c:if test="${delivery.total_status==3}">selected</c:if>>배송완료</option>
 						</select></td>
 							
@@ -81,6 +81,7 @@
 						<td><button class="modify custom-btn btn-4" value="${delivery.delivery_id}"><span>수정</span></button></td>
 						<td><button class="deleteDelivery custom-btn btn-5" value="${delivery.delivery_id}"><span>삭제</span></button></td>
 					</tr>
+					<input type="hidden" value="${delivery.total_price}" id="totalprice${delivery.delivery_id}" readonly>
 				</c:forEach>
 				<tr><td colspan="7" style="height: 20px;"></td></tr>
 					<tr>
@@ -88,7 +89,7 @@
 					<td colspan="1"><select id="deliverySort">
 							<option value="delivery_id">배송ID</option>
 							<option value="member_id">회원ID</option>
-							<option value="total_price">Total Price</option>
+
 							<option value="regdate">구매일자</option>
 							<option value="total_status">전체배송상태</option>
 					</select></td>
@@ -335,9 +336,9 @@
 				    for (var i = 0; i < result.length; i++) {
 				      var order = result[i]; 
 				      
-				      if(order.status==0){del="배송전"}
-				      if(order.status==1){del="배송중"}
-				      if(order.status==2){del="배송완료"}
+				      if(order.status==1){del="배송전"}
+				      if(order.status==2){del="배송중"}
+				      if(order.status==3){del="배송완료"}
 				      
 				      orderList.append("<tr>" +
 				        "<td>" + order.order_id + "</td>" +
@@ -759,7 +760,7 @@ font-size: 12px;
 }
 
 .hyeongyumodify tr td:nth-child(3) {
-	width: 20%;
+	width: 40%;
 }
 
 .hyeongyumodify tr td:nth-child(4) {

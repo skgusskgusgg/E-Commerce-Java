@@ -174,7 +174,6 @@
 								<tr>
 									<th>배송ID</th>
 									<th>회원ID</th>
-									<th>총구매가격</th>
 									<th>구매일</th>
 									<th>배송현황</th>
 								</tr>
@@ -380,8 +379,8 @@
 															console.log(data);
 															var str = '';
 															var de = '';
-															if(data.total_status==0){de="배송전";}
-															else if(data.total_status==1){de="배송중";}
+															if(data.total_status==1){de="배송전";}
+															else if(data.total_status==2){de="배송중";}
 															else{de="배송완료";}
 															
 															str += '<tr>'
@@ -390,9 +389,6 @@
 																	+ '</td>'
 																	+ '<td>'
 																	+ data.member_id
-																	+ '</td>'
-																	+ '<td>'
-																	+ data.total_price
 																	+ '</td>'
 																	+ '<td>'
 																	+ data.regdate
