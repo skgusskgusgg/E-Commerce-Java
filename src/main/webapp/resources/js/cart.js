@@ -10,14 +10,15 @@ $(document).ready(function () {
 		cartSelectList = [];
 		$('.table_row').each(function () {
 		const cartSelectItem = new Map();
-	    var isChecked = $(this).find('.cart-check .cart-checkbox').prop('checked');
-		
+	    var isChecked = $(this).find('.cart-checked	 .cart-checkbox').prop('checked');
+
 	    if (isChecked) {
 	        var cart_id = $(this).find('.shopping-cart-cart_id').val();
 			cartSelectList.push(cart_id);
 			}
 		});
-		if(cartSelectList.length !== 0){
+
+		if(cartSelectList.length != 0){
 			$.ajax({
 		            url: '/cart/delete',
 		            method: 'POST',
