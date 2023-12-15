@@ -25,60 +25,38 @@
 							<li class="p-b-80">
 								<h2>MY PAGE</h2>
 							</li>
-							<li class="mypage-menu-title">
-								<h3>나의 주문 처리 현황</h3>
+							<li  style="padding: 10px 0; background-color:#717fe0;color: #fff; padding-left: 5px; box-sizing: border-box; text-align: left;">
+								Order processing status
 							</li>
 						</ul>
 						
 						<div class="mypage-order">
 
-							<ul>
-								<li><a href="#"> <strong></strong> <span> <span></span>
-									</span>
-								</a></li>
+							<ul style="display: flex; justify-content: space-around;">
 								<li>
-								
-										<strong>배송준비중</strong> <P><span> <span>${dP}</span>
+										<strong style=" margin-bottom: 5px; display: inline-block;">배송준비중</strong> <P><span> <span>${dP}</span>
 									</span></P>
 							
 								</li>
 								<li>
-										<strong>배송중</strong><P> <span> <span>${dI}</span>
+										<strong style=" margin-bottom: 5px; display: inline-block;" >배송중</strong><P> <span> <span>${dI}</span>
 									</span></P>
 								</li>
 								<li>
-										<strong>배송완료</strong> <P><span> <span>${dC}</span>
+										<strong style=" margin-bottom: 5px; display: inline-block;" >배송완료</strong> <P><span> <span>${dC}</span>
 									</span></P>
 								</li>
-								<li>
-									<p>
-										<a href="/myshop/order/list.html?order_status=order_cancel">
-											<strong>QnA관리</strong> <span> <span>2</span>
-										</span>
-										</a>
-									</p>
-									<p>
-										<a href="/mypage/replyManagement">
-											<strong>리뷰관리</strong> <span> <span>7</span>
-										</span>
-										</a>
-									</p>
-								</li>
+								
 							</ul>
 						</div>
 
 						<div class="mypage-benefit">
 							<ul class="mypage-benefit-left">
-								<h3>
-									<a href="/myshop/coupon/coupon.html">&nbsp;</a>
-								</h3>
-								<li><a href="/myshop/coupon/coupon.html">&nbsp;</a></li>
+								
+								<li >적립금</li>
 							</ul>
 							<ul class="mypage-benefit-right">
-								<h3>
-									<P>적립금</P>
-								</h3>
-
+								
 
 								<li><P>${mVO.point}</P></li>
 							</ul>
@@ -96,6 +74,9 @@
 							
 								<li class="hov-btn3 trans-04"><a href="#"
 									class="js-show-cart"> <span>Wishlist</span>관심상품
+								</a></li>
+								<li class="hov-btn3 trans-04"><a href="/mypage/replyManagement"
+									class="js-show-cart"> <span>Reply</span>리뷰관리
 								</a></li>
 							</ul>
 						</div>
