@@ -3,7 +3,6 @@
 <%@include file="../includes/header.jsp"%>
 <%@ page import="java.util.List" %>
 
-<!-- 일반 회원 용 faqList -->
 
 <!-- Title page -->
 <section class="bg-img1 txt-center p-lr-15 p-tb-92"
@@ -70,7 +69,7 @@
 											id="selectAll"></th>
 									</c:if>
 									<th class="column-1">No.</th>
-									<th class="column-2">Image</th>
+									<th class="column-2">Product</th>
 									<th class="column-3">Title</th>
 									<th class="column-4">Writer</th>
 									<th class="column-5">Date</th>
@@ -105,7 +104,7 @@
 										<td class="column-6"><c:out value="${FAQ.viewCount}" /></td>
 										<c:if test="${loginOK == 99}">
 											<td class="column-6"><a class="new-button-edit"
-												href="/admin/faq/faqEdit?faqId=${FAQ.faqId}">수정</a></td>
+												href="/faq/faqEdit?faqId=${FAQ.faqId}">수정</a></td>
 										</c:if>
 									</tr>
 								</c:forEach>
@@ -138,7 +137,7 @@
 						</c:if>
 
 						<!-- footer-->
-						<a href="/faq/writeFaq"
+						<a href="/faq/writeFAQs"
 							class="flex-r-m how-pagination1 trans-04 m-all-7"
 							onclick="return loginCheck_help()"> 글쓰기 </a>
 					</div>

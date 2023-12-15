@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@include file="../includes/header.jsp"%>
+<%@include file="../../includes/header.jsp"%>
 <%@ page import="java.util.List" %>
 
-<!-- 일반 회원 용 faqList -->
+<!-- 관리자용 용 faqList -->
 
 <!-- Title page -->
 <section class="bg-img1 txt-center p-lr-15 p-tb-92"
@@ -97,7 +97,7 @@
 								        	</c:if>
 										</td>
 										<td class="column-3"><a
-											href="/faq/faqDetail?faqId=${FAQ.faqId}"
+											href="/admin/faq/faqDetail?faqId=${FAQ.faqId}"
 											class="cl13 hov-cl1 trans-04"><c:out
 													value="${FAQ.faqTitle}" /></a></td>
 										<td class="column-4"><c:out value="${FAQ.user_id}" /></td>
@@ -138,7 +138,7 @@
 						</c:if>
 
 						<!-- footer-->
-						<a href="/faq/writeFaq"
+						<a href="/admin/faq/writeFaq"
 							class="flex-r-m how-pagination1 trans-04 m-all-7"
 							onclick="return loginCheck_help()"> 글쓰기 </a>
 					</div>
@@ -149,7 +149,7 @@
 	</div>
 </section>
 
-<%@include file="../includes/footer.jsp"%>
+<%@include file="../../includes/footer.jsp"%>
 <script>
 	$(document).ready(function() {
 		// 전체 선택 체크박스

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@include file="../includes/header.jsp"%>
+<%@include file="../../includes/header.jsp"%>
 <!-- Title page -->
 <section class="bg-img1 txt-center p-lr-15 p-tb-92"
 	style="background-image: url('/resources/images/bg-02.jpg');">
@@ -9,7 +9,7 @@
 
 
 <!-- Content page -->
-<section class="bg0 p-t-52 p-b-20">
+<section>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-8 col-lg-9 p-b-80" style="margin: auto; text-align: left">
@@ -100,4 +100,4 @@
 	}
 </script>
 
-<%@include file="../includes/footer.jsp"%>
+<%@include file="../../includes/footer.jsp"%>

@@ -6,7 +6,7 @@
 	<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
 		<a href="/" class="stext-109 cl8 hov-cl1 trans-04"> Home
 			<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
-		</a> <a href="/board/boardList?num=1" class="stext-109 cl8 hov-cl1 trans-04"> Notice <i
+		</a> <a href="/board/boardListPage?page=1" class="stext-109 cl8 hov-cl1 trans-04"> Notice <i
 			class="fa m-l-9 m-r-10" aria-hidden="true"></i>
 		</a>
 	</div>
@@ -63,14 +63,12 @@
 						</tr>
 
 						<tr class="table_row">
-							<td class="column-2 has-img hov-img1"><a
-								href="./product-detail.html" class="js-show-modal1"> <img
-									src="/resources/images/item-cart-04.jpg" alt="IMG">
-							</a></td>
-							<td class="column-2 has-img hov-img1"><a
-								href="./product-detail.html" class="js-show-modal1"> <img
-									src="/resources/images/item-cart-05.jpg" alt="IMG">
-							</a></td>
+							<td class="column-2 has-img hov-img1"> 
+								<c:forEach var="boardboard" items="${boardDetail.imgFiles}">
+									<img src="/faq/${boardboard}" alt="">
+								</c:forEach>
+
+							</td>
 						</tr>
 					</table>
 				</div>

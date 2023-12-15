@@ -10,13 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.team.board.BoardService;
 import org.team.board.BoardVO;
-import org.team.faq.FaqBoardVO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -26,8 +26,8 @@ import lombok.extern.log4j.Log4j;
 public class BoardController {
 	@Autowired
 	private BoardService bs;
-	String uploadDir = "D:/sourceTree/project_1/src/main/webapp/resources/images/board/";
-	
+	String uploadDir = "D:/sourceTree/project_1/src/main/webapp/resources/images/faq/";
+
 	@GetMapping("/boardList")
 	public void boardList(Model model) throws Exception {
 		log.info("boardList");
@@ -51,6 +51,14 @@ public class BoardController {
 		log.info("boardDetail");
 		BoardVO boardVO = bs.boardDetail(board_id);
 		
+		if (boardVO.getImg() != null) {
+			List<String> imgFileNames = new ArrayList<>();
+			imgFileNames.addAll(Arrays.asList(boardVO.getImg().toString().split("/")));
+			log.info(imgFileNames);
+			boardVO.setImgFiles(imgFileNames);
+			log.info("==========");
+		}
+
 		bs.updateView(board_id);
 		model.addAttribute("boardDetail", boardVO);
 	}
@@ -65,36 +73,30 @@ public class BoardController {
 		log.info("boardInsert");
 
 		StringBuilder imgPaths = new StringBuilder();
-		String firstImgPath = null;
 
 		for (int i = 0; i < files.length; i++) {
 			MultipartFile imgFile = files[i];
 			String fileName = "img_" + imgFile.getOriginalFilename(); // 이미지 파일 이름 생성
 			log.info("파일추가 : " + fileName);
-			
+
 			try {
-	            imgFile.transferTo(new File(uploadDir + fileName));
-	            log.info("복사성공" + imgFile);
+				imgFile.transferTo(new File(uploadDir + fileName));
+				log.info("복사성공" + imgFile);
 
-	            // 첫 번째 이미지 파일 경로 저장
-	            if (firstImgPath == null) {
-	                firstImgPath = fileName;
-	            }
+				// 이미지 파일 경로를 StringBuilder에 추가
+				imgPaths.append(fileName).append("/");
+				log.info(imgPaths);
 
-	            // 이미지 파일 경로를 StringBuilder에 추가
-	            imgPaths.append(fileName).append("/");
-	            log.info(imgPaths);
-	            
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	            // 예외 처리 필요
-	        }
-	    }
+			} catch (IOException e) {
+				e.printStackTrace();
+				// 예외 처리 필요
+			}
+		}
 
 		bVO.setImg(imgPaths.toString());
-		
+
 		bs.boardInsert(bVO);
-		return "redirect:/board/boardList";
+		return "redirect:/board/boardListPage?page=1";
 	}
 
 	@GetMapping("/boardInsert")
@@ -104,12 +106,64 @@ public class BoardController {
 
 	@GetMapping("/boardEdit")
 	public void getboardEdit(@RequestParam("board_id") int board_id, Model model) throws Exception {
+		log.info("get edit");
 		BoardVO boardVO = bs.boardDetail(board_id);
+		
+		if (boardVO.getImg() != null) {
+			List<String> imgFileNames = new ArrayList<>();
+			imgFileNames.addAll(Arrays.asList(boardVO.getImg().toString().split("/")));
+			log.info(imgFileNames);
+			boardVO.setImgFiles(imgFileNames);
+			log.info("==========");
+		}
+		bs.updateView(board_id);
 		model.addAttribute("boardDetail", boardVO);
 	}
 
 	@PostMapping("/boardEdit")
-	public String postboardEdit(BoardVO bVO) throws Exception {
+	public String postboardEdit(@RequestParam(value = "files2", required = false) List<MultipartFile> files2,
+			@RequestParam("originalImg_board") String originalImg_board, @ModelAttribute("boardDetail") BoardVO bVO)
+			throws IOException {
+		log.info("post edit");
+		
+		StringBuilder imgPaths = new StringBuilder();
+	    String temp_img = originalImg_board;
+
+	    if (files2 != null && !files2.isEmpty()) {
+	        for (MultipartFile imgFile : files2) {
+	            if (imgFile != null && !imgFile.isEmpty()) {
+	                String fileName = "img_" + imgFile.getOriginalFilename(); // 이미지 파일 이름 생성
+
+	                try {
+	                    imgFile.transferTo(new File(uploadDir + fileName));
+	                    System.out.println("복사 성공: " + fileName);
+
+	                    imgPaths.append(fileName).append("/");
+	                } catch (IOException e) {
+	                    e.printStackTrace();
+	                    // 예외 처리 필요
+	                }
+	                bVO.setImg(imgPaths.toString());
+	                log.info(bVO.getImg());
+	    	        log.info("A");
+	            }	else {
+	            	bVO.setImg(temp_img);
+	            	log.info(bVO.getImg());
+	    	        log.info("B: temp_img = " + temp_img); // 디버깅용 로그 추가
+	            }
+   
+	        }
+	    }
+		
+	    if (bVO.getImg() != null) {
+	        List<String> imgFileNames = new ArrayList<>();
+	        imgFileNames.addAll(Arrays.asList(bVO.getImg().toString().split("/")));
+	        log.info(imgFileNames);
+	        bVO.setImgFiles(imgFileNames);
+	        log.info("==========");
+	    }
+		
+
 		bs.boardEdit(bVO);
 		return "redirect:/board/boardDetail?board_id=" + bVO.getBoard_id();
 	}
@@ -169,14 +223,7 @@ public class BoardController {
 		boolean next = endPageNum * pageNum_cnt >= count ? false : true;
 
 		List<BoardVO> list = bs.boardListPage(displayPost, postNum);
-		for (BoardVO board : list) {
-	        String imagePath = board.getImg();
-	        if (imagePath != null) {
-	        	int index = imagePath.indexOf('/');
-		        String subImagePath = index != -1 ? imagePath.substring(0, index) : imagePath;
-		        board.setImg(subImagePath);
-	        }
-	    }
+
 		model.addAttribute("list", list);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("currentPage", page); // 추가된 부분: 현재 페이지 정보 전달
