@@ -2,10 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../includes/header.jsp"%>
 <style>
-#replyM th{
+#replyM th {
 	text-align: center;
 }
-
 </style>
 <section class="bg0 p-t-62 p-b-60">
 	<div class="container">
@@ -25,42 +24,82 @@
 							<button class="p-r-25">Reply Management</button>
 						</h3>
 						<hr class="bor21">
-						<form method="post" action="faqdeleteSelected2">
+					
 							<table class="table-content-board">
 								<tbody id="replyM">
 									<tr class="table_head">
 
-										<th >No.</th>
-										<th >Image</th>
-										<th >Product Name</th>
-										<th >Content</th>
-										<th >Writer</th>
-										<th >Date</th>
+										<th>No.</th>
+										<th>Image</th>
+										<th>Product Name</th>
+										<th>Content</th>
+										<th>Writer</th>
+										<th>Date</th>
 
 									</tr>
 									<c:forEach var="reply" items="${list}" varStatus="i">
 										<tr class="table_row">
-											<td >${reply.reply_id}</td>
+											<td>${reply.reply_id}</td>
 											<td class="has-img"><img alt="" width="60px"
-												src="/resources/images/products/${product_list[i.index].img}"></td>
-											<td >${product_list[i.index].product_name}</td>
-											<th ><a
+												src="/resources/images/products/${reply.img}"></td>
+											<td>${reply.product_name}</td>
+											<th><a
 												href="/product/productDetail?id=${reply.object_id}"
 												class="cl13 hov-cl1 trans-04">${reply.content}</a></th>
-											<td >${reply.writer_name}</td>
-											<td >${reply.regdate}</td>
+											<td>${reply.writer_name}</td>
+											<td>${reply.regdate}</td>
 										</tr>
 									</c:forEach>
 
 
 								</tbody>
 							</table>
-						</form>
 
+							<div class="flex-l-m flex-w w-full p-t-10 m-lr--7">
+								<table>
+									<tr>
+
+										<c:if test="${pageMaker.prev }">
+											<td class="paginate_button previous"><a
+												class="flex-c-m how-pagination1 trans-04 m-all-7"
+												href="${pageMaker.startPage-1 }">Previous</a></td>
+										</c:if>
+
+										<c:forEach var="num" begin="${pageMaker.startPage }"
+											end="${pageMaker.endPage }">
+											<td
+												class='paginate_button ${pageMaker.cri.pageNum == num ? "active":"" }'><a
+												class='flex-c-m how-pagination1 trans-04 m-all-7 ${pageMaker.cri.pageNum == num ? "active-pagination1":"" } '
+												href="${num}">${num}</a></td>
+										</c:forEach>
+
+										<c:if test="${pageMaker.next}">
+											<td class="paginate_button next"><a
+												class="flex-c-m how-pagination1 trans-04 m-all-7"
+												href="${pageMaker.endPage+1 }">Next</a></td>
+										</c:if>
+									</tr>
+								</table>
+							</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
+	<form id='actionForm' action="/mypage/replyManagement?id=" method='get'>
+			<input type='hidden' name="pageNum" value='${pageMaker.cri.pageNum}'>
+	</form>
+<script>
+	$(document).ready(function() {
+		var actionForm = $("#actionForm")
+		
+		$(".paginate_button a").on("click", function(e) {
+			e.preventDefault();
+			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+
+			actionForm.submit();
+		});
+	});
+</script>
 <%@ include file="../includes/footer.jsp"%>

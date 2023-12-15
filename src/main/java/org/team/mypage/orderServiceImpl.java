@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.team.domain.Criteria;
 import org.team.domain.ProductVO;
 import org.team.domain.ReplyVO;
 import org.team.mapper.OrderMapper;
@@ -68,19 +69,16 @@ public class orderServiceImpl implements orderService {
 
 
 	@Override
-	public List<ReplyVO> replyManagement(int user_id) {
-		List<ReplyVO> list = ordermapper.replyManagement(user_id); 
+	public List<ReplyVO> replyManagement(int user_id, orderCriteria cri) {
+		List<ReplyVO> list = ordermapper.replyManagement(user_id, cri); 
 		return list;
 	}
 
 
 	@Override
-	public ProductVO productList(int product_id) {
-		ProductVO productList = ordermapper.productList(product_id);
-		return productList;
+	public int getReplyTotal(int user_id) {
+		int result = ordermapper.getReplyTotal(user_id);
+		return result;
 	}
-
-
-
 
 }

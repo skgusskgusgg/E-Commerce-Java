@@ -260,7 +260,7 @@
 	</insert>
 
 	<update id="updateWish"
-		parameterType="org.team.domain.ProductVO">
+			parameterType="org.team.domain.ProductVO">
 		update wish set `count` = `count` + #{num}
 		where
 		product_id = (SELECT product_id

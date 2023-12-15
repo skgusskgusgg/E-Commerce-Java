@@ -31,7 +31,7 @@
 				</a>
 			</c:when>
 		</c:choose>
-		 <span class="stext-109 cl4">${product.product_name } </span>
+		<span class="stext-109 cl4">${product.product_name } </span>
 	</div>
 </div>
 
@@ -68,7 +68,9 @@
 
 			<div class="col-md-6 col-lg-5 p-b-30">
 				<div class="p-r-50 p-t-5 p-lr-0-lg">
-					<h4 class="mtext-105 cl2 js-name-detail p-b-14 productId"data-product_name ="${product.product_name}" data-product_id = "${product.product_id }">${product.product_name }</h4>
+					<h4 class="mtext-105 cl2 js-name-detail p-b-14 productId"
+						data-product_name="${product.product_name}"
+						data-product_id="${product.product_id }">${product.product_name }</h4>
 
 					<span class="mtext-106 cl2"> <fmt:formatNumber type="number"
 							maxFractionDigits="3" value="${product.price}" /> won
@@ -85,7 +87,7 @@
 
 							<div class="size-204 respon6-next">
 								<div class="rs1-select2 bor8 bg0">
-									<select class="js-select2 size_id" name="time">
+									<select class="js-select2 size_id" name="size_id">
 										<option>Choose an option</option>
 										<option value="S">Size S</option>
 										<option value="M">Size M</option>
@@ -101,7 +103,7 @@
 
 							<div class="size-204 respon6-next">
 								<div class="rs1-select2 bor8 bg0">
-									<select class="js-select2 color_id" name="time">
+									<select class="js-select2 color_id" name="color_id">
 										<option>Choose an option</option>
 										<option value="black">Black</option>
 										<option value="green">Green</option>
@@ -128,19 +130,19 @@
 										<i class="fs-16 zmdi zmdi-plus"></i>
 									</div>
 								</div>
-								<div style=" display: flex; justify-content: space-between;">
-								<button style="margin-right: 10px"
-									class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail detailCart">
-									Add to cart</button>
-								<button
-									class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addwish-details">
-									Add to WishList</button>
+								<div style="display: flex; justify-content: space-between;">
+									<button style="margin-right: 10px"
+										class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail detailCart">
+										Add to cart</button>
+									<button
+										class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addwish-details detailwish">
+										Add to WishList</button>
 								</div>
 							</div>
 						</div>
 					</div>
 
-					
+
 				</div>
 			</div>
 		</div>
@@ -157,8 +159,9 @@
 						data-toggle="tab" href="#information" role="tab">Additional
 							information</a></li>
 
-					<li class="nav-item p-b-10"><a id="product-review-count" class="nav-link"
-						data-toggle="tab" href="#reviews" role="tab"></a></li><!-- Reviews (1) -->
+					<li class="nav-item p-b-10"><a id="product-review-count"
+						class="nav-link" data-toggle="tab" href="#reviews" role="tab"></a></li>
+					<!-- Reviews (1) -->
 				</ul>
 
 				<!-- Tab panes -->
@@ -217,34 +220,33 @@
 							<div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
 								<div class="p-b-30 m-lr-15-sm">
 									<!-- Review -->
-				
-									<div id="review-product" >
-									
-									</div>
+
+									<div id="review-product"></div>
 
 									<!-- Add review -->
 									<div class="w-full" style="margin-top: 20px">
 										<h5 class="mtext-108 cl2 p-b-7">Add a review</h5>
 
 										<div class="flex-w flex-m p-t-50 p-b-23">
-											<span class="stext-102 cl3 m-r-16"> Your Rating </span>
-											<span class="wrap-rating fs-18 cl11 pointer">
-											<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-											<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-											<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-											<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-											<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-											<input id="review-product-star" class="dis-none" type="number" name="rating">
+											<span class="stext-102 cl3 m-r-16"> Your Rating </span> <span
+												class="wrap-rating fs-18 cl11 pointer"> <i
+												class="item-rating pointer zmdi zmdi-star-outline"></i> <i
+												class="item-rating pointer zmdi zmdi-star-outline"></i> <i
+												class="item-rating pointer zmdi zmdi-star-outline"></i> <i
+												class="item-rating pointer zmdi zmdi-star-outline"></i> <i
+												class="item-rating pointer zmdi zmdi-star-outline"></i> <input
+												id="review-product-star" class="dis-none" type="number"
+												name="rating">
 											</span>
 										</div>
 
 										<div class="row p-b-25">
 											<div class="col-sm-6 p-b-5">
 												<label class="stext-102 cl3" for="name">Name</label> <input
-													class="size-111 bor8 stext-102 cl2 p-lr-20" id="review-product-writer-name"
-													type="text" name="name">
+													class="size-111 bor8 stext-102 cl2 p-lr-20"
+													id="review-product-writer-name" type="text" name="name">
 											</div>
-											
+
 											<div class="col-12 p-b-5">
 												<label class="stext-102 cl3" for="review">Your
 													review</label>
@@ -304,7 +306,7 @@
 									$18.96 </span>
 							</div>
 
-							<div class="block2-txt-child2 flex-r p-t-3" >
+							<div class="block2-txt-child2 flex-r p-t-3">
 								<a href="#"
 									class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
 									<img class="icon-heart1 dis-block trans-04"
@@ -326,49 +328,59 @@
 <%@include file="../includes/footer.jsp"%>
 <script type="text/javascript">
 	$(document).ready(function () {
-		var wishBtn = $(".js-addwish-details");
-		var pName = $("h4").data("product_name");
-		var pId = $(".productId").data("product_id");
-		console.log(pName);
-		wishBtn.on("click",function(){
-			  $.ajax({
-	                type: 'POST',
-	                url: "/productDetail/postWish",
-	                contentType: 'application/json',
-	                data: JSON.stringify({product_name: pName }),
-	                success: function (response) {
-	                	$.ajax({
-							type : 'GET',
-							url : '/wish/wishTotal',
-							dataType : 'json',
-							success : function(data) {
-								// data-notify
-								$('.data-noti-wish').attr("data-notify",data);
-								
-							},
-							error: function () {
-								console.log("AJAX request failed")
-							}
-
-						})
-	                    	Swal.fire({
+	
+		var color_id = $(".color_id").val(); 
+		var size_id = $(".size_id").val();
+		var count = $(".num-product").val();
+		var product_name = $("h4").data("product_name");
+		console.log("color_id -> " + color_id + ", size_id -> " + size_id + ", count -> " + count + ", product_name -> " + product_name)
+		$('.detailwish').each(function() {
+			$(this).on("click",function(){
+				
+				var color_id = $(".color_id").val(); 
+				var size_id = $(".size_id").val();
+				var count = $(".num-product").val();
+				var product_name = $("h4").data("product_name");
+				
+				$.ajax({
+		            type: 'POST',
+		            url: "/productDetail/postWish",
+		            contentType: 'application/json',
+		            data: JSON.stringify({product:{product_name: product_name,color_id: color_id, size_id: size_id},count:count}),
+		            success: function (response) {
+		            	 
+		                	Swal.fire({
 			  					  position: "center",
 			  					  icon: "success",
-			  					  title: "Added to your wishLists!",
+			  					  title: "Added to your WishList!",
 			  					  showConfirmButton: false,
 			  					  timer: 1500
 			  					});
-	                    
-	                
-	                },
-	                error: function (xhr, status, error) {
-	                	
-	                    Swal.fire("This product has already been registered on WishList.", "", "error");
-	                }
-	            });
+		                	$.ajax({
+								type : 'GET',
+								url : '/wish/wishTotal',
+								dataType : 'json',
+								success : function(data) {
+									// data-notify
+									$('.data-noti-cart').attr("data-notify",data);
+									
+								},
+								error: function () {
+									console.log("AJAX request failed")
+								}
 
-		})
-	})
+							})
+		            
+		            },
+		            error: function (xhr, status, error) {
+		            	
+		            	  Swal.fire("This product has already been registered on Cart.", "", "info");
+		            }
+		        });
+			})
+			
+			})
+
 	$('.detailCart').each(function() {
 	
 	
@@ -378,7 +390,6 @@
 		var size_id = $(".size_id").val();
 		var count = $(".num-product").val();
 		var product_name = $("h4").data("product_name");
-		console.log("color_id -> " + color_id + ", size_id -> " + size_id + ", count -> " + count + ", product_name -> " + product_name)
 		
 		$.ajax({
             type: 'POST',
@@ -417,7 +428,8 @@
         });
 	})
 	
-})
+	})
+	})
 </script>
 
 <script>

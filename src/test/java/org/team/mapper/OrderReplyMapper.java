@@ -8,8 +8,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.team.domain.Criteria;
 import org.team.domain.ProductVO;
 import org.team.domain.ReplyVO;
+import org.team.mypage.orderCriteria;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -23,12 +25,10 @@ public class OrderReplyMapper {
 	
 	@Test
 	public void replyManagement() {
-		List<ReplyVO> list = mapper.replyManagement(2);
+		orderCriteria criteria = new orderCriteria(1,8);
+		List<ReplyVO> list = mapper.replyManagement(2,criteria);
 		log.info(list);
 
-		ProductVO productList = mapper.productList(203);
-		
-		log.info(productList);
 	}
 	
 }
