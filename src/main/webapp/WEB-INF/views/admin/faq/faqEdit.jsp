@@ -1,23 +1,42 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@include file="../includes/header.jsp"%>
+<%@include file="../../includes/header.jsp"%>
+
+<!-- 관리자 용 faqEdit -->
+
 <!-- Title page -->
 <section class="bg-img1 txt-center p-lr-15 p-tb-92"
 	style="background-image: url('/resources/images/bg-02.jpg');">
-	<h2 class="ltext-105 cl0 txt-center">Help & FAQs</h2>
+	<h2 class="ltext-105 cl0 txt-center">Help&FAQs</h2>
 </section>
-
+<style>
+.input-file-button {
+	background-color: #FF6600;
+	border-radius: 4px;
+	color: white;
+	cursor: pointer;
+}
+</style>
 
 <!-- Content page -->
-<section class="bg0 p-t-52 p-b-20">
+<section>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-8 col-lg-9 p-b-80" style="margin: auto; text-align: left">
 				<div class="p-r-45 p-r-0-lg">
 					<div class="p-t-32">
-						<form action="faqInsert" method="post"
-							enctype="multipart/form-data" id="writeFaq">
-
+						<span class="flex-w flex-m stext-111 cl2 p-b-19"> <span>
+								<span class="cl4">No.&nbsp</span> ${faqDetail.faqId} <span
+								class="cl12 m-l-4 m-r-6">|</span>
+						</span> <span> <span class="cl4">Writer&nbsp</span>
+								${faqDetail.user_id} <span class="cl12 m-l-4 m-r-6">|</span>
+						</span> <span> <span class="cl4">Date&nbsp</span>
+								${faqDetail.updateDate} <span class="cl12 m-l-4 m-r-6">|</span>
+						</span> <span> <span class="cl4">Views&nbsp</span>
+								${faqDetail.viewCount} <span class="cl12 m-l-4 m-r-6">|</span>
+						</span>
+						</span>
+						<form name="faq-frm" method="post" enctype="multipart/form-data">
 							<table>
 								<thead>
 									<tr>
@@ -29,7 +48,8 @@
 										<td><input type="text"
 											class="mtext-111 cl2 p-all-10 m-b-5"
 											style="width: 850px; border: 1px solid #cccccc;"
-											name="faqTitle" placeholder="Enter Title Here"></td>
+											name="faqTitle" placeholder="Enter Title Here"
+											value="${faqDetail.faqTitle}"></td>
 										<td></td>
 									</tr>
 									<tr>
@@ -38,7 +58,7 @@
 										<td class="stext-117 cl6 p-tb-10 m-tb-5"><textarea
 												name="faqContents"
 												style="width: 850px; height: 400px; border: 1px solid #cccccc; padding: 10px;"
-												placeholder="Enter Contents Here"></textarea></td>
+												placeholder="Enter Contents Here">${faqDetail.faqContents}</textarea></td>
 										<td></td>
 									</tr>
 									<tr>
@@ -50,37 +70,47 @@
 							<table class="table-qna-img m-b-20">
 								<tbody>
 									<tr class="table_head">
-										<th class="column-1">이미지 업로드<br></th>
+										<th class="column-1">파일 첨부하기 <input type="hidden"
+											name="originalImg_faq" value="${faqDetail.img}" /> <input
+											type="file" id="faq_img2" name="files"
+											onchange="faq_previewImages2();" multiple="multiple">
+										</th>
 									</tr>
 									<tr class="table_head">
-										<td class="column-1"><input type="file" id="faq_img"
-											name="files" onchange="faq_previewImages();"
-											multiple="multiple"></td>
+										<td class="column-1">현재 첨부된 파일 : <c:forEach
+												var="fileName"
+												items="${empty faqDetail.imgFiles ? '' : faqDetail.imgFiles}">
+                                            ${fileName}<br />
+											</c:forEach>
+										</td>
 									</tr>
 									<tr class="table_row">
 										<td class="column-1 has-img hov-img1"
-											id="faq_imagePreviewContainer">
-											<!-- Image previews will be displayed here -->
+											id="faq_imagePreviewContainer2">
+											<!-- Image previews will be displayed here --> <c:forEach
+												var="faqfaqfaq" items="${faqDetail.imgFiles}">
+												<img src="/faq/${faqfaqfaq}" alt="FAQ Image">
+											</c:forEach>
 										</td>
 									</tr>
-								</tbody>
 							</table>
-
 							<input type="submit" value="Submit"
 								class="flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04">
 						</form>
-
 					</div>
 				</div>
 			</div>
+
+
 		</div>
 	</div>
 </section>
+
 <script>
-	function faq_previewImages() {
-		var input = document.getElementById('faq_img');
+	function faq_previewImages2() {
+		var input = document.getElementById('faq_img2');
 		var previewContainer = document
-				.getElementById('faq_imagePreviewContainer');
+				.getElementById('faq_imagePreviewContainer2');
 		previewContainer.innerHTML = ''; // Clear previous previews
 
 		if (input.files && input.files.length > 0) {
@@ -100,4 +130,4 @@
 	}
 </script>
 
-<%@include file="../includes/footer.jsp"%>
+<%@include file="../../includes/footer.jsp"%>

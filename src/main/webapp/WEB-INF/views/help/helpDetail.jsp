@@ -1,11 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="../includes/header.jsp"%>
-<%@ page import="java.util.List"%>
+<%@ page import="java.util.List" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-<!-- 일반 회원 용 faqDetail -->
-
 
 <!-- breadcrumb -->
 <div class="container">
@@ -38,7 +35,7 @@
 								${faqDetail.viewCount} <span class="cl12 m-l-4 m-r-6">|</span>
 						</span> <span class="m-l-auto"> <span class="cl4"> <a
 									class="flex-c-m stext-101 cl5 size-127 bg2 bor18 hov-btn3 p-lr-15 trans-04"
-									href="/faq/faqListPage?page=1"> 목록 </a>
+									href="/faq/faqList?num=1"> 목록 </a>
 							</span>
 						</span> <c:if test="${mVO.id != null}">
 								<span class="m-l-8"> <span class="cl4"> <a
@@ -66,16 +63,19 @@
 						</tr>
 
 						<tr class="table_row">
-							<td class="column-2 has-img hov-img1"> 
+							<td class="column-2 has-img hov-img1">
+<%-- 								<img src="<c:url value='/images/faq/faqimg_noImage.gif'/>">
+								<img src="${uploadDir}${faqDetail.img}"> --%>
+								
 								<c:forEach var="faqfaqfaq" items="${faqDetail.imgFiles}">
-									<img src="/faq/${faqfaqfaq}">
+									<img src="/faq/${faqfaqfaq}" alt="FAQ Image">
 								</c:forEach>
 
 							</td>
 						</tr>
 					</table>
 
-					<!-- 							<td class="column-2 has-img hov-img1"><a
+							<!-- 							<td class="column-2 has-img hov-img1"><a
 								href="./product-detail.html" class="js-show-modal1"> <img
 									src="/resources/images/item-cart-05.jpg" alt="IMG">
 							</a></td> -->
@@ -84,29 +84,31 @@
 
 					<!--  -->
 					<div class="p-t-40">
-						<h5 class="mtext-113 cl2">Comment</h5>
-						<br>
-						<c:forEach items="${reply}" var="reply">
-								<span class="flex-w flex-m stext-111 cl2 p-b-19">
-									<span>user_name</span><span class="cl12 m-l-4 m-r-6">|</span> <span>${reply.comment}</span>
-									<span class="cl12 m-l-4 m-r-6">|</span> <span>${reply.wDate}</span>
-									<span class="m-l-auto"> <a class="flex-c-m stext-101 cl5 size-127 bg2 bor18 hov-btn3 p-lr-15 trans-04" href="/faq/faqList?num=1"> 수정 </a></span>
-									<span class="m-l-8"><a class="flex-c-m stext-101 cl5 size-127 bg2 bor18 hov-btn3 p-lr-15 trans-04" href="/faq/faqList?num=1"> 삭제 </a></span>
-								</span>
-							<!-- <hr class="bor21"> -->
-						</c:forEach>
+						<h5 class="mtext-113 cl2 p-b-12">Leave a Comment</h5>
 
-						<form action="faqDetail" method="post" name="frm_faqReply">
-							<input type="hidden" name="faq_number" value="${faqDetail.faqId}">
+						<p class="stext-107 cl6 p-b-40">Your email address will not be
+							published. Required fields are marked *</p>
+
+						<form>
 							<div class="bor19 m-b-20">
 								<textarea class="stext-111 cl2 plh3 size-124 p-lr-18 p-tb-15"
-									name="comment" placeholder="Comment..."></textarea>
+									name="cmt" placeholder="Comment..."></textarea>
+							</div>
+
+							<div class="bor19  m-b-20">
+								<input class="stext-111 cl2 plh3 size-116 p-lr-18" type="text"
+									name="name" placeholder="Name *">
+							</div>
+
+							<div class="bor19  m-b-20">
+								<input class="stext-111 cl2 plh3 size-116 p-lr-18" type="text"
+									name="email" placeholder="Email *">
 							</div>
 
 							<div style="display: flex; justify-content: end">
 								<button
 									class="flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04">
-									Submit</button>
+									Post Comment</button>
 							</div>
 						</form>
 					</div>

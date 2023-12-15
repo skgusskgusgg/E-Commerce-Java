@@ -22,9 +22,9 @@ import org.team.faq.FaqService;
 import lombok.extern.log4j.Log4j;
 
 @Controller
-@RequestMapping("/faq/*")
+@RequestMapping("/admin/faq/*")
 @Log4j
-public class FaqController {
+public class AdminFaqController {
 	@Autowired
 	private FaqService faqService;
 	String uploadDir = "D:/sourceTree/project_1/src/main/webapp/resources/images/faq/";
@@ -104,7 +104,7 @@ public class FaqController {
 
 		faqService.faqInsert(fVO);
 
-		return "redirect:/faq/faqListPage?page=1";
+		return "redirect:/admin/faq/faqListPage?page=1";
 	}
 
 	@GetMapping("/faqInsert")
@@ -174,13 +174,13 @@ public class FaqController {
 	    }
 
 	    faqService.faqEdit(fVO);
-	    return "redirect:/faq/faqDetail?faqId=" + fVO.getFaqId();
+	    return "redirect:/admin/faq/faqDetail?faqId=" + fVO.getFaqId();
 	}
 
 	@GetMapping("/faqDelete")
 	public String getfaqDelete(@RequestParam("faqId") int faqId) throws Exception {
 		faqService.faqDelete(faqId);
-		return "redirect:/faq/faqListPage?page=1";
+		return "redirect:/admin/faq/faqListPage?page=1";
 	}
 
 	@PostMapping("/faqdeleteSelected2")
@@ -188,7 +188,7 @@ public class FaqController {
 		for (Integer faqId : faq_ids) {
 			faqService.faqDelete(faqId);
 		}
-		return "redirect:/faq/faqListPage?page=1";
+		return "redirect:/admin/faq/faqListPage?page=1";
 	}
 
 	@GetMapping("/faqListPage")
@@ -255,7 +255,7 @@ public class FaqController {
 		// 현재 페이지
 		model.addAttribute("select", page);
 
-		return "/faq/faqList"; // 뷰 페이지의 이름을 반환
+		return "/admin/faq/faqList"; // 뷰 페이지의 이름을 반환
 	}
 
 	@PostMapping("/faqDetail")
@@ -267,6 +267,6 @@ public class FaqController {
 		rVO.setComment(comment);
 		faqService.faqReplyInsert(rVO);
 
-		return "redirect:/faq/faqDetail?faqId=" + rVO.getFaqId();
+		return "redirect:/admin/faq/faqDetail?faqId=" + rVO.getFaqId();
 	}
 }

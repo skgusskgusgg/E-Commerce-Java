@@ -127,11 +127,11 @@
 						</span>
 					</c:if>
 
-
+					<c:if test="${loginOK == 99}">
 					<a href="/board/boardWrite"
 						class="flex-r-m how-pagination1 trans-04 m-all-7"
 						onclick="return loginCheck_help()"> 글쓰기 </a>
-
+					</c:if>
 				</div>
 
 			</div>

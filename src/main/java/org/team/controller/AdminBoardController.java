@@ -15,26 +15,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.team.faq.FaqBoardVO;
-import org.team.faq.FaqReplyVO;
-import org.team.faq.FaqService;
+import org.team.board.BoardService;
+import org.team.board.BoardVO;
 
 import lombok.extern.log4j.Log4j;
 
 @Controller
-@RequestMapping("/faq/*")
+@RequestMapping("/admin/board/*")
 @Log4j
-public class FaqController {
+public class AdminBoardController {
 	@Autowired
-	private FaqService faqService;
+	private BoardService bs;
 	String uploadDir = "D:/sourceTree/project_1/src/main/webapp/resources/images/faq/";
 
-	@GetMapping("/faqList")
-	public void faqList(Model model) throws Exception {
-		log.info("FAQList");
-		List<FaqBoardVO> list = null;
-		list = faqService.getList();
-		int count = faqService.faqCount();
+	@GetMapping("/boardList")
+	public void boardList(Model model) throws Exception {
+		log.info("boardList");
+		List<BoardVO> list = null;
+		list = bs.getList();
+		int count = bs.boardCount();
 		for (int i = 0; i < count; i++) {
 			List<String> imgFileNames = new ArrayList<>();
 			if (list.get(i).getImg() != null) {
@@ -45,47 +44,41 @@ public class FaqController {
 		}
 
 		model.addAttribute("list", list);
-
 	}
 
-	@GetMapping("/faqDetail")
-	public void faqDetail(@RequestParam("faqId") int faqId, Model model) throws Exception {
-		log.info("faqDetail");
-		FaqBoardVO faqVO = faqService.faqDetail(faqId);
-
-		if (faqVO.getImg() != null) {
+	@GetMapping("/boardDetail")
+	public void boardDetail(@RequestParam("board_id") int board_id, Model model) throws Exception {
+		log.info("boardDetail");
+		BoardVO boardVO = bs.boardDetail(board_id);
+		
+		if (boardVO.getImg() != null) {
 			List<String> imgFileNames = new ArrayList<>();
-			imgFileNames.addAll(Arrays.asList(faqVO.getImg().toString().split("/")));
+			imgFileNames.addAll(Arrays.asList(boardVO.getImg().toString().split("/")));
 			log.info(imgFileNames);
-			faqVO.setImgFiles(imgFileNames);
+			boardVO.setImgFiles(imgFileNames);
 			log.info("==========");
 		}
-		List<FaqReplyVO> reply = faqService.faqReplyList(faqId);
-		faqService.updateViewCount(faqId);
 
-		model.addAttribute("faqDetail", faqVO);
-		model.addAttribute("reply", reply);
+		bs.updateView(board_id);
+		model.addAttribute("boardDetail", boardVO);
 	}
 
-	@GetMapping("/writeFaq")
+	@GetMapping("/boardWrite")
 	public void writeForm() {
-		log.info("writeFaq");
+		log.info("boardWrite");
 	}
 
-	@PostMapping("/faqInsert")
-	public String faqInsert(FaqBoardVO fVO, Model model, @RequestParam("files") MultipartFile[] files)
-			throws Exception {
-		log.info("FAQ Insert");
+	@PostMapping("/boardInsert")
+	public String boardInsert(BoardVO bVO, Model model, @RequestParam("files") MultipartFile[] files) throws Exception {
+		log.info("boardInsert");
 
 		StringBuilder imgPaths = new StringBuilder();
-		log.info("성공");
 
 		for (int i = 0; i < files.length; i++) {
 			MultipartFile imgFile = files[i];
 			String fileName = "img_" + imgFile.getOriginalFilename(); // 이미지 파일 이름 생성
 			log.info("파일추가 : " + fileName);
 
-			// 이미지 파일을 저장할 디렉토리 경로
 			try {
 				imgFile.transferTo(new File(uploadDir + fileName));
 				log.info("복사성공" + imgFile);
@@ -100,46 +93,44 @@ public class FaqController {
 			}
 		}
 
-		fVO.setImg(imgPaths.toString());
+		bVO.setImg(imgPaths.toString());
 
-		faqService.faqInsert(fVO);
-
-		return "redirect:/faq/faqListPage?page=1";
+		bs.boardInsert(bVO);
+		return "redirect:/admin/board/boardListPage?page=1";
 	}
 
-	@GetMapping("/faqInsert")
-	public void faqInsert() throws Exception {
+	@GetMapping("/boardInsert")
+	public void boardInsert() throws Exception {
 
 	}
 
-	@GetMapping("/faqEdit")
-	public void getfaqEdit(@RequestParam("faqId") int faqId, Model model) throws Exception {
-		log.info("GET Edit");
-		FaqBoardVO faqVO = null;
-		faqVO = faqService.faqDetail(faqId);
-		log.info(faqVO);
-		if (faqVO.getImg() != null) {
+	@GetMapping("/boardEdit")
+	public void getboardEdit(@RequestParam("board_id") int board_id, Model model) throws Exception {
+		log.info("get edit");
+		BoardVO boardVO = bs.boardDetail(board_id);
+		
+		if (boardVO.getImg() != null) {
 			List<String> imgFileNames = new ArrayList<>();
-			imgFileNames.addAll(Arrays.asList(faqVO.getImg().toString().split("/")));
+			imgFileNames.addAll(Arrays.asList(boardVO.getImg().toString().split("/")));
 			log.info(imgFileNames);
-			faqVO.setImgFiles(imgFileNames);
+			boardVO.setImgFiles(imgFileNames);
 			log.info("==========");
 		}
-
-		model.addAttribute("faqDetail", faqVO);
+		bs.updateView(board_id);
+		model.addAttribute("boardDetail", boardVO);
 	}
 
-	@PostMapping("/faqEdit")
-	public String postfaqEdit(@RequestParam(value = "files", required = false) List<MultipartFile> files,
-	                          @RequestParam("originalImg_faq") String originalImg_faq,
-	                          @ModelAttribute("faqDetail") FaqBoardVO fVO) throws IOException {
-	    System.out.println("POST Edit");
-	    log.info(fVO);
-	    StringBuilder imgPaths = new StringBuilder();
-	    String temp_img = originalImg_faq;
+	@PostMapping("/boardEdit")
+	public String postboardEdit(@RequestParam(value = "files2", required = false) List<MultipartFile> files2,
+			@RequestParam("originalImg_board") String originalImg_board, @ModelAttribute("boardDetail") BoardVO bVO)
+			throws IOException {
+		log.info("post edit");
+		
+		StringBuilder imgPaths = new StringBuilder();
+	    String temp_img = originalImg_board;
 
-	    if (files != null && !files.isEmpty()) {
-	        for (MultipartFile imgFile : files) {
+	    if (files2 != null && !files2.isEmpty()) {
+	        for (MultipartFile imgFile : files2) {
 	            if (imgFile != null && !imgFile.isEmpty()) {
 	                String fileName = "img_" + imgFile.getOriginalFilename(); // 이미지 파일 이름 생성
 
@@ -152,50 +143,52 @@ public class FaqController {
 	                    e.printStackTrace();
 	                    // 예외 처리 필요
 	                }
-	                fVO.setImg(imgPaths.toString());
-	                log.info(fVO.getImg());
+	                bVO.setImg(imgPaths.toString());
+	                log.info(bVO.getImg());
 	    	        log.info("A");
 	            }	else {
-	            	fVO.setImg(temp_img);
-	            	log.info(fVO.getImg());
+	            	bVO.setImg(temp_img);
+	            	log.info(bVO.getImg());
 	    	        log.info("B: temp_img = " + temp_img); // 디버깅용 로그 추가
 	            }
    
 	        }
 	    }
-	    
-
-	    if (fVO.getImg() != null) {
+		
+	    if (bVO.getImg() != null) {
 	        List<String> imgFileNames = new ArrayList<>();
-	        imgFileNames.addAll(Arrays.asList(fVO.getImg().toString().split("/")));
+	        imgFileNames.addAll(Arrays.asList(bVO.getImg().toString().split("/")));
 	        log.info(imgFileNames);
-	        fVO.setImgFiles(imgFileNames);
+	        bVO.setImgFiles(imgFileNames);
 	        log.info("==========");
 	    }
+		
 
-	    faqService.faqEdit(fVO);
-	    return "redirect:/faq/faqDetail?faqId=" + fVO.getFaqId();
+		bs.boardEdit(bVO);
+		return "redirect:/admin/board/boardDetail?board_id=" + bVO.getBoard_id();
 	}
 
-	@GetMapping("/faqDelete")
-	public String getfaqDelete(@RequestParam("faqId") int faqId) throws Exception {
-		faqService.faqDelete(faqId);
-		return "redirect:/faq/faqListPage?page=1";
+	@GetMapping("/boardDelete")
+	public String getboardDelete(@RequestParam("board_id") int board_id) throws Exception {
+		bs.boardDelete(board_id);
+		return "redirect:/admin/board/boardListPage?page=1";
 	}
 
-	@PostMapping("/faqdeleteSelected2")
-	public String deleteSelected2(@RequestParam("deleteList2") List<Integer> faq_ids) {
-		for (Integer faqId : faq_ids) {
-			faqService.faqDelete(faqId);
+	@PostMapping("/deleteSelected")
+	public String deleteSelected(@RequestParam("deleteList") List<Integer> board_ids) {
+		for (Integer board_id : board_ids) {
+			bs.boardDelete(board_id);
 		}
-		return "redirect:/faq/faqListPage?page=1";
+		return "redirect:/admin/board/boardListPage?page=1";
 	}
 
-	@GetMapping("/faqListPage")
-	public String faqListPage(@RequestParam(name = "page", defaultValue = "1") int page, Model model) throws Exception {
-		log.info("faqListPage");
+	@GetMapping("/boardListPage")
+	public String boardListPage(@RequestParam(name = "page", defaultValue = "1") int page, Model model)
+			throws Exception {
+		log.info("boardListPage");
+
 		// 게시물 총 개수
-		int count = faqService.faqCount();
+		int count = bs.boardCount();
 		log.info(count);
 
 		// 한 페이지에 출력할 게시물 수
@@ -229,16 +222,7 @@ public class FaqController {
 		boolean prev = startPageNum == 1 ? false : true;
 		boolean next = endPageNum * pageNum_cnt >= count ? false : true;
 
-		List<FaqBoardVO> list = faqService.faqListPage(displayPost, postNum);
-
-		for (FaqBoardVO faq : list) {
-			String imagePath = faq.getImg();
-			if (imagePath != null) {
-				int index = imagePath.indexOf('/');
-				String subImagePath = index != -1 ? imagePath.substring(0, index) : imagePath;
-				faq.setImg(subImagePath);
-			}
-		}
+		List<BoardVO> list = bs.boardListPage(displayPost, postNum);
 
 		model.addAttribute("list", list);
 		model.addAttribute("pageNum", pageNum);
@@ -255,18 +239,6 @@ public class FaqController {
 		// 현재 페이지
 		model.addAttribute("select", page);
 
-		return "/faq/faqList"; // 뷰 페이지의 이름을 반환
-	}
-
-	@PostMapping("/faqDetail")
-	public String faqInsert(FaqReplyVO rVO, @RequestParam("comment") String comment,
-			@RequestParam("faq_number") int faqNo) throws Exception {
-		log.info("faq Reply");
-
-		rVO.setFaqId(faqNo);
-		rVO.setComment(comment);
-		faqService.faqReplyInsert(rVO);
-
-		return "redirect:/faq/faqDetail?faqId=" + rVO.getFaqId();
+		return "/admin/board/boardList"; // 뷰 페이지의 이름을 반환
 	}
 }
