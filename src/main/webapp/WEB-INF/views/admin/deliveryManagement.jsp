@@ -336,9 +336,9 @@
 				    for (var i = 0; i < result.length; i++) {
 				      var order = result[i]; 
 				      
-				      if(order.status==0){del="배송전"}
-				      if(order.status==1){del="배송중"}
-				      if(order.status==2){del="배송완료"}
+				      if(order.status==1){del="배송전"}
+				      if(order.status==2){del="배송중"}
+				      if(order.status==3){del="배송완료"}
 				      
 				      orderList.append("<tr>" +
 				        "<td>" + order.order_id + "</td>" +
