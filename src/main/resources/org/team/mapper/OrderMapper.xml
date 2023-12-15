@@ -22,13 +22,18 @@
 		where member_id = #{id})
 	</select>
 
-	
-	<select id="replyManagement" resultType="org.team.domain.ReplyVO">
-		select * from reply where user_id = #{mVo} order by reply_id
+
+	<select id="replyManagement"
+		resultType="org.team.domain.ReplyVO">
+		SELECT r.*, p.img,p.product_name
+		FROM reply r
+		JOIN product p ON r.object_id = p.product_id
+		where user_id = #{mVo}
+		limit #{cri.pageStart},#{cri.amount}
 	</select>
 	
-	<select id="productList" resultType="org.team.domain.ProductVO">
-		select * from product where product_id = #{pVo}
+	<select id="getReplyTotal" resultType="int">
+		select count(*) from reply where user_id = #{mVo}
 	</select>
 
 	<select id="deliveryPreparation" resultType="int">
@@ -50,12 +55,18 @@
 	<select id="orderWithProductWithPaging"
 		resultType="org.team.mypage.orderWithProductDTO">
 
-		select order_id, delivery_id, product_count, nahyun.order.price as price,
-		Product.price as productPrice, nahyun.order.status, product.product_id
-		as product_id, category_id, product_name, img, color_id, size_id
-		from nahyun.order join product on nahyun.order.product_id =
-		product.product_id where delivery_id in (select delivery_id from
-		delivery where member_id = #{id}) limit #{cri.pageStart},
+		select order_id, delivery_id, product_count,
+		nahyun.order.price as price,
+		Product.price as productPrice,
+		nahyun.order.status, product.product_id
+		as product_id, category_id,
+		product_name, img, color_id, size_id
+		from nahyun.order join product on
+		nahyun.order.product_id =
+		product.product_id where delivery_id in
+		(select delivery_id from
+		delivery where member_id = #{id}) limit
+		#{cri.pageStart},
 		#{cri.amount};
 	</select>
 </mapper>

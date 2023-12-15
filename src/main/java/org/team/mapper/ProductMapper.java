@@ -25,7 +25,7 @@ public interface ProductMapper {
 	
 	public int postWish(@Param("aVo") AddProducts aVo, @Param("mVo") int mVo );
 
-	public int updateWish(@Param("aVo") ProductVO pVo, @Param("num") int count, @Param("mVo") int mVo);
+	public int updateWish(@Param("pVo") ProductVO pVo, @Param("num") int count, @Param("mVo") int mVo);
 	
 	public int deleteWish(@Param("pVo") ProductVO Pvo,@Param("mVo") int mVo );
 	

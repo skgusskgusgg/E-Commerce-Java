@@ -86,7 +86,7 @@ public class ProductMapperTests {
 			mapper.updateWish(product, count, mvo);
 
 		} else {
-			mapper.postWish(pVo, mvo);
+			mapper.postWish(pVo, count);
 		}
 
 	}

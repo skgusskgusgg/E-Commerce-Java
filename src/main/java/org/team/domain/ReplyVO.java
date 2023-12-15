@@ -14,4 +14,6 @@ public class ReplyVO {
 	private String regdate;
 	private String updatedate;
 	private int star;
+	private String product_name;
+	private String img;
 }
