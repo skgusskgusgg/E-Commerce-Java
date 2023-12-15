@@ -444,6 +444,22 @@ $(document).ready(function(){
 		});
 	}
 	$('#replyRegistBtn').on("click",function(){
+		if('${mVO.id}'==''){
+			Swal.fire({
+				  title: "Please login",
+				  showConfirmButton: true,
+				  showDenyButton: false,
+				  showCancelButton: false,
+				  confirmButtonText: "OK"
+				}).then((result) => {
+				  if (result.isConfirmed) {
+					$('.js-show-modal-login').trigger("click");
+				  }
+				});
+			
+			return;
+		}
+		
 		if(!$('#review-product-writer-name').val()){
 			Swal.fire("Name field cannot be empty.", "", "failed");
 			return;
@@ -616,8 +632,8 @@ $(document).ready(function(){
 			
 			reviewString += "<input class='product-reply-star' type='hidden' value='"+$(item).find('star').text()+"'></span></div>";
 			reviewString += "<p class='product-reply-content stext-102 cl6'>"+$(item).find("content").text()+"</p></div></div>";
-			if(${mVO.id}){
-				if(${mVO.id}==parseInt($(item).find("user_id").text())){
+			if('${mVO.id}'){
+				if('${mVO.id}'==parseInt($(item).find("user_id").text())){
 					reviewString += "<div style='display:flex; justify-content: flex-end;'>";
 					reviewString += "<input class='product-reply-id' type='hidden' value='"+$(item).find('reply_id').text()+"'>";
 					reviewString += "<input class='product-reply-user-id' type='hidden' value='"+$(item).find('user_id').text()+"'>";
