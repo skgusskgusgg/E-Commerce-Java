@@ -30,10 +30,14 @@ $(document).ready(function () {
 	    });
 		
 		$('.show-search-modal').on('click', function(){
+			$("input[name='search']").prop("readonly", false);
 			$('.search-grid-container').show();
 	    });
 		
 		$('.hide-search-modal').on('click', function(){
+			$("input[name='search']").val('');
+			$("input[name='search']").prop("readonly", true);
+			closeSearch();
 			$('.search-grid-container').hide();
 	    });
 
@@ -187,7 +191,7 @@ $(document).ready(function () {
 			 for (let i = 1; i <= 5; i++) {
 			        let pullUp = $('.search-column-' + i + ' .search-list-pull-up');
 			        let delay = i * 0.25;
-			        let transitionTime = 2000;
+			        let transitionTime = 1000;
 			        let noneDelay = i*250+transitionTime;
 			        pullUp.css('margin', '0');
 			        pullUp.css('height', '0');
