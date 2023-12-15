@@ -102,15 +102,15 @@
 </update>
 
 	<select id="deliveryPreparing" resultType="int">
-	select count(*) from nahyun.order where delivery_id = #{delivery_id} and status=0
-	</select>
-	
-	<select id="deliveryIng" resultType="int">
 	select count(*) from nahyun.order where delivery_id = #{delivery_id} and status=1
 	</select>
 	
-	<select id="deliveryEnd" resultType="int">
+	<select id="deliveryIng" resultType="int">
 	select count(*) from nahyun.order where delivery_id = #{delivery_id} and status=2
+	</select>
+	
+	<select id="deliveryEnd" resultType="int">
+	select count(*) from nahyun.order where delivery_id = #{delivery_id} and status=3
 	</select>
 	
 	
@@ -163,17 +163,17 @@
 	
 	<update id="totalDeliveryPre">
 	UPDATE delivery
-    SET total_status = 0
+    SET total_status = 1
     WHERE delivery_id = #{delivery_id}
 	</update>
 	<update id="totalDeliveryComplete">
 	UPDATE delivery
-    SET total_status = 2
+    SET total_status = 3
     WHERE delivery_id = #{delivery_id}
 	</update>
 	<update id="totalDeliveryIng">
 	UPDATE delivery
-    SET total_status = 1
+    SET total_status = 2
     WHERE delivery_id = #{delivery_id}
 	</update>
 	<update id="modifyOrders" >
