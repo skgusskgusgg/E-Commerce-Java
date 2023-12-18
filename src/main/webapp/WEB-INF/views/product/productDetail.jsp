@@ -12,26 +12,26 @@
 		</a>
 
 		<c:choose>
-			<c:when test="${product.category_id eq 'outer' }">
+			<c:when test="${product.productDetail.category_id eq 'outer' }">
 				<a href="/product/productList?category_id=1"
-					class="stext-109 cl8 hov-cl1 trans-04"> ${product.category_id }
+					class="stext-109 cl8 hov-cl1 trans-04"> ${product.productDetail.category_id }
 					<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
 				</a>
 			</c:when>
-			<c:when test="${product.category_id eq 'top' }">
+			<c:when test="${product.productDetail.category_id eq 'top' }">
 				<a href="/product/productList?category_id=2"
-					class="stext-109 cl8 hov-cl1 trans-04"> ${product.category_id }
+					class="stext-109 cl8 hov-cl1 trans-04"> ${product.productDetail.category_id }
 					<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
 				</a>
 			</c:when>
-			<c:when test="${product.category_id eq 'pants' }">
+			<c:when test="${product.productDetail.category_id eq 'pants' }">
 				<a href="/product/productList?category_id=3"
-					class="stext-109 cl8 hov-cl1 trans-04"> ${product.category_id }
+					class="stext-109 cl8 hov-cl1 trans-04"> ${product.productDetail.category_id }
 					<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
 				</a>
 			</c:when>
 		</c:choose>
-		<span class="stext-109 cl4">${product.product_name } </span>
+		<span class="stext-109 cl4">${product.productDetail.product_name } </span>
 	</div>
 </div>
 
@@ -50,10 +50,10 @@
 							<div class="item-slick3"
 								data-thumb="/resources/images/product-detail-01.jpg">
 								<div class="wrap-pic-w pos-relative">
-									<img src="/resources/images/products/${product.img }"
+									<img src="/resources/images/products/${product.productDetail.img }"
 										alt="IMG-PRODUCT"> <a
 										class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-										href="/resources/images/products/${product.img }"> <i
+										href="/resources/images/products/${product.productDetail.img }"> <i
 										class="fa fa-expand"></i>
 									</a>
 								</div>
@@ -69,11 +69,11 @@
 			<div class="col-md-6 col-lg-5 p-b-30">
 				<div class="p-r-50 p-t-5 p-lr-0-lg">
 					<h4 class="mtext-105 cl2 js-name-detail p-b-14 productId"
-						data-product_name="${product.product_name}"
-						data-product_id="${product.product_id }">${product.product_name }</h4>
+						data-product_name="${product.productDetail.product_name}"
+						data-product_id="${product.productDetail.product_id }">${product.productDetail.product_name }</h4>
 
 					<span class="mtext-106 cl2"> <fmt:formatNumber type="number"
-							maxFractionDigits="3" value="${product.price}" /> won
+							maxFractionDigits="3" value="${product.productDetail.price}" /> won
 					</span> </span>
 
 					<p class="stext-102 cl3 p-t-23">Nulla eget sem vitae eros
@@ -89,9 +89,10 @@
 								<div class="rs1-select2 bor8 bg0">
 									<select class="js-select2 size_id" name="size_id">
 										<option>Choose an option</option>
-										<option value="S">Size S</option>
-										<option value="M">Size M</option>
-										<option value="L">Size L</option>
+									
+										<c:forEach var="size" items="${ product.sizeTotal}">
+											<option value="${size }">Size ${size }</option>
+										</c:forEach>
 									</select>
 									<div class="dropDownSelect2"></div>
 								</div>
@@ -105,10 +106,10 @@
 								<div class="rs1-select2 bor8 bg0">
 									<select class="js-select2 color_id" name="color_id">
 										<option>Choose an option</option>
-										<option value="black">Black</option>
-										<option value="green">Green</option>
-										<option value="red">Red</option>
-										<option value="white">White</option>
+										
+										<c:forEach var="color" items="${product.colorTotal }">
+											<option value="${color }">Color ${color }</option>
+										</c:forEach>
 									</select>
 									<div class="dropDownSelect2"></div>
 								</div>
@@ -348,28 +349,27 @@
 		            contentType: 'application/json',
 		            data: JSON.stringify({product:{product_name: product_name,color_id: color_id, size_id: size_id},count:count}),
 		            success: function (response) {
-		            	 
-		                	Swal.fire({
-			  					  position: "center",
-			  					  icon: "success",
-			  					  title: "Added to your WishList!",
-			  					  showConfirmButton: false,
-			  					  timer: 1500
-			  					});
-		                	$.ajax({
-								type : 'GET',
-								url : '/wish/wishTotal',
-								dataType : 'json',
-								success : function(data) {
-									// data-notify
-									$('.data-noti-cart').attr("data-notify",data);
-									
-								},
-								error: function () {
-									console.log("AJAX request failed")
-								}
-
-							})
+		            	Swal.fire({
+		  					  position: "center",
+		  					  icon: "success",
+		  					  title: "Added to your WishList!",
+		  					  showConfirmButton: false,
+		  					  timer: 1500
+		  					});
+		                	
+		            	$.ajax({
+							type : 'GET',
+							url : '/wish/wishTotal',
+							dataType : 'json',
+							success : function(data) {
+							
+								$('.data-noti-wish').attr("data-notify",data);
+								
+							},
+							error: function () {
+								console.log("AJAX request failed")
+							}
+		            	})
 		            
 		            },
 		            error: function (xhr, status, error) {
@@ -410,7 +410,7 @@
 						url : '/wish/cartTotal',
 						dataType : 'json',
 						success : function(data) {
-							// data-notify
+						
 							$('.data-noti-cart').attr("data-notify",data);
 							
 						},
@@ -440,7 +440,7 @@ $(document).ready(function(){
 		
 		var prepareContent = {
 			"rcategory_id" : 2,
-			"object_id" : ${product.product_id}
+			"object_id" : ${product.productDetail.product_id}
 		};
 		$.ajax({
 			type : 'POST',
@@ -491,7 +491,7 @@ $(document).ready(function(){
 		var replyContent = {
 			
 			"rcategory_id" : 2,
-			"object_id" : ${product.product_id},
+			"object_id" : ${product.productDetail.product_id},
 			"writer" : writer,
 			"title" : "product",
 			"content" : content,
@@ -525,7 +525,7 @@ $(document).ready(function(){
 					var user_id = $(event.target).parent().parent().parent().find('.product-reply-user-id').val();
 					var replyContent = {
 							"rcategory_id" : 2,
-							"object_id" : ${product.product_id},
+							"object_id" : ${product.productDetail.product_id},
 							"reply_id" : reply_id,
 							"user_id" : user_id
 						}
@@ -590,7 +590,7 @@ $(document).ready(function(){
 					var replyContent = {
 						"reply_id" : reply_id,
 						"rcategory_id" : 2,
-						"object_id" : ${product.product_id},
+						"object_id" : ${product.productDetail.product_id},
 						"writer" : writer,
 						"title" : "product",
 						"content" : content,

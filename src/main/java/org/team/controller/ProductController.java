@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.team.domain.Criteria;
 import org.team.domain.PageDTO;
+import org.team.domain.ProductDetailResponse;
 import org.team.domain.ProductVO;
 import org.team.service.ProductService;
 
@@ -95,12 +96,15 @@ public class ProductController {
 
 	@GetMapping(value = "/productDetail")
 	public void detail(@RequestParam(name = "id") int product_id, Model model) {
-		ProductVO vo = service.detail(product_id);
+		ProductVO pVo = service.detail(product_id);
 		
+		ProductDetailResponse response = new ProductDetailResponse();
+		response.setProductDetail(pVo);
+		response.setSizeTotal(service.sizeTotal(pVo));
+		response.setColorTotal(service.colorTotal(pVo));
+		model.addAttribute("product", response);
 		
-		model.addAttribute("product", vo);
-		
-		log.info("상품 디테일 페이지 : " + vo);
+		log.info("상품 디테일 페이지 : " + response);
 	}
 
 }
