@@ -1,23 +1,16 @@
 package org.team.controller;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 import org.team.domain.Criteria;
 import org.team.domain.PageDTO;
@@ -124,7 +117,7 @@ public class AdminProductController {
 	    log.info("file: " + file);
 
 	    if (!file.isEmpty()) {
-	        String uploadFolder = "C:/Users/Admin/Desktop/1st_project/src/main/webapp/resources/images/products/" + pVo.getCategory_id();
+	        String uploadFolder = "D:/sourceTree/project_1/src/main/webapp/resources/images/products" + pVo.getCategory_id();
 	        File saveFile = new File(uploadFolder, file.getOriginalFilename());
 
 	        try {

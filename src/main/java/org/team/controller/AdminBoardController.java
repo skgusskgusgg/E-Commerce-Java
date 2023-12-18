@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.team.board.BoardService;
 import org.team.board.BoardVO;
+import org.team.member.MemberVO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -69,9 +72,10 @@ public class AdminBoardController {
 	}
 
 	@PostMapping("/boardInsert")
-	public String boardInsert(BoardVO bVO, Model model, @RequestParam("files") MultipartFile[] files) throws Exception {
+	public String boardInsert(BoardVO bVO, Model model, @RequestParam("files") MultipartFile[] files, HttpSession session) throws Exception {
 		log.info("boardInsert");
-
+		MemberVO memberVO = (MemberVO) session.getAttribute("mVO");
+		log.info(memberVO);
 		StringBuilder imgPaths = new StringBuilder();
 
 		for (int i = 0; i < files.length; i++) {
@@ -94,7 +98,8 @@ public class AdminBoardController {
 		}
 
 		bVO.setImg(imgPaths.toString());
-
+		bVO.setUser_id(memberVO.getId());
+		log.info("야:"+memberVO.getId());
 		bs.boardInsert(bVO);
 		return "redirect:/admin/board/boardListPage?page=1";
 	}

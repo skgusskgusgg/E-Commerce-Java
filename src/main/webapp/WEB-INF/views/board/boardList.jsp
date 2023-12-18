@@ -85,7 +85,7 @@
 										href="/board/boardDetail?board_id=${board.board_id}"
 										class="cl13 hov-cl1 trans-04"><c:out
 												value="${board.title}" /></a></td>
-									<td class="column-4"><c:out value="${board.user_id}" /></td>
+									<td class="column-4"><c:out value="${board.user_name}" /></td>
 									<td class="column-5"><c:out value="${board.updatedate}" /></td>
 									<td class="column-6"><c:out value="${board.view}" /></td>
 									<c:if test="${loginOK == 99}">

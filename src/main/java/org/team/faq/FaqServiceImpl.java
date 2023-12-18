@@ -53,21 +53,46 @@ public class FaqServiceImpl implements FaqService {
 		return FAQMapper.faqCount();
 	}
 
+	@Override
 	// 목록 + 페이징
 	public List<FaqBoardVO> faqListPage(int displayPost, int postNum) {
 		return FAQMapper.faqListPage(displayPost, postNum);
 	}
-	
+
+	@Override
 	public int updateViewCount(int faqId) {
 		return FAQMapper.updateViewCount(faqId);
 	}
-	
+
+	@Override
 	public void faqReplyInsert(FaqReplyVO rVO) {
 		FAQMapper.faqReplyInsert(rVO);
-		
+
 	}
-	
+
+	@Override
 	public List<FaqReplyVO> faqReplyList(int faqId) {
 		return FAQMapper.faqReplyList(faqId);
 	}
+
+	@Override
+	public void faqReplyDelete(int reply_no) {
+		FAQMapper.faqReplyDelete(reply_no);
+	}
+
+	@Override
+	public void faqReplyUpdate(int reply_no, String comment) {
+		FAQMapper.faqReplyUpdate(reply_no, comment);
+	}
+
+	@Override
+	public int getFaqReplyCount(int faqId) {
+		return FAQMapper.getFaqReplyCount(faqId);
+	}
+
+	@Override
+    public List<FaqReplyVO> getFaqRepliesByPage(int faqId, int start, int pageSize) {
+        return FAQMapper.getFaqRepliesByPage(faqId, start, pageSize);
+    }
+
 }

@@ -8,7 +8,7 @@
 <!-- Title page -->
 <section class="bg-img1 txt-center p-lr-15 p-tb-92"
 	style="background-image: url('/resources/images/bg-02.jpg');">
-	<h2 class="ltext-105 cl0 txt-center">Help&FAQs</h2>
+	<h2 class="ltext-105 cl0 txt-center">Help</h2>
 </section>
 <style>
 .new-button {
@@ -100,7 +100,7 @@
 											href="/faq/faqDetail?faqId=${FAQ.faqId}"
 											class="cl13 hov-cl1 trans-04"><c:out
 													value="${FAQ.faqTitle}" /></a></td>
-										<td class="column-4"><c:out value="${FAQ.user_id}" /></td>
+										<td class="column-4"><c:out value="${FAQ.user_name}" /></td>
 										<td class="column-5"><c:out value="${FAQ.updateDate}" /></td>
 										<td class="column-6"><c:out value="${FAQ.viewCount}" /></td>
 										<c:if test="${loginOK == 99}">
