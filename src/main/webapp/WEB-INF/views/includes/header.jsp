@@ -128,10 +128,10 @@
 									<i class="zmdi zmdi-search"></i>
 								</div>
 
-								<a href="/cart/cartList"
-									class="data-noti-cart icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti "
+								<span
+									class="goCartList pointer data-noti-cart icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti "
 									data-notify="0"> <i class="zmdi zmdi-shopping-cart"></i>
-								</a>
+								</span>
 								<!-- js-wish-cart -->
 								<a
 									class="data-noti-wish icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-cart icon-header-noti"
@@ -159,10 +159,10 @@
 
 
 
-						<a href="/cart/cartList"
-							class="data-noti-cart icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti "
+						<span
+							class="goCartList pointer data-noti-cart icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti "
 							data-notify="0"> <i class="zmdi zmdi-shopping-cart"></i>
-						</a>
+						</span>
 						<!-- js-wish-cart -->
 						<a
 							class="data-noti-wish icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-cart icon-header-noti"
@@ -362,10 +362,10 @@
 										</div>
 
 
-										<a href="/cart/cartList"
-											class="data-noti-cart icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti "
+										<span
+											class="goCartList pointer data-noti-cart icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti "
 											data-notify="0"> <i class="zmdi zmdi-shopping-cart"></i>
-										</a>
+										</span>
 										<!-- js-wish-cart -->
 										<a
 											class="data-noti-wish icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-cart icon-header-noti"
@@ -404,10 +404,10 @@
 								</div>
 
 
-								<a href="/cart/cartList"
-									class="data-noti-cart icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti "
+								<span
+									class="goCartList pointer data-noti-cart icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti "
 									data-notify="0"> <i class="zmdi zmdi-shopping-cart"></i>
-								</a>
+								</span>
 								<!-- js-wish-cart -->
 								<a
 									class="data-noti-wish icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-cart icon-header-noti"
@@ -605,4 +605,24 @@
 				return deleteVal;
 			}
 		}
+	</script>
+	<script>
+	$('.goCartList').on('click',function(){
+		if(${loginOK == 1 }||${loginOK == 99 }){
+			window.location.href = "/cart/cartList";
+		}
+		else{
+			Swal.fire({
+				  title: "Please login",
+				  showConfirmButton: true,
+				  confirmButtonText: "OK"
+				}).then((result) => {
+
+				  if (result.isConfirmed) {
+					  $('.js-show-modal-login').trigger("click");
+				  }
+				})
+		}
+	})
+</script>
 	</script>
