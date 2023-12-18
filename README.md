@@ -16,7 +16,7 @@
 <img src="https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=HTML5&logoColor=white"/> <img src="https://img.shields.io/badge/CSS-1572B6?style=flat-square&logo=CSS3&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=white"/>
 <img src="https://img.shields.io/badge/jQuery-0769AD?style=flat-square&logo=jQuery&logoColor=white"/>
 # 서비스 소개
-- 메인 페이지에서 가장 많이 팔린 상품을 우선순위로 보여주어 유저들에게 인기있는 상품에 쉽게 접근할 수 있습니다.
+- 메인 페이지에서 가장 많이 팔린 상품을 우선순위로 보여주어 유저들이 인기있는 상품에 쉽게 접근할 수 있습니다.
   
 - 상품페이지에서 유저들이 원하는 카테고리별로 편리하게 접근할 수있습니다.
   
