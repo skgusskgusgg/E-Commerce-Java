@@ -60,7 +60,7 @@
 				<div class="p-r-0-lg">
 					<!-- item Q&A -->
 					<div class="p-t-55">
-						<h3 class="mtext-112 cl2 p-b-10"><button class="p-r-25">FAQs</button>&<button class="p-l-25">Help</button></h3>
+						<h1 class="ltext-109 cl2 ">Help</h1>
 						<hr class="bor21">
 						<form method="post" action="faqdeleteSelected2">
 							<table class="table-content-board">
