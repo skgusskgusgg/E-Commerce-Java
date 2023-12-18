@@ -233,10 +233,10 @@
 							</ul> <span class="arrow-main-menu-m"> <i
 								class="fa fa-angle-right" aria-hidden="true"></i>
 						</span></li>
-						<li class="active-menu"><a href="/qna/qnaList">Board</a>
+						<li class="active-menu"><a href="/board/boardListPage?page=1">Board</a>
 							<ul class="sub-menu-m">
-								<li><a href="/qna/qnaList">Notice</a></li>
-								<li><a href="/faq/faqList">FaQ</a></li>
+								<li><a href="/board/boardListPage?page=1">Notice</a></li>
+								<li><a href="/faq/faqListPage?page=1">Help</a></li>
 							</ul> <span class="arrow-main-menu-m"> <i
 								class="fa fa-angle-right" aria-hidden="true"></i>
 						</span></li>

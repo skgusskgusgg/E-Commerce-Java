@@ -8,17 +8,17 @@
 				<h4 class="stext-301 cl0 p-b-30">Categories</h4>
 
 				<ul>
-					<li class="p-b-10"><a href="#"
-						class="stext-107 cl7 hov-cl1 trans-04"> Women </a></li>
+					<li class="p-b-10"><a href="/product/productList?category_id=0"
+						class="stext-107 cl7 hov-cl1 trans-04"> All </a></li>
 
-					<li class="p-b-10"><a href="#"
-						class="stext-107 cl7 hov-cl1 trans-04"> Men </a></li>
+					<li class="p-b-10"><a href="/product/productList?category_id=1"
+						class="stext-107 cl7 hov-cl1 trans-04"> Outer </a></li>
 
-					<li class="p-b-10"><a href="#"
-						class="stext-107 cl7 hov-cl1 trans-04"> Shoes </a></li>
+					<li class="p-b-10"><a href="/product/productList?category_id=2"
+						class="stext-107 cl7 hov-cl1 trans-04"> Top </a></li>
 
-					<li class="p-b-10"><a href="#"
-						class="stext-107 cl7 hov-cl1 trans-04"> Watches </a></li>
+					<li class="p-b-10"><a href="/product/productList?category_id=3"
+						class="stext-107 cl7 hov-cl1 trans-04"> Pants </a></li>
 				</ul>
 			</div>
 
@@ -26,16 +26,11 @@
 				<h4 class="stext-301 cl0 p-b-30">Help</h4>
 
 				<ul>
-					<li class="p-b-10"><a href="#"
-						class="stext-107 cl7 hov-cl1 trans-04"> Track Order </a></li>
 
-					<li class="p-b-10"><a href="#"
-						class="stext-107 cl7 hov-cl1 trans-04"> Returns </a></li>
+					<li class="p-b-10"><a href="/board/boardListPage?page=1"
+						class="stext-107 cl7 hov-cl1 trans-04"> Notice </a></li>
 
-					<li class="p-b-10"><a href="#"
-						class="stext-107 cl7 hov-cl1 trans-04"> Shipping </a></li>
-
-					<li class="p-b-10"><a href="#"
+					<li class="p-b-10"><a href="/faq/faqList"
 						class="stext-107 cl7 hov-cl1 trans-04"> FAQs </a></li>
 				</ul>
 			</div>
