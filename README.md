@@ -9,7 +9,7 @@
 |---------------------|-------------------|
 |윤찬수                 |search기능<br>cart페이지<br>product review기능<br>payment기능|
 |권나현                 |productList페이지<br>productDetail페이지<br>productDetailModal페이지<br>관리자&일반유저interceptor<br>wishList페이지<br>메인페이지<br>리뷰관리|
-|노솔진                 |로그인기능<br>FAG페이지<br>notice페이지<br>FAQ rivew기능|
+|노솔진                 |로그인기능<br>FAG페이지<br>notice페이지<br>FAQ riview기능|
 |강현규                 |mypage(주문내역기능)<br>회원정보수정<br>배송관리페이지<br>오더관리페이지<br>멤버관리페이지|
 # 기술 스텍
 <img src="https://img.shields.io/badge/Java-3766AB?style=flat-square&logo=OpenJDK&logoColor=white"/> <img src="https://img.shields.io/badge/Spring-6DB33F?style=flat-square&logo=Spring&logoColor=white"/> <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=MySQL&logoColor=white"/>
