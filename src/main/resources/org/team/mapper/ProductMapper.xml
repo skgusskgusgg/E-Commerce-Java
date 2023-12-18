@@ -9,21 +9,25 @@
 				FROM product p1
 				WHERE
 				p1.product_id = (
-				SELECT MIN(p2.product_id)
+				SELECT
+				MIN(p2.product_id)
 				FROM
 				product p2
 				WHERE
-				p2.product_name = p1.product_name
+				p2.product_name =
+				p1.product_name
 				)
 				and product_name
 				like
 				concat('%',
 				#{cri.keyword}, '%')
+				order by p1.product_id desc
 			</when>
 			<otherwise>
 				SELECT
 				p1.product_id, p1.category_id, p1.product_name,
-				p1.price, p1.img,
+				p1.price,
+				p1.img,
 				p1.quantity, p1.sell_count, p1.color_id, p1.size_id
 				FROM
 				product p1
@@ -33,7 +37,8 @@
 				SELECT code_name
 				FROM code
 				WHERE
-				code_id = 'color_id'
+				code_id =
+				'color_id'
 				AND
 				code_category = #{vo.color_id}
 				)
@@ -51,25 +56,28 @@
 				SELECT
 				MIN(product_id)
 				FROM
-				product p2
+				product
+				p2
 				WHERE
 				p2.product_name = p1.product_name
 				)
 				AND p1.price
-				BETWEEN #{row} AND
+				BETWEEN #{row}
+				AND
 				#{high}
 				AND p1.product_name LIKE
 				CONCAT('%',
 				#{cri.keyword}, '%')
+				<if test="sort == 'ASC'">
+					ORDER BY p1.price ASC
+				</if>
+				<if test="sort == 'DESC'">
+					ORDER BY p1.price DESC
+				</if>
 			</otherwise>
 		</choose>
 
-		<if test="sort == 'ASC'">
-			ORDER BY p1.price ASC
-		</if>
-		<if test="sort == 'DESC'">
-			ORDER BY p1.price DESC
-		</if>
+
 		LIMIT #{cri.pageStart}, #{cri.amount}
 	</select>
 	<select id="selectList" resultType="org.team.domain.ProductVO">
@@ -161,37 +169,37 @@
 		product p2
 		WHERE
 		p2.product_name = p1.product_name
-		)       AND p1.product_id = (
-            SELECT MIN(p2.product_id)
-            FROM product p2
-            WHERE p2.product_name = p1.product_name
-        )
-        AND (
-            (
-                #{vo.color_id} IS NULL OR #{vo.color_id} = '99'
-            )
-            OR (
-                p1.color_id = (
-                    SELECT code_name
-                    FROM code
-                    WHERE code_id = 'color_id'
-                    AND code_category = #{vo.category_id}
-                )
-            )
-        )
-        AND (
-            (
-                #{vo.size_id} IS NULL OR #{vo.size_id} = '99'
-            )
-            OR (
-                p1.size_id = (
-                    SELECT code_name
-                    FROM code
-                    WHERE code_id = 'size_id'
-                    AND code_category = #{vo.category_id}
-                )
-            )
-        )
+		) AND p1.product_id = (
+		SELECT MIN(p2.product_id)
+		FROM product p2
+		WHERE p2.product_name = p1.product_name
+		)
+		AND (
+		(
+		#{vo.color_id} IS NULL OR #{vo.color_id} = '99'
+		)
+		OR (
+		p1.color_id = (
+		SELECT code_name
+		FROM code
+		WHERE code_id = 'color_id'
+		AND code_category = #{vo.category_id}
+		)
+		)
+		)
+		AND (
+		(
+		#{vo.size_id} IS NULL OR #{vo.size_id} = '99'
+		)
+		OR (
+		p1.size_id = (
+		SELECT code_name
+		FROM code
+		WHERE code_id = 'size_id'
+		AND code_category = #{vo.category_id}
+		)
+		)
+		)
 	</select>
 	<select id="selectTotal" resultType="int">
     <![CDATA[
@@ -260,7 +268,7 @@
 	</insert>
 
 	<update id="updateWish"
-			parameterType="org.team.domain.ProductVO">
+		parameterType="org.team.domain.ProductVO">
 		update wish set `count` = `count` + #{num}
 		where
 		product_id = (SELECT product_id
