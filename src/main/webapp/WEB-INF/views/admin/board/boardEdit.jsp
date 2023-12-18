@@ -19,7 +19,7 @@
 								<span class="cl4">No.&nbsp</span> ${boardDetail.board_id} <span
 								class="cl12 m-l-4 m-r-6">|</span>
 						</span> <span> <span class="cl4">Writer&nbsp</span>
-								${boardDetail.user_id} <span class="cl12 m-l-4 m-r-6">|</span>
+								${boardDetail.user_name} <span class="cl12 m-l-4 m-r-6">|</span>
 						</span> <span> <span class="cl4">Date&nbsp</span>
 								${boardDetail.updatedate} <span class="cl12 m-l-4 m-r-6">|</span>
 						</span> <span> <span class="cl4">Views&nbsp</span>

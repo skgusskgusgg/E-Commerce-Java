@@ -22,4 +22,14 @@ public interface FaqService {
 	public void faqReplyInsert(FaqReplyVO rVO);
 	
 	public List<FaqReplyVO> faqReplyList(int faqId);
+	
+	public void faqReplyDelete(int reply_no);
+	
+	public void faqReplyUpdate(int reply_no, String comment);
+	
+	int getFaqReplyCount(int faqId);
+	
+	List<FaqReplyVO> getFaqRepliesByPage(int faqId, int start, int pageSize);
+
+
 }

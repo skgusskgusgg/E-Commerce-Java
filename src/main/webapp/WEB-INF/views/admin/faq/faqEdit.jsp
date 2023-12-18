@@ -7,7 +7,7 @@
 <!-- Title page -->
 <section class="bg-img1 txt-center p-lr-15 p-tb-92"
 	style="background-image: url('/resources/images/bg-02.jpg');">
-	<h2 class="ltext-105 cl0 txt-center">Help&FAQs</h2>
+	<h2 class="ltext-105 cl0 txt-center">Help</h2>
 </section>
 <style>
 .input-file-button {
@@ -29,7 +29,7 @@
 								<span class="cl4">No.&nbsp</span> ${faqDetail.faqId} <span
 								class="cl12 m-l-4 m-r-6">|</span>
 						</span> <span> <span class="cl4">Writer&nbsp</span>
-								${faqDetail.user_id} <span class="cl12 m-l-4 m-r-6">|</span>
+								${faqDetail.user_name} <span class="cl12 m-l-4 m-r-6">|</span>
 						</span> <span> <span class="cl4">Date&nbsp</span>
 								${faqDetail.updateDate} <span class="cl12 m-l-4 m-r-6">|</span>
 						</span> <span> <span class="cl4">Views&nbsp</span>

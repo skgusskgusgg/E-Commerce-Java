@@ -4,7 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.team.faq.FaqBoardVO;
 import org.team.faq.FaqReplyVO;
 import org.team.faq.FaqService;
+import org.team.member.MemberVO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -49,22 +53,65 @@ public class FaqController {
 	}
 
 	@GetMapping("/faqDetail")
-	public void faqDetail(@RequestParam("faqId") int faqId, Model model) throws Exception {
+	public void faqDetail(@RequestParam("faqId") int faqId,
+			@RequestParam(name = "replyPage", defaultValue = "1") int replyPage, Model model) {
 		log.info("faqDetail");
+
 		FaqBoardVO faqVO = faqService.faqDetail(faqId);
 
 		if (faqVO.getImg() != null) {
-			List<String> imgFileNames = new ArrayList<>();
-			imgFileNames.addAll(Arrays.asList(faqVO.getImg().toString().split("/")));
+			List<String> imgFileNames = Arrays.asList(faqVO.getImg().toString().split("/"));
 			log.info(imgFileNames);
-			faqVO.setImgFiles(imgFileNames);
+			faqVO.setImgFiles(new ArrayList<>(imgFileNames));
 			log.info("==========");
 		}
-		List<FaqReplyVO> reply = faqService.faqReplyList(faqId);
+
+		// 댓글 페이징
+		int replyCount = faqService.getFaqReplyCount(faqId);
+		int replyPageSize = 5;
+		int replyButtonCount = 5;
+
+		// replyPageNum 계산
+		int replyPageNum = (int) Math.ceil((double) replyCount / replyPageSize);
+
+		// replyEndPageNum 계산
+		int replyEndPageNum = calculateEndPageNum(replyPage, replyCount, replyButtonCount);
+
+		// replyStartPageNum 계산
+		int replyStartPageNum = replyEndPageNum - (replyButtonCount - 1);
+
+		// 첫 번째 페이지 처리
+		if (replyStartPageNum <= 0) {
+			replyStartPageNum = 1;
+		}
+
+		int endPageNum_tmp = (int) (Math.ceil((double) replyCount / (double) replyButtonCount));
+
+		// replyEndPageNum이 실제 끝 페이지를 초과하지 않도록 보정
+		replyEndPageNum = Math.min(replyEndPageNum, endPageNum_tmp);
+
+		List<FaqReplyVO> reply = Collections.emptyList();
+
+		// 댓글이 있는 경우에만 조회
+		if (replyCount > 0) {
+			reply = faqService.getFaqRepliesByPage(faqId, (replyPage - 1) * replyPageSize, replyPageSize);
+		}
+
+		// 서비스 계층에서 뷰 카운트 업데이트 처리
 		faqService.updateViewCount(faqId);
 
 		model.addAttribute("faqDetail", faqVO);
 		model.addAttribute("reply", reply);
+		model.addAttribute("replyPageNum", replyPageNum);
+		model.addAttribute("replyCurrentPage", replyPage);
+		model.addAttribute("replyStartPageNum", replyStartPageNum);
+		model.addAttribute("replyEndPageNum", replyEndPageNum);
+		model.addAttribute("replySelect", replyPage);
+
+	}
+
+	private int calculateEndPageNum(int replyPage, int replyCount, int replyButtonCount) {
+		return (int) (Math.ceil((double) replyPage / (double) replyButtonCount) * replyButtonCount);
 	}
 
 	@GetMapping("/writeFaq")
@@ -73,10 +120,10 @@ public class FaqController {
 	}
 
 	@PostMapping("/faqInsert")
-	public String faqInsert(FaqBoardVO fVO, Model model, @RequestParam("files") MultipartFile[] files)
-			throws Exception {
+	public String faqInsert(FaqBoardVO fVO, Model model, @RequestParam("files") MultipartFile[] files,
+			HttpSession session) throws Exception {
 		log.info("FAQ Insert");
-
+		MemberVO memberVO = (MemberVO) session.getAttribute("mVO");
 		StringBuilder imgPaths = new StringBuilder();
 		log.info("성공");
 
@@ -101,7 +148,7 @@ public class FaqController {
 		}
 
 		fVO.setImg(imgPaths.toString());
-
+		fVO.setUser_id(memberVO.getId());
 		faqService.faqInsert(fVO);
 
 		return "redirect:/faq/faqListPage?page=1";
@@ -131,50 +178,49 @@ public class FaqController {
 
 	@PostMapping("/faqEdit")
 	public String postfaqEdit(@RequestParam(value = "files", required = false) List<MultipartFile> files,
-	                          @RequestParam("originalImg_faq") String originalImg_faq,
-	                          @ModelAttribute("faqDetail") FaqBoardVO fVO) throws IOException {
-	    System.out.println("POST Edit");
-	    log.info(fVO);
-	    StringBuilder imgPaths = new StringBuilder();
-	    String temp_img = originalImg_faq;
+			@RequestParam("originalImg_faq") String originalImg_faq, @ModelAttribute("faqDetail") FaqBoardVO fVO)
+			throws IOException {
+		System.out.println("POST Edit");
+		log.info(fVO);
+		StringBuilder imgPaths = new StringBuilder();
+		String temp_img = originalImg_faq;
 
-	    if (files != null && !files.isEmpty()) {
-	        for (MultipartFile imgFile : files) {
-	            if (imgFile != null && !imgFile.isEmpty()) {
-	                String fileName = "img_" + imgFile.getOriginalFilename(); // 이미지 파일 이름 생성
+		if (files != null && !files.isEmpty()) {
+			for (MultipartFile imgFile : files) {
+				if (imgFile != null && !imgFile.isEmpty()) {
+					String fileName = "img_" + imgFile.getOriginalFilename(); // 이미지 파일 이름 생성
 
-	                try {
-	                    imgFile.transferTo(new File(uploadDir + fileName));
-	                    System.out.println("복사 성공: " + fileName);
+					try {
+						imgFile.transferTo(new File(uploadDir + fileName));
+						System.out.println("복사 성공: " + fileName);
 
-	                    imgPaths.append(fileName).append("/");
-	                } catch (IOException e) {
-	                    e.printStackTrace();
-	                    // 예외 처리 필요
-	                }
-	                fVO.setImg(imgPaths.toString());
-	                log.info(fVO.getImg());
-	    	        log.info("A");
-	            }	else {
-	            	fVO.setImg(temp_img);
-	            	log.info(fVO.getImg());
-	    	        log.info("B: temp_img = " + temp_img); // 디버깅용 로그 추가
-	            }
-   
-	        }
-	    }
-	    
+						imgPaths.append(fileName).append("/");
+					} catch (IOException e) {
+						e.printStackTrace();
+						// 예외 처리 필요
+					}
+					fVO.setImg(imgPaths.toString());
+					log.info(fVO.getImg());
+					log.info("A");
+				} else {
+					fVO.setImg(temp_img);
+					log.info(fVO.getImg());
+					log.info("B: temp_img = " + temp_img); // 디버깅용 로그 추가
+				}
 
-	    if (fVO.getImg() != null) {
-	        List<String> imgFileNames = new ArrayList<>();
-	        imgFileNames.addAll(Arrays.asList(fVO.getImg().toString().split("/")));
-	        log.info(imgFileNames);
-	        fVO.setImgFiles(imgFileNames);
-	        log.info("==========");
-	    }
+			}
+		}
 
-	    faqService.faqEdit(fVO);
-	    return "redirect:/faq/faqDetail?faqId=" + fVO.getFaqId();
+		if (fVO.getImg() != null) {
+			List<String> imgFileNames = new ArrayList<>();
+			imgFileNames.addAll(Arrays.asList(fVO.getImg().toString().split("/")));
+			log.info(imgFileNames);
+			fVO.setImgFiles(imgFileNames);
+			log.info("==========");
+		}
+
+		faqService.faqEdit(fVO);
+		return "redirect:/faq/faqDetail?faqId=" + fVO.getFaqId();
 	}
 
 	@GetMapping("/faqDelete")
@@ -204,7 +250,6 @@ public class FaqController {
 
 		// 하단 페이징 번호 ('게시물 총개수 % 한페이지에 출력할 게시물 수'의 올림)
 		int pageNum = (int) Math.ceil((double) count / postNum);
-		log.info(pageNum);
 
 		// 출력할 게시물
 		int displayPost = (page - 1) * postNum;
@@ -258,15 +303,32 @@ public class FaqController {
 		return "/faq/faqList"; // 뷰 페이지의 이름을 반환
 	}
 
-	@PostMapping("/faqDetail")
-	public String faqInsert(FaqReplyVO rVO, @RequestParam("comment") String comment,
-			@RequestParam("faq_number") int faqNo) throws Exception {
+	@PostMapping("/faqReplyInsert")
+	public String faqReplyInsert(FaqReplyVO rVO, @RequestParam("comment") String comment,
+			@RequestParam("faq_number") int faqNo, HttpSession session) throws Exception {
 		log.info("faq Reply");
 
+		MemberVO memberVO = (MemberVO) session.getAttribute("mVO");
+		if (memberVO != null) {
+			rVO.setUser_id(memberVO.getId());
+		}
 		rVO.setFaqId(faqNo);
 		rVO.setComment(comment);
 		faqService.faqReplyInsert(rVO);
 
+		return "redirect:/faq/faqDetail?faqId=" + rVO.getFaqId();
+	}
+
+	@PostMapping("/faqReplyDelete")
+	public String faqReplyDelete(@RequestParam("reply_no") int reply_no, FaqReplyVO rVO) throws Exception {
+		faqService.faqReplyDelete(reply_no);
+		return "redirect:/faq/faqDetail?faqId=" + rVO.getFaqId();
+	}
+
+	@PostMapping("/faqReplyUpdate")
+	public String faqReplyUpdate(@RequestParam("reply_no") int reply_no, @RequestParam("comment") String comment,
+			FaqReplyVO rVO) {
+		faqService.faqReplyUpdate(reply_no, comment);
 		return "redirect:/faq/faqDetail?faqId=" + rVO.getFaqId();
 	}
 }

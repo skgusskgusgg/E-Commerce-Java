@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.team.board.BoardService;
 import org.team.board.BoardVO;
+import org.team.member.MemberVO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -42,7 +45,7 @@ public class BoardController {
 				log.info(list.get(i));
 			}
 		}
-
+		
 		model.addAttribute("list", list);
 	}
 
@@ -69,9 +72,10 @@ public class BoardController {
 	}
 
 	@PostMapping("/boardInsert")
-	public String boardInsert(BoardVO bVO, Model model, @RequestParam("files") MultipartFile[] files) throws Exception {
+	public String boardInsert(BoardVO bVO, Model model, @RequestParam("files") MultipartFile[] files, HttpSession session) throws Exception {
 		log.info("boardInsert");
-
+		MemberVO memberVO = (MemberVO) session.getAttribute("mVO");
+		log.info(memberVO);
 		StringBuilder imgPaths = new StringBuilder();
 
 		for (int i = 0; i < files.length; i++) {
@@ -92,9 +96,10 @@ public class BoardController {
 				// 예외 처리 필요
 			}
 		}
-
+		
 		bVO.setImg(imgPaths.toString());
-
+		bVO.setUser_id(memberVO.getId());
+		log.info("야:"+memberVO.getId());
 		bs.boardInsert(bVO);
 		return "redirect:/board/boardListPage?page=1";
 	}
@@ -183,7 +188,7 @@ public class BoardController {
 	}
 
 	@GetMapping("/boardListPage")
-	public String boardListPage(@RequestParam(name = "page", defaultValue = "1") int page, Model model)
+	public String boardListPage(@RequestParam(name = "page", defaultValue = "1") int page, Model model, HttpSession session)
 			throws Exception {
 		log.info("boardListPage");
 
@@ -221,7 +226,7 @@ public class BoardController {
 
 		boolean prev = startPageNum == 1 ? false : true;
 		boolean next = endPageNum * pageNum_cnt >= count ? false : true;
-
+		
 		List<BoardVO> list = bs.boardListPage(displayPost, postNum);
 
 		model.addAttribute("list", list);

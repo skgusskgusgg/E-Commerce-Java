@@ -68,7 +68,7 @@
 									<c:when test="${loginOK == 1}">
 
 										<a href="/faq/faqListPage?page=1"
-											class="flex-c-m trans-04 p-lr-25"> 고객센터 & FAQs </a>
+											class="flex-c-m trans-04 p-lr-25"> HELP</a>
 										<a href="/mypage/myPage" class="flex-c-m trans-04 p-lr-25">
 											내 정보 </a>
 										<a href="/logout" class="flex-c-m trans-04 p-lr-25"> 로그아웃
@@ -77,7 +77,7 @@
 									<c:otherwise>
 
 										<a href="/faq/faqListPage?page=1"
-											class="flex-c-m trans-04 p-lr-25"> 고객센터 & FAQs </a>
+											class="flex-c-m trans-04 p-lr-25"> HELP </a>
 
 										<a href="#"
 											class="flex-c-m trans-04 p-lr-25 js-show-modal-login">
@@ -198,7 +198,7 @@
 											안녕하세요 </a>
 
 										<a href="/faq/faqListPage?page=1"
-											class="flex-c-m p-lr-10 trans-04"> 고객센터 & FAQs </a>
+											class="flex-c-m p-lr-10 trans-04"> HELP </a>
 										<a href="/mypage/myPage" class="fflex-c-m p-lr-10 trans-04">
 											내 정보 </a>
 										<a href="/logout" class="flex-c-m p-lr-10 trans-04"> 로그아웃
@@ -208,7 +208,7 @@
 									<c:otherwise>
 
 										<a href="/faq/faqListPage?page=1"
-											class="flex-c-m p-lr-10 trans-04"> 고객센터 & FAQs </a>
+											class="flex-c-m p-lr-10 trans-04"> HELP </a>
 
 										<a href="#"
 											class="flex-c-m p-lr-10 trans-04 js-show-modal-login">
@@ -276,7 +276,7 @@
 
 									<c:when test="${loginOK == 99 }">
 										<a href="/admin/faq/faqListPage?page=1"
-											class="flex-c-m trans-04 p-lr-25"> 고객센터 & FAQs 관리 </a>
+											class="flex-c-m trans-04 p-lr-25"> HELP </a>
 
 										<a href="/admin/memberManagement"
 											class="flex-c-m trans-04 p-lr-25"> 관리자 페이지 </a>
@@ -287,7 +287,7 @@
 									<c:otherwise>
 
 										<a href="/faq/faqListPage?page=1"
-											class="flex-c-m trans-04 p-lr-25"> 고객센터 & FAQs </a>
+											class="flex-c-m trans-04 p-lr-25"> HELP </a>
 
 										<a href="#"
 											class="flex-c-m trans-04 p-lr-25 js-show-modal-login">
@@ -442,7 +442,7 @@
 											${mVO.user_name}님 안녕하세요 </a>
 
 										<a href="/admin/faq/faqListPage?page=1"
-											class="flex-c-m p-lr-10 trans-04"> 고객센터 & FAQs 관리 </a>
+											class="flex-c-m p-lr-10 trans-04"> HELP </a>
 
 										<a href="/admin/memberManagement"
 											class="flex-c-m p-lr-10 trans-04"> 관리자 페이지 </a>
@@ -452,7 +452,7 @@
 									<c:otherwise>
 
 										<a href="/faq/faqListPage?page=1"
-											class="flex-c-m p-lr-10 trans-04"> 고객센터 & FAQs </a>
+											class="flex-c-m p-lr-10 trans-04"> HELP </a>
 
 										<a href="#"
 											class="flex-c-m p-lr-10 trans-04 js-show-modal-login">

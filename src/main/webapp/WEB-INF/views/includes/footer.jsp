@@ -156,17 +156,6 @@
 
 												<div
 													class="form-row d-flex justify-content-between mt-4 mb-2">
-													<div class="form-group">
-														<div class="form-check ml-2">
-															<input class="form-check-input" type="checkbox"
-																id="basic_checkbox_1"> <label
-																class="form-check-label" for="basic_checkbox_1">
-																자동 로그인 </label>
-														</div>
-													</div>
-													<div class="form-group">
-														<a href="page-forgot-password.html">비밀번호 찾기</a>
-													</div>
 												</div>
 												<div class="text-center">
 													<button type="submit" class="btn btn-primary btn-block"
@@ -406,7 +395,7 @@ function login() {
 </script>
 <script>
 	function loginCheck_help() {
-		var mVO = '<%= session.getAttribute("mVO") %>';
+		var mVO = <%= session.getAttribute("mVO") %>;
 		if (mVO === null) {
 			alert("로그인을 해주세요");
 			return false;

@@ -2,54 +2,115 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.rog//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.team.mapper.FaqBoardMapper">
-<!-- 목록 조회  -->
-<select id="getList" resultType="org.team.faq.FaqBoardVO">
-	select * from faq order by faqId desc
-</select>
+	<!-- 목록 조회 -->
+	<select id="getList" resultType="org.team.faq.FaqBoardVO">
+		select * from faq order by faqId
+		desc
+	</select>
 
-<!-- 새 글 쓰기 -->
-<insert id="faqInsert">
-	insert into faq(faqTitle, faqContents, img) 
-	values (#{faqTitle}, #{faqContents}, #{img})
-</insert>
+	<!-- 새 글 쓰기 -->
+	<insert id="faqInsert">
+		insert into faq(faqTitle, faqContents, img, user_id)
+		values (#{faqTitle}, #{faqContents}, #{img}, #{user_id})
+	</insert>
 
-<!-- 상세보기  -->
-<select id="faqDetail" parameterType="int" resultType="org.team.faq.FaqBoardVO">
-	select * from faq where faqId = #{faqId}
-</select>
+	<!-- 상세보기 -->
+	<select id="faqDetail" parameterType="int"
+		resultType="org.team.faq.FaqBoardVO">
+		SELECT faq.*, member.user_name
+		FROM faq
+		JOIN member ON
+		faq.user_id =
+		member.id where faqId = #{faqId}
+	</select>
 
-<!-- 수정  -->
-<update id="faqEdit" parameterType="org.team.faq.FaqBoardVO">
-	update faq set faqTitle = #{faqTitle}, faqContents = #{faqContents}, img = #{img}
-	where faqId = #{faqId}
-</update>
+	<!-- 수정 -->
+	<update id="faqEdit" parameterType="org.team.faq.FaqBoardVO">
+		update faq set faqTitle =
+		#{faqTitle}, faqContents = #{faqContents}, img =
+		#{img}
+		where faqId =
+		#{faqId}
+	</update>
 
-<!-- 삭제  -->
-<delete id="faqDelete" parameterType="int">
-	delete from faq where faqID = #{faqID}
-</delete>
+	<!-- 삭제 -->
+	<delete id="faqDelete" parameterType="int">
+		delete from faq where faqID
+		= #{faqID}
+	</delete>
 
-<!-- 게시물 총 개수 구하기 -->
-<select id="faqCount" resultType="int">
-	select count(faqId) from faq
-</select>
+	<!-- 게시물 총 개수 구하기 -->
+	<select id="faqCount" resultType="int">
+		select count(faqId) from faq
+	</select>
 
-<!-- 목록 + 페이징 -->
-<select id="faqListPage" parameterType="hashMap" resultType="org.team.faq.FaqBoardVO">
-	select * from faq order by faqId desc limit #{displayPost}, #{postNum}
-</select>
+	<!-- 목록 + 페이징 -->
+	<select id="faqListPage" parameterType="hashMap"
+		resultType="org.team.faq.FaqBoardVO">
+		SELECT faq.*, member.user_name
+		FROM faq
+		JOIN member ON
+		faq.user_id =
+		member.id
+		order by faqId desc limit #{displayPost},
+		#{postNum}
+	</select>
 
-<!-- 조회수 증가 -->
-<update id="updateViewCount">
-	update faq set viewCount = viewCount + 1 where faqId = ${faqId}
-</update> 
+	<!-- 조회수 증가 -->
+	<update id="updateViewCount">
+		update faq set viewCount = viewCount + 1 where faqId
+		= ${faqId}
+	</update>
 
-<insert id="faqReplyInsert">
-	insert into faq_reply (comment, faqId) 
-	values (#{comment}, #{faqId})
-</insert>
+	<!-- 댓글 추가 -->
+	<insert id="faqReplyInsert">
+		insert into faq_reply (comment, faqId, user_id)
+		values (#{comment}, #{faqId}, #{user_id})
+	</insert>
 
-<select id="faqReplyList" resultType="org.team.faq.FaqReplyVO">
-	select * from faq_reply where faqId = #{faqId} order by wDate 
-</select>
+	<!-- 게시물 번호 당 댓글 리스트 -->
+	<select id="faqReplyList" parameterType="hashMap"
+		resultType="org.team.faq.FaqReplyVO">
+		SELECT faq_reply.*, member.user_name
+		FROM faq_reply
+		JOIN
+		member ON
+		faq_reply.user_id = member.id
+		where faqId =
+		#{faqId} order by
+		wDate
+	</select>
+
+	<!-- 댓글 삭제 -->
+	<delete id="faqReplyDelete" parameterType="int">
+		delete from faq_reply
+		where reply_no
+		= #{reply_no}
+	</delete>
+
+	<!-- 댓글 수정 -->
+	<update id="faqReplyUpdate" parameterType="map">
+		UPDATE faq_reply
+		SET
+		comment = #{comment}
+		WHERE reply_no = #{reply_no}
+	</update>
+
+	<!-- FAQ 댓글 개수 조회 -->
+	<select id="getFaqReplyCount" parameterType="int"
+		resultType="int">
+		SELECT COUNT(*) FROM faq_reply WHERE faqId = #{faqId}
+	</select>
+
+	<!-- FAQ 특정 페이지의 댓글 목록 조회 -->
+	<select id="getFaqRepliesByPage"
+		resultType="org.team.faq.FaqReplyVO">
+		SELECT faq_reply.*, member.user_name
+        FROM faq_reply
+        JOIN member ON faq_reply.user_id = member.id
+        WHERE faq_reply.faqId = #{faqId}
+        ORDER BY faq_reply.wDate DESC
+        LIMIT #{start}, #{pageSize}
+	</select>
+
 </mapper>

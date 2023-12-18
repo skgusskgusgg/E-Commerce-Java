@@ -6,9 +6,10 @@ import lombok.Data;
 public class FaqReplyVO {
 	private String reply_no;
 	private int faqId;
-	private String user_id;
+	private int user_id;
 	private String comment;
 	private String wDate;
+	private String user_name;
 	public String getwDate() {
 		return wDate;
 	}
