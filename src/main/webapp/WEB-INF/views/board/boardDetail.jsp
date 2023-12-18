@@ -38,19 +38,6 @@
 									href="/board/boardListPage?page=1"> 목록 </a>
 							</span>
 						</span> 
-						<c:if test="${mVO.id != null}">
-						<span class="m-l-8"> <span class="cl4"> <a
-									class="flex-c-m stext-101 cl5 size-127 bg2 bor18 hov-btn3 p-lr-15 trans-04"
-									href="/board/boardEdit?board_id=${boardDetail.board_id}"
-									onclick="return loginCheck_help()"> 수정 </a>
-							</span>
-						</span> <span class="m-l-8"> <span class="cl4"> <a
-									class="flex-c-m stext-101 cl5 size-127 bg2 bor18 hov-btn3 p-lr-15 trans-04"
-									href="/board/boardDelete?board_id=${boardDetail.board_id}"
-									onclick="return toDelete()"> 삭제 </a>
-							</span>
-						</span>
-						</c:if>
 						</span>
 
 						<h4 class="ltext-109 cl2 p-b-28">${boardDetail.title}</h4>
