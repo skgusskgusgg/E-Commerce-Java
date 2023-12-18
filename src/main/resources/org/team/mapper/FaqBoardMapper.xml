@@ -35,8 +35,8 @@
 
 	<!-- 삭제 -->
 	<delete id="faqDelete" parameterType="int">
-		delete from faq where faqID
-		= #{faqID}
+		delete from faq where faqId
+		= #{faqId}
 	</delete>
 
 	<!-- 게시물 총 개수 구하기 -->
