@@ -1,6 +1,6 @@
 <img src="https://github.com/skgusskgusgg/1st_project/assets/92068041/eca23aa7-e0d0-469b-ad8e-8dde0abcfbcf">
 
-- 부트 스트랩을 이용한 남성 의류를 판매하는 홈페이지 프로젝트입니다.
+- 남성 의류를 판매 사이트인 E-Commerce프로젝트입니다.
 
 # 개발 기간
 - 2023/11/15 ~ 2023/12/18 (4주)
