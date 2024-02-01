@@ -1,4 +1,5 @@
-![header](https://capsule-render.vercel.app/api?type=waving&color=717fe0&fontColor=fff&height=300&section=header&text=Ecommerce-Project%20&fontSize=80)
+<img src="https://github.com/skgusskgusgg/1st_project/assets/92068041/eca23aa7-e0d0-469b-ad8e-8dde0abcfbcf">
+
 - 부트 스트랩을 이용한 남성 의류를 판매하는 홈페이지 프로젝트입니다.
 
 # 개발 기간
@@ -36,6 +37,21 @@
   
 # 협업 툴
 <img src="https://img.shields.io/badge/WBS-00AC47?style=flat-square&logo=Wbs&logoColor=white"/> <img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/>
+
+
+# ERD
+<img src="https://github.com/skgusskgusgg/1st_project/assets/92068041/ee42a251-9587-47d5-afe4-6168eed67c62" width="500">
+<img src="https://github.com/skgusskgusgg/1st_project/assets/92068041/59eb1f6f-0d45-4631-a793-c625490c8ba3" width="400">
+
+
+# FLOW CHAR
+ ### Customer Flow 
+<img src="https://github.com/skgusskgusgg/1st_project/assets/92068041/3f97816b-6ebf-40cb-b4ff-a2663c4d04c5" width="600" >
+
+### Admin Flow
+<img src="https://github.com/skgusskgusgg/1st_project/assets/92068041/589899b7-44e7-4441-91c8-1279a17b891d" width="600" >
+
+
 
 # 구현 기능
 ### 상품 리스트 페이지
