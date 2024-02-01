@@ -6,6 +6,9 @@
 - 2023/11/15 ~ 2023/12/18 (4주)
 
 # 개발 인원 및 파트
+
+- Full-stack : 4명
+
 |개발자                 |파트                |
 |---------------------|-------------------|
 |윤찬수                 |search기능<br>cartList페이지<br>product review기능<br>payment기능|
@@ -13,8 +16,8 @@
 |노솔진                 |1:1문의 게시판(CRUD)<br>Notice 게시판(CRUD)<br>로그인 기능 (Modal)<br>1:1문의 게시판 댓글 기능<br>관리자 전용 Notice 게시판<br>관리자 전용 1:1문의 게시판|
 |강현규                 |mypage(주문내역기능)<br>회원정보수정<br>배송관리페이지<br>오더관리페이지<br>멤버관리페이지|
 # 기술 스텍
-<img src="https://img.shields.io/badge/Java-3766AB?style=flat-square&logo=OpenJDK&logoColor=white"/> <img src="https://img.shields.io/badge/Spring-6DB33F?style=flat-square&logo=Spring&logoColor=white"/> <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=MySQL&logoColor=white"/>
-<img src="https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=HTML5&logoColor=white"/> <img src="https://img.shields.io/badge/CSS-1572B6?style=flat-square&logo=CSS3&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=white"/>
+<img src="https://img.shields.io/badge/Java-3766AB?style=flat-square&logo=OpenJDK&logoColor=white"/> <img src="https://img.shields.io/badge/Spring-6DB33F?style=flat-square&logo=Spring&logoColor=white"/> <img src="https://img.shields.io/badge/Maven-A9225C?style=flat-square&logo=Maven&logoColor=white"/>  <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=MySQL&logoColor=white"/> 
+<img src="https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=HTML5&logoColor=white"/> <img src="https://img.shields.io/badge/CSS-1572B6?style=flat-square&logo=CSS3&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=white"/> <img src="https://img.shields.io/badge/JSP-000000?style=flat-square&logo=JSP&logoColor=white"/>
 <img src="https://img.shields.io/badge/jQuery-0769AD?style=flat-square&logo=jQuery&logoColor=white"/>
 # 서비스 소개
 - 메인 페이지에서 가장 많이 팔린 상품을 우선순위로 보여주어 유저들이 인기있는 상품에 쉽게 접근할 수 있습니다.
