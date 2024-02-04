@@ -60,39 +60,39 @@
 ### :open_file_folder: 상품 리스트 페이지
 <img src="https://github.com/skgusskgusgg/1st_project/assets/92068041/b84befee-60d9-420b-9269-73fca7229ea3" width="600">
 
-:point_right: 상품 리스트 pagination 기능<br>
-:point_right: 가격, 색상, 사이즈, 검색, 최신순 필터링 구현<br>
-:point_right: 모달 창을 통해 페이지 랜더링 없이 편하게 볼 수 있다.
+#### :point_right: 상품 리스트 pagination 기능<br>
+#### :point_right: 가격, 색상, 사이즈, 검색, 최신순 필터링 구현<br>
+#### :point_right: 모달 창을 통해 페이지 랜더링 없이 편하게 볼 수 있다.
 
 ***
 
 ### :open_file_folder: 상품 디테일 페이지 & 상품 디테일 모달 창
 <img src="https://github.com/skgusskgusgg/1st_project/assets/92068041/4f7da0ba-d124-4909-8013-062da6f31151" width="600">
 
-:point_right: 원하는 상품을 위시리스트 or 카트에 원하는 수량 또는 사이즈, 색상별로 보내는 기능
+#### :point_right: 원하는 상품을 위시리스트 or 카트에 원하는 수량 또는 사이즈, 색상별로 보내는 기능
 
 ***
 
 ### :open_file_folder: 위시리스트
 <img src="https://github.com/skgusskgusgg/1st_project/assets/92068041/e153e0ae-c1cc-4150-9637-7175765f4e11" width="600">
 
-:point_right: 사용자가 담은 상품을 카트에 보내거나, 또는 삭제할 수있다.<br>
-:point_right: 위시리스트에 추가된 아이템을 직접 확인하러 페이지에 들어가지않아도 이모티콘 활성화를 통해 한눈에 알아볼 수 있다.
+#### :point_right: 사용자가 담은 상품을 카트에 보내거나, 또는 삭제할 수있다.<br>
+#### :point_right: 위시리스트에 추가된 아이템을 직접 확인하러 페이지에 들어가지않아도 이모티콘 활성화를 통해 한눈에 알아볼 수 있다.
 
 ***
 
 ### :open_file_folder: 로그인 인터셉터
 <img src="https://github.com/skgusskgusgg/1st_project/assets/92068041/f829ce9e-6528-4bd6-9577-90fc46183924" width="600">
 
-:point_right: 로그인한 사용자의 정보를 토대로 사용자가 넣었던 위시리스트, 카트리스트, 사용자가 쓴 리뷰를 그대로 보여줄 수 있다.<br>
-:point_right: 사용자가 쓴 리뷰에대한 확인을 따로 볼 수 있다.<br>
-:point_right: ADMIN 계정을 가진 사용자만 상품관리를 할 수있다.
+#### :point_right: 로그인한 사용자의 정보를 토대로 사용자가 넣었던 위시리스트, 카트리스트, 사용자가 쓴 리뷰를 그대로 보여줄 수 있다.<br>
+#### :point_right: 사용자가 쓴 리뷰에대한 확인을 따로 볼 수 있다.<br>
+#### :point_right: ADMIN 계정을 가진 사용자만 상품관리를 할 수있다.
 
 ***
 
 ### :open_file_folder: 메인 페이지
 <img src="https://github.com/skgusskgusgg/1st_project/assets/92068041/edff84d6-b754-48c8-8330-69d5b18b94e2" width="600">
 
-:point_right: 가장 많이 팔린 상품을 토대로 BestProdecut 필터링 구현
+#### :point_right: 가장 많이 팔린 상품을 토대로 BestProdecut 필터링 구현
 
 ***
