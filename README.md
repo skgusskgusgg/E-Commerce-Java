@@ -43,8 +43,8 @@
 
 
 # :green_heart: ERD
-<img src="https://github.com/skgusskgusgg/1st_project/assets/92068041/ee42a251-9587-47d5-afe4-6168eed67c62" width="500">
-<img src="https://github.com/skgusskgusgg/1st_project/assets/92068041/59eb1f6f-0d45-4631-a793-c625490c8ba3" width="400">
+<img src="https://github.com/skgusskgusgg/1st_project/assets/92068041/ee42a251-9587-47d5-afe4-6168eed67c62" width="400">
+<img src="https://github.com/skgusskgusgg/1st_project/assets/92068041/59eb1f6f-0d45-4631-a793-c625490c8ba3" width="300">
 
 
 # :green_heart: FLOW CHAR
